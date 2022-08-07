@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { GroupBookingComponent } from './group-booking.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   {
@@ -12,6 +16,13 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [GroupBookingComponent],
-  imports: [CommonModule, RouterModule.forChild(routes)],
+  imports: [
+    RouterModule.forChild(routes),
+    CommonModule,
+    // BrowserModule,
+    ReactiveFormsModule,
+    NgxIntlTelInputModule,
+    // BrowserAnimationsModule,
+  ],
 })
 export class GroupBookingModule {}

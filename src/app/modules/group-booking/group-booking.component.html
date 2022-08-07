@@ -1,1 +1,149 @@
-<p>group-booking works!</p>
+<section class="main">
+  <header>
+    <h2 class="title">Your personal info.</h2>
+  </header>
+
+  <div class="body">
+    <form [formGroup]="profileForm">
+      <div class="form-control">
+        <label class="clicked mb-1" for="fullName"> Full name </label>
+        <input
+          (change)="profileValues()"
+          type="text"
+          formControlName="fullName"
+          id="fullName"
+          class="input w-100"
+          [class.error]="
+            inputValue.fullName.invalid &&
+            (inputValue.fullName.dirty || inputValue.fullName.touched)
+          "
+        />
+      </div>
+
+      <div class="form-control">
+        <label class="clicked mb-1" for="email"> Email </label>
+        <input
+          (change)="profileValues()"
+          type="text"
+          formControlName="email"
+          id="email"
+          class="input w-100"
+          [class.error]="
+            inputValue.email.invalid &&
+            (inputValue.email.dirty || inputValue.email.touched)
+          "
+        />
+      </div>
+
+      <div class="form-control b-none">
+        <label class="clicked mb-1" for="mobile"> Mobile number </label>
+        <!-- [cssClass]="
+          inputValue.mobile.invalid &&
+          (inputValue.mobile.dirty || inputValue.mobile.touched)
+            ? 'error'
+            : ''
+        " -->
+        <ngx-intl-tel-input
+          [enableAutoCountrySelect]="false"
+          [enablePlaceholder]="true"
+          [searchCountryFlag]="true"
+          [selectFirstCountry]="false"
+          [maxLength]="11"
+          [phoneValidation]="true"
+          [selectedCountryISO]="CountryISO.Egypt"
+          [inputId]="'mobile'"
+          name="mobile"
+          formControlName="mobile"
+          class="input w-100 b-none"
+          (change)="profileValues()"
+        ></ngx-intl-tel-input>
+      </div>
+
+      <div class="form-control mb-6">
+        <label class="clicked mb-1" for="socialLink">Social media link </label>
+        <input
+          (change)="profileValues()"
+          type="text"
+          formControlName="socialLink"
+          id="socialLink"
+          placeholder="facebook.com/PartyBooster"
+          class="input w-100"
+          [class.error]="
+            inputValue.socialLink.invalid &&
+            (inputValue.socialLink.dirty || inputValue.socialLink.touched)
+          "
+        />
+      </div>
+
+      <h3 class="note">A chance to know you more</h3>
+      <h3>Booking for how many guests?</h3>
+
+      <div class="numberOfGuests">
+        <span
+          class="clicked minus"
+          [class.disabled]="inputValue.numberOfGuests.value == 1"
+          (click)="decrement()"
+          >-</span
+        >
+        <p class="guestsLength">
+          <img src="assets/test.JPG" alt="guest photo" class="mb-6" />
+          <span>{{ inputValue.numberOfGuests.value }} Guest</span>
+        </p>
+        <span class="clicked plus" (click)="increment()">+</span>
+      </div>
+
+      <div class="form-control">
+        <input
+          (change)="profileValues()"
+          type="checkbox"
+          formControlName="transporation"
+          id="transporation"
+          class="checkbox"
+        />
+        <label class="clicked" for="transporation"
+          >I’ll use the festival’s transporation option 🚐
+        </label>
+      </div>
+
+      <div class="form-control" *ngIf="inputValue.transporation.value">
+        <div class="content clicked">
+          <div class="data" (click)="isListShown = !isListShown">
+            <h2 [class.active]="selectedItem">
+              {{ selectedItem || "Select the nearest pick-up point to you" }}
+            </h2>
+            <span>^</span>
+          </div>
+
+          <div class="list" *ngIf="isListShown">
+            <ul>
+              <li
+                *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+                (click)="selectedItem = item; isListShown = !isListShown"
+              >
+                <span>item {{ item }}</span>
+                <span>10:00 AM</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-control mb-0">
+        <input
+          (change)="profileValues()"
+          type="checkbox"
+          formControlName="vegeterian"
+          id="vegeterian"
+          class="checkbox"
+        />
+        <label class="clicked" for="vegeterian">I’m a vegeterian 🥒 </label>
+      </div>
+
+      <div class="form-control mb-0">
+        <button class="btn" [class.disabled]="profileForm.invalid">
+          Continue to Summary
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

@@ -18,6 +18,10 @@
     "@angular/platform-browser": "^14.1.0",
     "@angular/platform-browser-dynamic": "^14.1.0",
     "@angular/router": "^14.1.0",
+    "google-libphonenumber": "^3.2.30",
+    "intl-tel-input": "17.0.8",
+    "ngx-bootstrap": "^6.2.0",
+    "ngx-intl-tel-input": "^3.2.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

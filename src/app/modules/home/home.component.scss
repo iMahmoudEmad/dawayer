@@ -53,8 +53,8 @@
       }
 
       .image {
-        border-left: 2px dashed #dddddd;
-        padding-left: 1rem;
+        border-inline-start: 2px dashed #dddddd;
+        padding-inline-start: 1rem;
         position: relative;
 
         &:before {
