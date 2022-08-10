@@ -9,8 +9,13 @@
     margin-bottom: 1.5rem;
     font-weight: 400;
 
+    &.mb-2 {
+      margin-bottom: 2rem;
+    }
+
     &:last-of-type {
       margin-top: 4rem;
+      margin-bottom: 4rem;
 
       .btn {
         width: 100%;
@@ -19,6 +24,8 @@
         border-radius: 0.5rem;
         font-weight: 600;
         font-size: 1.5rem;
+        background: #44ad8f;
+        color: #fff;
 
         &.disabled {
           background: #f6f6f6;

@@ -19,9 +19,14 @@ export class GroupBookingComponent implements OnInit {
     socialLink: new FormControl('', Validators.required),
     numberOfGuests: new FormControl(1),
     transporation: new FormControl(false),
+    nearestPickup: new FormControl(''),
     vegeterian: new FormControl(false),
     tents: new FormControl(''),
+    numOfDoubleTent: new FormControl(1),
+    numOfQuadTent: new FormControl(1),
+    numOfBungalow: new FormControl(1),
   });
+
   constructor() {}
 
   ngOnInit(): void {}
@@ -30,16 +35,16 @@ export class GroupBookingComponent implements OnInit {
     return this.profileForm['controls'];
   }
 
-  increment() {
-    const count: any = this.profileForm.controls['numberOfGuests'].value;
-    this.profileForm.patchValue({ numberOfGuests: count + 1 });
+  increment(key: string = 'numberOfGuests') {
+    const count: any = this.profileForm.get(key);
+    this.profileForm.patchValue({ [key]: count.value + 1 });
   }
 
-  decrement() {
-    const count: any = this.profileForm.controls['numberOfGuests'].value;
+  decrement(key: string = 'numberOfGuests') {
+    const count: any = this.profileForm.get(key);
 
     if (count > 1) {
-      this.profileForm.patchValue({ numberOfGuests: count - 1 });
+      this.profileForm.patchValue({ [key]: count.value - 1 });
     }
   }
 
