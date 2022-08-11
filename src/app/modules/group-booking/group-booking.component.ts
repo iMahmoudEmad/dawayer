@@ -43,9 +43,8 @@ export class GroupBookingComponent implements OnInit {
   decrement(key: string = 'numberOfGuests') {
     const count: any = this.profileForm.get(key);
 
-    if (count > 1) {
+    if (count?.value > 1)
       this.profileForm.patchValue({ [key]: count.value - 1 });
-    }
   }
 
   profileValues() {

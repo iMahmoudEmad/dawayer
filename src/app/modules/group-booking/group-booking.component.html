@@ -75,17 +75,21 @@
       <h3>Booking for how many guests?</h3>
 
       <div class="numberOfGuests">
-        <span
-          class="clicked minus"
-          [class.disabled]="inputValue.numberOfGuests.value == 1"
-          (click)="decrement()"
-          >-</span
-        >
+        <span class="clicked minus" (click)="decrement()">
+          <img
+            src="assets/{{
+              inputValue.numberOfGuests.value == 1 ? 'minus-disabled' : 'minus'
+            }}.png"
+            alt="minus"
+          />
+        </span>
         <p class="guestsLength">
-          <img src="assets/test.JPG" alt="guest photo" class="mb-6" />
+          <img src="assets/user.png" alt="guest photo" class="user mb-6" />
           <span>{{ inputValue.numberOfGuests.value }} Guest</span>
         </p>
-        <span class="clicked plus" (click)="increment()">+</span>
+        <span class="clicked plus" (click)="increment()">
+          <img src="assets/plus.png" alt="plus" />
+        </span>
       </div>
 
       <div class="form-control">
@@ -136,51 +140,65 @@
       <h3>Double Tent</h3>
 
       <div class="numberOfGuests">
-        <span
-          class="clicked minus"
-          [class.disabled]="inputValue.numOfDoubleTent.value == 1"
-          (click)="decrement('numOfDoubleTent')"
-          >-</span
-        >
+        <span class="clicked minus" (click)="decrement('numOfDoubleTent')">
+          <img
+            src="assets/{{
+              inputValue.numOfDoubleTent.value == 1 ? 'minus-disabled' : 'minus'
+            }}.png"
+            alt="minus"
+          />
+        </span>
         <p class="guestsLength">
-          <img src="assets/test.JPG" alt="guest photo" class="mb-6" />
+          <img src="assets/tent.png" alt="guest photo" class="mb-6" />
           <span>{{ inputValue.numOfDoubleTent.value }} Guest</span>
         </p>
-        <span class="clicked plus" (click)="increment('numOfDoubleTent')"
-          >+</span
-        >
+        <span class="clicked plus" (click)="increment('numOfDoubleTent')">
+          <img src="assets/plus.png" alt="plus" />
+        </span>
       </div>
 
       <h3>Quad Tent</h3>
 
       <div class="numberOfGuests">
-        <span
-          class="clicked minus"
-          [class.disabled]="inputValue.numOfQuadTent.value == 1"
-          (click)="decrement('numOfQuadTent')"
-          >-</span
-        >
+        <span class="clicked minus" (click)="decrement('numOfQuadTent')">
+          <img
+            src="assets/{{
+              inputValue.numOfQuadTent.value == 1 ? 'minus-disabled' : 'minus'
+            }}.png"
+            alt="minus"
+          />
+        </span>
         <p class="guestsLength">
-          <img src="assets/test.JPG" alt="guest photo" class="mb-6" />
+          <img src="assets/tent.png" alt="guest photo" class="mb-6" />
           <span>{{ inputValue.numOfQuadTent.value }} Guest</span>
         </p>
-        <span class="clicked plus" (click)="increment('numOfQuadTent')">+</span>
+        <span class="clicked plus" (click)="increment('numOfQuadTent')">
+          <img src="assets/plus.png" alt="plus" />
+        </span>
       </div>
 
       <h3>Island Bungalow</h3>
 
       <div class="numberOfGuests">
-        <span
-          class="clicked minus"
-          [class.disabled]="inputValue.numOfBungalow.value == 1"
-          (click)="decrement('numOfBungalow')"
-          >-</span
-        >
+        <span class="clicked minus" (click)="decrement('numOfBungalow')">
+          <img
+            src="assets/{{
+              inputValue.numOfBungalow.value == 1 ? 'minus-disabled' : 'minus'
+            }}.png"
+            alt="minus"
+          />
+        </span>
         <p class="guestsLength">
-          <img src="assets/test.JPG" alt="guest photo" class="mb-6" />
+          <img
+            src="assets/bungalow.png"
+            alt="guest photo"
+            class="bungalow mb-6"
+          />
           <span>{{ inputValue.numOfBungalow.value }} Guest</span>
         </p>
-        <span class="clicked plus" (click)="increment('numOfBungalow')">+</span>
+        <span class="clicked plus" (click)="increment('numOfBungalow')">
+          <img src="assets/plus.png" alt="plus" />
+        </span>
       </div>
 
       <div class="form-control">
