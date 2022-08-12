@@ -4,8 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { GroupBookingComponent } from './group-booking.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { TicketsService } from 'src/app/services/tickets.service';
 
 const routes: Routes = [
   {
@@ -19,10 +19,10 @@ const routes: Routes = [
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
-    // BrowserModule,
+    HttpClientModule,
     ReactiveFormsModule,
     NgxIntlTelInputModule,
-    // BrowserAnimationsModule,
   ],
+  providers: [TicketsService],
 })
 export class GroupBookingModule {}

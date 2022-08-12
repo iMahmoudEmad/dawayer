@@ -26,6 +26,7 @@
         font-size: 1.5rem;
         background: #44ad8f;
         color: #fff;
+        font-family: "Inter";
 
         &.disabled {
           background: #f6f6f6;
@@ -109,10 +110,9 @@
       .list {
         position: absolute;
         margin-top: 6px;
-        padding: 1rem;
         max-height: 147px;
         overflow: auto;
-        bottom: -153px;
+        top: 46px;
         left: 0;
         background-color: #fff;
         border: 1px solid #ededed;
@@ -126,8 +126,7 @@
         }
 
         li {
-          padding-top: 1rem;
-          padding-bottom: 1rem;
+          padding: 1rem;
           border-bottom: 1px solid #ededed;
           font-weight: 400;
           font-size: 0.875rem;
@@ -136,13 +135,18 @@
           justify-content: space-between;
           align-items: center;
 
-          &:first-of-type {
-            padding-top: 0;
-          }
-
           &:last-of-type {
             border-bottom: none;
-            padding-bottom: 0;
+          }
+
+          &.selected {
+            background-color: #faf7f5;
+          }
+
+          &.disabled {
+            background-color: #f6f6f6;
+            color: #bbb;
+            cursor: not-allowed;
           }
         }
       }
