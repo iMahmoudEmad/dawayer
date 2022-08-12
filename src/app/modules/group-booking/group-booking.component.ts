@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CountryISO } from 'ngx-intl-tel-input';
 import { TicketsService } from 'src/app/services/tickets.service';
 
@@ -24,12 +25,12 @@ export class GroupBookingComponent implements OnInit {
     nearestPickup: new FormControl(''),
     vegeterian: new FormControl(false),
     tents: new FormControl(''),
-    doubleTent: new FormControl(1),
-    quadTent: new FormControl(1),
-    islandBungalow: new FormControl(1),
+    doubleTent: new FormControl({ id: '', quantity: 1 }),
+    quadTent: new FormControl({ id: '', quantity: 1 }),
+    islandBungalow: new FormControl({ id: '', quantity: 1 }),
   });
 
-  constructor(private ticket: TicketsService) {}
+  constructor(private ticket: TicketsService, private router: Router) {}
 
   ngOnInit(): void {
     this.ticket
@@ -43,23 +44,27 @@ export class GroupBookingComponent implements OnInit {
 
   accommodationValue(name: string) {
     name = this.formatName(name);
-
     let data = this.profileForm.get(name) as FormControl;
+
     return data.value;
   }
 
-  increment(key: string = 'numberOfGuests') {
+  increment(key: string = 'numberOfGuests', id?: string) {
     key = this.formatName(key);
     const count: any = this.profileForm.get(key);
-    this.profileForm.patchValue({ [key]: count.value + 1 });
+    this.profileForm.patchValue({
+      [key]: { id, quantity: count.value?.quantity + 1 },
+    });
   }
 
-  decrement(key: string = 'numberOfGuests') {
+  decrement(key: string = 'numberOfGuests', id?: string) {
     key = this.formatName(key);
     const count: any = this.profileForm.get(key);
 
     if (count?.value > 1)
-      this.profileForm.patchValue({ [key]: count.value - 1 });
+      this.profileForm.patchValue({
+        [key]: { id, quantity: count.value?.quantity - 1 },
+      });
   }
 
   setSelectedTransportation(transportation: any) {
@@ -71,5 +76,29 @@ export class GroupBookingComponent implements OnInit {
 
   formatName(name: string) {
     return name.charAt(0).toLowerCase() + name.slice(1).replace(/ /g, '');
+  }
+
+  verifyPhone(mobile: string) {
+    this.ticket.verifyPhone(mobile).subscribe((res: any) => {
+      // if (res.status == 'SUCCESS') {
+      //   this.profileForm.patchValue({
+      //     mobile,
+      //   });
+      // }
+      console.log(res);
+    });
+  }
+
+  submitForm() {
+    if (this.profileForm.valid) {
+      let data: any = this.profileForm.value;
+      data.mobile = this.profileForm.get('mobile');
+      data.mobile = data.mobile.value.number;
+      console.log(data);
+
+      this.ticket.bookingData.next(data);
+
+      // this.router.navigate(['/']);
+    }
   }
 }

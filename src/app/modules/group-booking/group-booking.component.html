@@ -47,6 +47,7 @@
           name="mobile"
           formControlName="mobile"
           class="input w-100 b-none"
+          (ngModelChange)="verifyPhone($event?.number)"
         ></ngx-intl-tel-input>
       </div>
 
@@ -68,7 +69,7 @@
       <h3 class="note">A chance to know you more</h3>
       <h3>Booking for how many guests?</h3>
 
-      <div class="numberOfGuests">
+      <div class="numberOfGuests mb-2">
         <span class="clicked minus" (click)="decrement()">
           <img
             src="assets/{{
@@ -136,14 +137,21 @@
       </div>
 
       <ng-container *ngIf="tickets?.accommodation">
+        <h2 class="accommodation title">Accommodation</h2>
+        <h3 class="accommodation note">
+          If you would like to accomodate with us, choose your favorite ⛺️
+        </h3>
         <ng-container *ngFor="let item of tickets?.accommodation">
           <h3>{{ item?.name }}</h3>
 
           <div class="numberOfGuests">
-            <span class="clicked minus" (click)="decrement(item?.name)">
+            <span
+              class="clicked minus"
+              (click)="decrement(item?.name, item?._id)"
+            >
               <img
                 src="assets/{{
-                  accommodationValue(item.name) == 1
+                  accommodationValue(item.name)?.quantity == 1
                     ? 'minus-disabled'
                     : 'minus'
                 }}.png"
@@ -158,11 +166,41 @@
                 alt="guest photo"
                 class="bungalow mb-6"
               />
-              <span>{{ accommodationValue(item.name) }} Guest</span>
+              <span>{{ accommodationValue(item.name)?.quantity }} Guest</span>
             </p>
-            <span class="clicked plus" (click)="increment(item?.name)">
+            <span
+              class="clicked plus"
+              (click)="increment(item?.name, item?._id)"
+            >
               <img src="assets/plus.png" alt="plus" />
             </span>
+          </div>
+          <div class="pricing">
+            <div class="content">
+              <div class="left">
+                <span>
+                  <img src="assets/users-disabled.png" alt="users" />
+                  For {{ item?.items?.numberOfPersons }}
+                  {{ item?.items?.numberOfPersons > 1 ? "persons" : "person" }}
+                </span>
+                <span>
+                  <img src="assets/users-disabled.png" alt="users" />
+                  For {{ item?.items?.numberOfPersons }}
+                  {{ item?.items?.numberOfPersons > 1 ? "persons" : "person" }}
+                </span>
+                <span>
+                  <img src="assets/users-disabled.png" alt="users" />
+                  For {{ item?.items?.numberOfPersons }}
+                  {{ item?.items?.numberOfPersons > 1 ? "persons" : "person" }}
+                </span>
+                <span>
+                  <img src="assets/users-disabled.png" alt="users" />
+                  For {{ item?.items?.numberOfPersons }}
+                  {{ item?.items?.numberOfPersons > 1 ? "persons" : "person" }}
+                </span>
+              </div>
+              <div class="right">{{ item?.price }} EGP/each</div>
+            </div>
           </div>
         </ng-container>
       </ng-container>
@@ -172,6 +210,7 @@
           class="btn"
           [class.disabled]="profileForm.invalid"
           [disabled]="profileForm.invalid"
+          (click)="submitForm()"
         >
           Continue to Summary
         </button>
