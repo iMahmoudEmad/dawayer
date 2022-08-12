@@ -15,6 +15,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'guests-booking',
+    loadChildren: () =>
+      import('./modules/guest-booking/guest-booking.module').then(
+        (m) => m.GuestBookingModule
+      ),
+  },
+  {
     path: 'thank-you',
     loadChildren: () =>
       import('./modules/thank-you/thank-you.module').then(

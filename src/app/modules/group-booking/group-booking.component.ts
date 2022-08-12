@@ -98,7 +98,7 @@ export class GroupBookingComponent implements OnInit {
 
       this.ticket.bookingData.next(data);
 
-      // this.router.navigate(['/']);
+      this.router.navigate(['/guests-booking']);
     }
   }
 }

@@ -118,10 +118,21 @@
                 [class.disabled]="!transportation?.availability"
                 [class.selected]="selectedItem?._id == transportation?._id"
               >
-                <span>test{{ transportation?.name | json }}</span>
+                <span>test{{ transportation?.name }}</span>
                 <span>10:00 AM</span>
               </li>
             </ul>
+          </div>
+        </div>
+
+        <div class="pricing" *ngIf="selectedItem">
+          <div class="content">
+            <div class="left">
+              <span *ngIf="selectedItem">
+                There will be {{ selectedItem?.price }} EGP transportation fees
+                added to the ticket.
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -175,28 +186,25 @@
               <img src="assets/plus.png" alt="plus" />
             </span>
           </div>
-          <div class="pricing">
+          <div class="pricing" *ngIf="item?.price">
             <div class="content">
               <div class="left">
-                <span>
+                <span *ngIf="item?.items?.numberOfPersons">
                   <img src="assets/users-disabled.png" alt="users" />
                   For {{ item?.items?.numberOfPersons }}
                   {{ item?.items?.numberOfPersons > 1 ? "persons" : "person" }}
                 </span>
-                <span>
+                <span *ngIf="item?.items?.numberOfBeds">
                   <img src="assets/users-disabled.png" alt="users" />
-                  For {{ item?.items?.numberOfPersons }}
-                  {{ item?.items?.numberOfPersons > 1 ? "persons" : "person" }}
+                  {{ item?.items?.numberOfBeds }} Beds
                 </span>
-                <span>
+                <span *ngIf="item?.items?.haveBathroom">
                   <img src="assets/users-disabled.png" alt="users" />
-                  For {{ item?.items?.numberOfPersons }}
-                  {{ item?.items?.numberOfPersons > 1 ? "persons" : "person" }}
+                  Bathroom
                 </span>
-                <span>
+                <span *ngIf="item?.items?.haveWaterHeater">
                   <img src="assets/users-disabled.png" alt="users" />
-                  For {{ item?.items?.numberOfPersons }}
-                  {{ item?.items?.numberOfPersons > 1 ? "persons" : "person" }}
+                  Water Heater
                 </span>
               </div>
               <div class="right">{{ item?.price }} EGP/each</div>
