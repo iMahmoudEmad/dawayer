@@ -60,7 +60,7 @@ export class GuestBookingComponent implements OnInit {
         fullName: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
         phone: ['', Validators.required],
-        socialLink: ['', Validators.required],
+        socialMediaLink: ['', Validators.required],
         transporation: [false],
         nearestPickup: [''],
         vegeterian: [false],

@@ -19,7 +19,7 @@ export class GroupBookingComponent implements OnInit {
     fullName: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     phone: new FormControl('', Validators.required),
-    socialLink: new FormControl('', Validators.required),
+    socialMediaLink: new FormControl('', Validators.required),
     numberOfGuests: new FormControl({ id: '', quantity: 1 }),
     transporation: new FormControl(false),
     nearestPickup: new FormControl(''),

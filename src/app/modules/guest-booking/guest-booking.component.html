@@ -83,19 +83,19 @@
             </div>
 
             <div class="form-control mb-6">
-              <label class="clicked mb-1" for="socialLink"
+              <label class="clicked mb-1" for="socialMediaLink"
                 >Social media link
               </label>
               <input
                 type="text"
-                formControlName="socialLink"
-                id="socialLink"
+                formControlName="socialMediaLink"
+                id="socialMediaLink"
                 placeholder="facebook.com/PartyBooster"
                 class="input w-100"
                 [class.error]="
-                  getValidity(i).value?.socialLink.invalid &&
-                  (getValidity(i).value?.socialLink.dirty ||
-                    getValidity(i).value?.socialLink.touched)
+                  getValidity(i).value?.socialMediaLink.invalid &&
+                  (getValidity(i).value?.socialMediaLink.dirty ||
+                    getValidity(i).value?.socialMediaLink.touched)
                 "
               />
             </div>
