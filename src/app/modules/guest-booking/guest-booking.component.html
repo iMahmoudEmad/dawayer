@@ -103,18 +103,18 @@
             <div class="form-control">
               <input
                 type="checkbox"
-                formControlName="transporation"
-                id="transporation"
+                formControlName="transportationChecked"
+                id="transportationChecked"
                 class="checkbox"
               />
-              <label class="clicked" for="transporation"
+              <label class="clicked" for="transportationChecked"
                 >I’ll use the festival’s transporation option 🚐
               </label>
             </div>
 
             <div
               class="form-control"
-              *ngIf="getValidity(i).value?.transporation"
+              *ngIf="getValidity(i).value?.transportationChecked"
             >
               <div class="content clicked">
                 <div class="data" (click)="isListShown = !isListShown">
@@ -131,7 +131,7 @@
                   <ul>
                     <li
                       *ngFor="let transportation of tickets.transportation"
-                      (click)="setSelectedTransportation(transportation)"
+                      (click)="setSelectedTransportation(transportation, i)"
                       [class.disabled]="!transportation?.availability"
                       [class.selected]="
                         selectedItem?._id == transportation?._id

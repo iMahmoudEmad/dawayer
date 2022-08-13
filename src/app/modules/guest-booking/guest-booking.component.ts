@@ -61,23 +61,21 @@ export class GuestBookingComponent implements OnInit {
         email: ['', [Validators.required, Validators.email]],
         phone: ['', Validators.required],
         socialMediaLink: ['', Validators.required],
-        transporation: [false],
-        nearestPickup: [''],
+        transportationChecked: [false],
+        transportation: [''],
         vegeterian: [false],
         isOwner: [false],
       });
       this.guests.push(guestForm);
-      this.getValidity(index).patchValue({
-        phone: this.getValidity(index).value.phone.number,
+      this.getValidity(index)?.patchValue({
+        phone: this.getValidity(index)?.value.phone.number,
       });
-
-      console.log(this.getValidity(index).value);
     } else {
-      this.getValidity(index).patchValue({
-        phone: this.getValidity(index).value.phone.number,
+      this.getValidity(index)?.patchValue({
+        phone: this.getValidity(index)?.value.phone.number,
       });
 
-      console.log(this.getValidity(index).value);
+      console.log(this.getValidity(index)?.value);
       this.submitForm();
     }
   }
@@ -86,8 +84,11 @@ export class GuestBookingComponent implements OnInit {
     return (<FormArray>this.form.get('guests')).controls[i];
   }
 
-  setSelectedTransportation(transportation: any) {
+  setSelectedTransportation(transportation: any, index: number) {
     if (transportation?.availability) {
+      this.getValidity(index)?.patchValue({
+        transportation: transportation?._id,
+      });
       this.selectedItem = transportation;
       this.isListShown = !this.isListShown;
     }

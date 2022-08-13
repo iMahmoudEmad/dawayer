@@ -95,16 +95,16 @@
       <div class="form-control">
         <input
           type="checkbox"
-          formControlName="transporation"
-          id="transporation"
+          formControlName="transporationChecked"
+          id="transporationChecked"
           class="checkbox"
         />
-        <label class="clicked" for="transporation"
+        <label class="clicked" for="transporationChecked"
           >I’ll use the festival’s transporation option 🚐
         </label>
       </div>
 
-      <div class="form-control" *ngIf="inputValue.transporation.value">
+      <div class="form-control" *ngIf="inputValue.transporationChecked.value">
         <div class="content clicked">
           <div class="data" (click)="isListShown = !isListShown">
             <h2 [class.active]="selectedItem?._id">
@@ -118,12 +118,12 @@
           <div class="list" *ngIf="isListShown">
             <ul>
               <li
-                *ngFor="let transportation of tickets.transportation"
-                (click)="setSelectedTransportation(transportation)"
-                [class.disabled]="!transportation?.availability"
-                [class.selected]="selectedItem?._id == transportation?._id"
+                *ngFor="let transportationItem of tickets.transportation"
+                (click)="setSelectedTransportation(transportationItem)"
+                [class.disabled]="!transportationItem?.availability"
+                [class.selected]="selectedItem?._id == transportationItem?._id"
               >
-                <span>{{ transportation?.name }}</span>
+                <span>{{ transportationItem?.name }}</span>
                 <!-- <span>10:00 AM</span> -->
               </li>
             </ul>

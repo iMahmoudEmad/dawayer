@@ -21,7 +21,8 @@ export class GroupBookingComponent implements OnInit {
     phone: new FormControl('', Validators.required),
     socialMediaLink: new FormControl('', Validators.required),
     numberOfGuests: new FormControl({ id: '', quantity: 1 }),
-    transporation: new FormControl(false),
+    transporationChecked: new FormControl(false),
+    transporation: new FormControl(''),
     nearestPickup: new FormControl(''),
     vegeterian: new FormControl(false),
     tents: new FormControl(''),
@@ -74,6 +75,7 @@ export class GroupBookingComponent implements OnInit {
 
   setSelectedTransportation(transportation: any) {
     if (transportation?.availability) {
+      this.profileForm.patchValue({ transporation: transportation?._id });
       this.selectedItem = transportation;
       this.isListShown = !this.isListShown;
     }
