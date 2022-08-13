@@ -63,7 +63,7 @@ export class GuestBookingComponent implements OnInit {
         socialMediaLink: ['', Validators.required],
         transportationChecked: [false],
         transportation: [''],
-        vegeterian: [false],
+        isVegeterian: [false],
         isOwner: [false],
       });
       this.guests.push(guestForm);

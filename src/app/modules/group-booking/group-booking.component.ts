@@ -23,7 +23,7 @@ export class GroupBookingComponent implements OnInit {
     numberOfGuests: new FormControl({ id: '', quantity: 1 }),
     transporationChecked: new FormControl(false),
     transporation: new FormControl(''),
-    vegeterian: new FormControl(false),
+    isVegeterian: new FormControl(false),
     tents: new FormControl(''),
     doubleTent: new FormControl({ id: '', quantity: 0 }),
     quadTent: new FormControl({ id: '', quantity: 0 }),
