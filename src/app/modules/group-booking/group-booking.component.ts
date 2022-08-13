@@ -24,7 +24,6 @@ export class GroupBookingComponent implements OnInit {
     transporationChecked: new FormControl(false),
     transporation: new FormControl(''),
     isVegeterian: new FormControl(false),
-    tents: new FormControl(''),
     doubleTent: new FormControl({ id: '', quantity: 0 }),
     quadTent: new FormControl({ id: '', quantity: 0 }),
     islandBungalow: new FormControl({ id: '', quantity: 0 }),
