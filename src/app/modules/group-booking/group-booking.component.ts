@@ -20,7 +20,7 @@ export class GroupBookingComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     mobile: new FormControl('', Validators.required),
     socialLink: new FormControl('', Validators.required),
-    numberOfGuests: new FormControl(1),
+    numberOfGuests: new FormControl({ id: '', quantity: 1 }),
     transporation: new FormControl(false),
     nearestPickup: new FormControl(''),
     vegeterian: new FormControl(false),
@@ -28,6 +28,7 @@ export class GroupBookingComponent implements OnInit {
     doubleTent: new FormControl({ id: '', quantity: 1 }),
     quadTent: new FormControl({ id: '', quantity: 1 }),
     islandBungalow: new FormControl({ id: '', quantity: 1 }),
+    isOwner: new FormControl(true),
   });
 
   constructor(private ticket: TicketsService, private router: Router) {}
@@ -49,7 +50,7 @@ export class GroupBookingComponent implements OnInit {
     return data.value;
   }
 
-  increment(key: string = 'numberOfGuests', id?: string) {
+  increment(key: string = 'numberOfGuests', id: string = 'numberOfGuests') {
     key = this.formatName(key);
     const count: any = this.profileForm.get(key);
     this.profileForm.patchValue({
@@ -57,7 +58,7 @@ export class GroupBookingComponent implements OnInit {
     });
   }
 
-  decrement(key: string = 'numberOfGuests', id?: string) {
+  decrement(key: string = 'numberOfGuests', id: string = 'numberOfGuests') {
     key = this.formatName(key);
     const count: any = this.profileForm.get(key);
 
@@ -79,25 +80,27 @@ export class GroupBookingComponent implements OnInit {
   }
 
   verifyPhone(mobile: string) {
-    this.ticket.verifyPhone(mobile).subscribe((res: any) => {
-      // if (res.status == 'SUCCESS') {
-      //   this.profileForm.patchValue({
-      //     mobile,
-      //   });
-      // }
-      console.log(res);
-    });
+    if (mobile?.length == 11) {
+      this.ticket.verifyPhone(mobile).subscribe((res: any) => {
+        // if (res.status == 'SUCCESS') {
+        //   this.profileForm.patchValue({
+        //     mobile,
+        //   });
+        // }
+        console.log(res);
+      });
+    }
   }
 
-  submitForm() {
+  async submitForm() {
     if (this.profileForm.valid) {
       let data: any = this.profileForm.value;
       data.mobile = this.profileForm.get('mobile');
       data.mobile = data.mobile.value.number;
       console.log(data);
 
-      this.ticket.bookingData.next(data);
-
+      await this.ticket.bookingData.next(data);
+      this.ticket.bookingData.subscribe((res) => console.log('res', res));
       this.router.navigate(['/guests-booking']);
     }
   }

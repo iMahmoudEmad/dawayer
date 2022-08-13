@@ -9,7 +9,7 @@
         <ng-container
           *ngFor="let guestsForm of guests?.controls; let i = index"
         >
-          <div [formGroup]="getFormGroupAt(i)">
+          <div [formGroup]="getFormGroupAt(i)" *ngIf="i + 1 == guestNum">
             <div class="form-control">
               <label class="clicked mb-1" for="fullName"> Full name </label>
               <input
@@ -131,7 +131,14 @@
     </div>
 
     <div class="form-control">
-      <button class="btn" (click)="addGuest()">Continue to Guest</button>
+      <button class="btn" (click)="addGuest()">
+        Continue to
+        {{
+          guestNum < ownerData?.numberOfGuests?.quantity
+            ? "Guest #" + (guestNum + 1)
+            : "Summary"
+        }}
+      </button>
     </div>
   </div>
 </section>

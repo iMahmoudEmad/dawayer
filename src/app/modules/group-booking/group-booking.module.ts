@@ -5,7 +5,6 @@ import { GroupBookingComponent } from './group-booking.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { HttpClientModule } from '@angular/common/http';
-import { TicketsService } from 'src/app/services/tickets.service';
 
 const routes: Routes = [
   {
@@ -23,6 +22,5 @@ const routes: Routes = [
     ReactiveFormsModule,
     NgxIntlTelInputModule,
   ],
-  providers: [TicketsService],
 })
 export class GroupBookingModule {}

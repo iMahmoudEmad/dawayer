@@ -20,7 +20,8 @@ export class GuestBookingComponent implements OnInit {
   CountryISO = CountryISO;
   isListShown: boolean = false;
   selectedItem: any;
-  guestNum: number = 1;
+  guestNum: number = 0;
+  ownerData: any;
 
   form = this.fb.group({
     guests: this.fb.array([]),
@@ -33,11 +34,15 @@ export class GuestBookingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.addGuest();
-    this.guestNum++;
     this.ticket
       .getTickets()
       .subscribe((ticket: any) => (this.tickets = ticket.response));
+
+    this.ticket.bookingData.subscribe((data) => {
+      this.ownerData = data;
+      console.log('ownerData', this.ownerData);
+      this.addGuest();
+    });
   }
 
   get guests() {
@@ -49,20 +54,23 @@ export class GuestBookingComponent implements OnInit {
   }
 
   addGuest() {
-    if (this.guestNum != 1) {
+    if (this.guestNum < this.ownerData?.numberOfGuests?.quantity) {
       this.guestNum++;
-    }
-    const guestForm = this.fb.group({
-      fullName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      mobile: ['', Validators.required],
-      socialLink: ['', Validators.required],
-      transporation: [false],
-      nearestPickup: [''],
-      vegeterian: [false],
-    });
+      const guestForm = this.fb.group({
+        fullName: ['', Validators.required],
+        email: ['', [Validators.email]],
+        mobile: ['', Validators.required],
+        socialLink: ['', Validators.required],
+        transporation: [false],
+        nearestPickup: [''],
+        vegeterian: [false],
+        isOwner: [false],
+      });
 
-    this.guests.push(guestForm);
+      this.guests.push(guestForm);
+    } else {
+      this.submitForm();
+    }
   }
 
   setSelectedTransportation(transportation: any) {
@@ -73,26 +81,30 @@ export class GuestBookingComponent implements OnInit {
   }
 
   verifyPhone(mobile: string) {
-    this.ticket.verifyPhone(mobile).subscribe((res: any) => {
-      // if (res.status == 'SUCCESS') {
-      //   this.form.patchValue({
-      //     mobile,
-      //   });
-      // }
-      console.log(res);
-    });
+    if (mobile?.length == 11) {
+      this.ticket.verifyPhone(mobile).subscribe((res: any) => {
+        // if (res.status == 'SUCCESS') {
+        //   this.form.patchValue({
+        //     mobile,
+        //   });
+        // }
+        console.log(res);
+      });
+    }
   }
 
   submitForm() {
-    if (this.form.valid) {
-      let data: any = this.form.value;
-      data.mobile = this.form.get('mobile');
-      data.mobile = data.mobile.value.number;
-      console.log(data);
+    // if (this.form.valid) {
+    // let data: any = this.form.value;
+    // data.mobile = this.form.get('mobile');
+    // data.mobile = data.mobile.value.number;
+    // console.log(data);
 
-      this.ticket.bookingData.next(data);
+    // this.ticket.bookingData.next(data);
 
-      // this.router.navigate(['/']);
-    }
+    // this.router.navigate(['/']);
+    // }
+
+    console.log(this.form.value);
   }
 }

@@ -5,9 +5,6 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
-import { TicketsService } from 'src/app/services/tickets.service';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   {
@@ -25,6 +22,5 @@ const routes: Routes = [
     ReactiveFormsModule,
     NgxIntlTelInputModule,
   ],
-  providers: [TicketsService],
 })
 export class GuestBookingModule {}

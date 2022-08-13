@@ -73,14 +73,16 @@
         <span class="clicked minus" (click)="decrement()">
           <img
             src="assets/{{
-              inputValue.numberOfGuests.value == 1 ? 'minus-disabled' : 'minus'
+              inputValue.numberOfGuests?.value?.quantity == 1
+                ? 'minus-disabled'
+                : 'minus'
             }}.png"
             alt="minus"
           />
         </span>
         <p class="guestsLength">
           <img src="assets/user.png" alt="guest photo" class="user mb-6" />
-          <span>{{ inputValue.numberOfGuests.value }} Guest</span>
+          <span>{{ inputValue?.numberOfGuests?.value?.quantity }} Guest</span>
         </p>
         <span class="clicked plus" (click)="increment()">
           <img src="assets/plus.png" alt="plus" />

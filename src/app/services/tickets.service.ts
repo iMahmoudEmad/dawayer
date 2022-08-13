@@ -6,8 +6,8 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class TicketsService {
-  guestsData = new BehaviorSubject([]);
-  bookingData = new BehaviorSubject({});
+  guestsData = new BehaviorSubject<any[]>([]);
+  bookingData = new BehaviorSubject<object>({});
 
   constructor(private http: HttpClient) {}
 
