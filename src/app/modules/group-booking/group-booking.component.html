@@ -34,7 +34,7 @@
       </div>
 
       <div class="form-control b-none">
-        <label class="clicked mb-1" for="mobile"> Mobile number </label>
+        <label class="clicked mb-1" for="phone"> Mobile number </label>
         <ngx-intl-tel-input
           [enableAutoCountrySelect]="false"
           [enablePlaceholder]="true"
@@ -43,9 +43,9 @@
           [maxLength]="11"
           [phoneValidation]="true"
           [selectedCountryISO]="CountryISO.Egypt"
-          [inputId]="'mobile'"
-          name="mobile"
-          formControlName="mobile"
+          [inputId]="'phone'"
+          name="phone"
+          formControlName="phone"
           class="input w-100 b-none"
           (ngModelChange)="verifyPhone($event?.number)"
         ></ngx-intl-tel-input>
@@ -73,7 +73,7 @@
         <span class="clicked minus" (click)="decrement()">
           <img
             src="assets/{{
-              inputValue.numberOfGuests?.value?.quantity == 1
+              inputValue.numberOfGuests.value?.quantity == 1
                 ? 'minus-disabled'
                 : 'minus'
             }}.png"
@@ -82,7 +82,7 @@
         </span>
         <p class="guestsLength">
           <img src="assets/user.png" alt="guest photo" class="user mb-6" />
-          <span>{{ inputValue?.numberOfGuests?.value?.quantity }} Guest</span>
+          <span>{{ inputValue.numberOfGuests.value?.quantity }} Guest</span>
         </p>
         <span class="clicked plus" (click)="increment()">
           <img src="assets/plus.png" alt="plus" />
@@ -120,8 +120,8 @@
                 [class.disabled]="!transportation?.availability"
                 [class.selected]="selectedItem?._id == transportation?._id"
               >
-                <span>test{{ transportation?.name }}</span>
-                <span>10:00 AM</span>
+                <span>{{ transportation?.name }}</span>
+                <!-- <span>10:00 AM</span> -->
               </li>
             </ul>
           </div>
@@ -164,7 +164,7 @@
             >
               <img
                 src="assets/{{
-                  accommodationValue(item.name)?.quantity == 1
+                  accommodationValue(item.name)?.quantity == 0
                     ? 'minus-disabled'
                     : 'minus'
                 }}.png"

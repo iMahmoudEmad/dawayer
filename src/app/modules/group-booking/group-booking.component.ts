@@ -18,22 +18,26 @@ export class GroupBookingComponent implements OnInit {
   profileForm = new FormGroup({
     fullName: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
-    mobile: new FormControl('', Validators.required),
+    phone: new FormControl('', Validators.required),
     socialLink: new FormControl('', Validators.required),
     numberOfGuests: new FormControl({ id: '', quantity: 1 }),
     transporation: new FormControl(false),
     nearestPickup: new FormControl(''),
     vegeterian: new FormControl(false),
     tents: new FormControl(''),
-    doubleTent: new FormControl({ id: '', quantity: 1 }),
-    quadTent: new FormControl({ id: '', quantity: 1 }),
-    islandBungalow: new FormControl({ id: '', quantity: 1 }),
+    doubleTent: new FormControl({ id: '', quantity: 0 }),
+    quadTent: new FormControl({ id: '', quantity: 0 }),
+    islandBungalow: new FormControl({ id: '', quantity: 0 }),
     isOwner: new FormControl(true),
   });
 
   constructor(private ticket: TicketsService, private router: Router) {}
 
   ngOnInit(): void {
+    this.ticket.bookingData.subscribe((res) =>
+      this.profileForm.patchValue(res)
+    );
+
     this.ticket
       .getTickets()
       .subscribe((ticket: any) => (this.tickets = ticket.response));
@@ -62,7 +66,7 @@ export class GroupBookingComponent implements OnInit {
     key = this.formatName(key);
     const count: any = this.profileForm.get(key);
 
-    if (count?.value > 1)
+    if (count?.value?.quantity >= 1)
       this.profileForm.patchValue({
         [key]: { id, quantity: count.value?.quantity - 1 },
       });
@@ -79,12 +83,12 @@ export class GroupBookingComponent implements OnInit {
     return name.charAt(0).toLowerCase() + name.slice(1).replace(/ /g, '');
   }
 
-  verifyPhone(mobile: string) {
-    if (mobile?.length == 11) {
-      this.ticket.verifyPhone(mobile).subscribe((res: any) => {
+  verifyPhone(phone: string) {
+    if (phone?.length == 11) {
+      this.ticket.verifyPhone(phone).subscribe((res: any) => {
         // if (res.status == 'SUCCESS') {
         //   this.profileForm.patchValue({
-        //     mobile,
+        //     phone,
         //   });
         // }
         console.log(res);
@@ -95,8 +99,8 @@ export class GroupBookingComponent implements OnInit {
   async submitForm() {
     if (this.profileForm.valid) {
       let data: any = this.profileForm.value;
-      data.mobile = this.profileForm.get('mobile');
-      data.mobile = data.mobile.value.number;
+      data.phone = this.profileForm.get('phone');
+      data.phone = data.phone.value.number;
       console.log(data);
 
       await this.ticket.bookingData.next(data);

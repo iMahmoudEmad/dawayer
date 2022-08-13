@@ -1,6 +1,50 @@
 .body {
   font-family: "Inter";
 
+  a {
+    color: #0085ff;
+    font-size: 0.75rem;
+    font-weight: 400;
+    display: block;
+    margin-bottom: 1.25rem;
+    text-decoration: none;
+  }
+
+  .guestInfo {
+    font-family: "DM Serif Display";
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    width: fit-content;
+
+    .line {
+      font-size: 0.75rem;
+      font-weight: 400;
+
+      .data {
+        position: absolute;
+        right: -1.5rem;
+        bottom: -12px;
+      }
+
+      .before,
+      .after {
+        position: absolute;
+        height: 6px;
+        border-radius: 2px;
+        left: 0;
+        bottom: -8px;
+        display: block;
+        width: 100%;
+        background: #c72c28;
+      }
+
+      .before {
+        opacity: 0.08;
+      }
+    }
+  }
+
   .title {
     margin-bottom: 2rem;
 

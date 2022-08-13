@@ -2,7 +2,6 @@
   <header>
     <h2 class="title">Your personal info.</h2>
   </header>
-
   <div class="body">
     <div [formGroup]="form">
       <ng-container formArrayName="guests">
@@ -10,6 +9,31 @@
           *ngFor="let guestsForm of guests?.controls; let i = index"
         >
           <div [formGroup]="getFormGroupAt(i)" *ngIf="i + 1 == guestNum">
+            <a routerLink="/group-booking" (click)="test()">
+              < Back to personal info
+            </a>
+
+            <div class="guestInfo">
+              Guest #{{ guestNum }} Info
+
+              <div class="line">
+                <span class="before"></span>
+                <span class="data"
+                  >{{ guestNum }}/{{
+                    ownerData?.numberOfGuests?.quantity
+                  }}</span
+                >
+                <span
+                  class="after"
+                  [ngStyle]="{
+                    width:
+                      (100 / ownerData?.numberOfGuests?.quantity) * guestNum +
+                      '%'
+                  }"
+                ></span>
+              </div>
+            </div>
+
             <div class="form-control">
               <label class="clicked mb-1" for="fullName"> Full name </label>
               <input
@@ -17,21 +41,31 @@
                 formControlName="fullName"
                 id="fullName"
                 class="input w-100"
+                [class.error]="
+                  getValidity(i).value?.fullName.invalid &&
+                  (getValidity(i).value?.fullName.dirty ||
+                    getValidity(i).value?.fullName.touched)
+                "
               />
             </div>
 
             <div class="form-control">
-              <label class="clicked mb-1" for="email"> Email (Optional) </label>
+              <label class="clicked mb-1" for="email"> Email </label>
               <input
                 type="text"
                 formControlName="email"
                 id="email"
                 class="input w-100"
+                [class.error]="
+                  getValidity(i).value?.email.invalid &&
+                  (getValidity(i).value?.email.dirty ||
+                    getValidity(i).value?.email.touched)
+                "
               />
             </div>
 
             <div class="form-control b-none">
-              <label class="clicked mb-1" for="mobile"> Mobile number </label>
+              <label class="clicked mb-1" for="phone"> Mobile number </label>
               <ngx-intl-tel-input
                 [enableAutoCountrySelect]="false"
                 [enablePlaceholder]="true"
@@ -40,9 +74,9 @@
                 [maxLength]="11"
                 [phoneValidation]="true"
                 [selectedCountryISO]="CountryISO.Egypt"
-                [inputId]="'mobile'"
-                name="mobile"
-                formControlName="mobile"
+                [inputId]="'phone'"
+                name="phone"
+                formControlName="phone"
                 class="input w-100 b-none"
                 (ngModelChange)="verifyPhone($event?.number)"
               ></ngx-intl-tel-input>
@@ -58,6 +92,11 @@
                 id="socialLink"
                 placeholder="facebook.com/PartyBooster"
                 class="input w-100"
+                [class.error]="
+                  getValidity(i).value?.socialLink.invalid &&
+                  (getValidity(i).value?.socialLink.dirty ||
+                    getValidity(i).value?.socialLink.touched)
+                "
               />
             </div>
 
@@ -73,7 +112,10 @@
               </label>
             </div>
 
-            <div class="form-control">
+            <div
+              class="form-control"
+              *ngIf="getValidity(i).value?.transporation"
+            >
               <div class="content clicked">
                 <div class="data" (click)="isListShown = !isListShown">
                   <h2 [class.active]="selectedItem?._id">
@@ -95,8 +137,8 @@
                         selectedItem?._id == transportation?._id
                       "
                     >
-                      <span>test{{ transportation?.name }}</span>
-                      <span>10:00 AM</span>
+                      <span>{{ transportation?.name }}</span>
+                      <!-- <span>10:00 AM</span> -->
                     </li>
                   </ul>
                 </div>
@@ -125,20 +167,25 @@
                 >I’m a vegeterian 🥒
               </label>
             </div>
+
+            <div class="form-control">
+              <button
+                class="btn"
+                [class.disabled]="guestsForm.invalid"
+                [disabled]="guestsForm.invalid"
+                (click)="addGuest(i)"
+              >
+                Continue to
+                {{
+                  guestNum < ownerData?.numberOfGuests?.quantity
+                    ? "Guest #" + (guestNum + 1)
+                    : "Summary"
+                }}
+              </button>
+            </div>
           </div>
         </ng-container>
       </ng-container>
-    </div>
-
-    <div class="form-control">
-      <button class="btn" (click)="addGuest()">
-        Continue to
-        {{
-          guestNum < ownerData?.numberOfGuests?.quantity
-            ? "Guest #" + (guestNum + 1)
-            : "Summary"
-        }}
-      </button>
     </div>
   </div>
 </section>

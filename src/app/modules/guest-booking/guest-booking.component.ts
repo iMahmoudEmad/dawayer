@@ -41,7 +41,7 @@ export class GuestBookingComponent implements OnInit {
     this.ticket.bookingData.subscribe((data) => {
       this.ownerData = data;
       console.log('ownerData', this.ownerData);
-      this.addGuest();
+      this.addGuest(0);
     });
   }
 
@@ -53,24 +53,37 @@ export class GuestBookingComponent implements OnInit {
     return this.guests.at(i) as FormGroup;
   }
 
-  addGuest() {
+  addGuest(index: number) {
     if (this.guestNum < this.ownerData?.numberOfGuests?.quantity) {
       this.guestNum++;
       const guestForm = this.fb.group({
         fullName: ['', Validators.required],
-        email: ['', [Validators.email]],
-        mobile: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        phone: ['', Validators.required],
         socialLink: ['', Validators.required],
         transporation: [false],
         nearestPickup: [''],
         vegeterian: [false],
         isOwner: [false],
       });
-
       this.guests.push(guestForm);
+      this.getValidity(index).patchValue({
+        phone: this.getValidity(index).value.phone.number,
+      });
+
+      console.log(this.getValidity(index).value);
     } else {
+      this.getValidity(index).patchValue({
+        phone: this.getValidity(index).value.phone.number,
+      });
+
+      console.log(this.getValidity(index).value);
       this.submitForm();
     }
+  }
+
+  getValidity(i: number) {
+    return (<FormArray>this.form.get('guests')).controls[i];
   }
 
   setSelectedTransportation(transportation: any) {
@@ -80,31 +93,55 @@ export class GuestBookingComponent implements OnInit {
     }
   }
 
-  verifyPhone(mobile: string) {
-    if (mobile?.length == 11) {
-      this.ticket.verifyPhone(mobile).subscribe((res: any) => {
+  verifyPhone(phone: string) {
+    if (phone?.length == 11) {
+      this.ticket.verifyPhone(phone).subscribe((res: any) => {
         // if (res.status == 'SUCCESS') {
         //   this.form.patchValue({
-        //     mobile,
+        //     phone,
         //   });
         // }
-        console.log(res);
+        // console.log(res);
       });
     }
   }
 
+  get Accommodation() {
+    const accommodation = [];
+    if (this.ownerData?.doubleTent?.quantity)
+      accommodation.push({
+        id: this.ownerData?.doubleTent?.id,
+        quantity: this.ownerData?.doubleTent?.quantity,
+      });
+
+    if (this.ownerData?.quadTent?.quantity)
+      accommodation.push({
+        id: this.ownerData?.quadTent?.id,
+        quantity: this.ownerData?.quadTent?.quantity,
+      });
+
+    if (this.ownerData?.islandBungalow?.quantity)
+      accommodation.push({
+        id: this.ownerData?.islandBungalow?.id,
+        quantity: this.ownerData?.islandBungalow?.quantity,
+      });
+
+    return accommodation;
+  }
+
   submitForm() {
-    // if (this.form.valid) {
-    // let data: any = this.form.value;
-    // data.mobile = this.form.get('mobile');
-    // data.mobile = data.mobile.value.number;
+    let data: any = {
+      guests: [this.ownerData, ...this.guests.value],
+    };
+
+    if (this.Accommodation.length) data.accommodation = this.Accommodation;
+
+    this.ticket.bookingConfirmation(data).subscribe();
+
     // console.log(data);
+  }
 
-    // this.ticket.bookingData.next(data);
-
-    // this.router.navigate(['/']);
-    // }
-
-    console.log(this.form.value);
+  test() {
+    this.guestNum = this.guestNum - 1;
   }
 }
