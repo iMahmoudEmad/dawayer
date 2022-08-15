@@ -1,6 +1,11 @@
 .body {
   font-family: "Inter";
 
+  p.error {
+    font-size: 0.75rem;
+    color: #c72c28;
+  }
+
   a {
     color: #0085ff;
     font-size: 0.75rem;

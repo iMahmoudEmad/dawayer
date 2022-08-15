@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TicketsService } from 'src/app/services/tickets.service';
 
 @Component({
@@ -9,12 +10,15 @@ import { TicketsService } from 'src/app/services/tickets.service';
 export class ThankYouComponent implements OnInit {
   groupData: any;
 
-  constructor(private ticket: TicketsService) {}
+  constructor(private ticket: TicketsService, private router: Router) {}
 
   ngOnInit(): void {
     this.ticket.confirmedData.subscribe((res: any) => {
-      console.log(res);
-      this.groupData = res;
+      if (res) {
+        this.groupData = res;
+      } else {
+        this.router.navigate(['/group-booking']);
+      }
     });
   }
 }

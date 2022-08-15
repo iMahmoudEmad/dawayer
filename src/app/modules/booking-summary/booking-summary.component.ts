@@ -14,7 +14,9 @@ export class BookingSummaryComponent implements OnInit {
   constructor(private ticket: TicketsService, private router: Router) {}
 
   ngOnInit(): void {
-    this.ticket.summaryData.subscribe((res: any) => (this.bookingData = res));
+    this.ticket.summaryData.subscribe((res: any) => {
+      res ? (this.bookingData = res) : this.router.navigate(['/group-booking']);
+    });
   }
 
   totalAmount() {

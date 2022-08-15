@@ -76,8 +76,12 @@
                 name="phone"
                 formControlName="phone"
                 class="input w-100 b-none"
+                [class.error]="phoneError"
                 (ngModelChange)="verifyPhone($event?.number)"
               ></ngx-intl-tel-input>
+              <p class="error" *ngIf="phoneError">
+                This mobile number is already inserted before.
+              </p>
             </div>
 
             <div class="form-control mb-6">

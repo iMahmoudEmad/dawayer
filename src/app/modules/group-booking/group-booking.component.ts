@@ -14,6 +14,8 @@ export class GroupBookingComponent implements OnInit {
   CountryISO = CountryISO;
   isListShown: boolean = false;
   selectedItem: any;
+  phoneNumber!: string;
+  phoneError!: boolean;
 
   profileForm = new FormGroup({
     fullName: new FormControl('', Validators.required),
@@ -106,14 +108,13 @@ export class GroupBookingComponent implements OnInit {
     return name.charAt(0).toLowerCase() + name.slice(1).replace(/ /g, '');
   }
 
-  verifyPhone(phone: string) {
-    if (phone?.length == 11) {
+  verifyPhone(phone: any) {
+    if (phone?.number?.length == 11) {
       this.ticket.verifyPhone(phone).subscribe((res: any) => {
-        // if (res.status == 'SUCCESS') {
-        //   this.profileForm.patchValue({
-        //     phone,
-        //   });
-        // }
+        console.log('res', res);
+        res.status == 'SUCCESS'
+          ? (this.phoneNumber = phone.number)
+          : (this.phoneError = true);
       });
     }
   }
@@ -121,8 +122,7 @@ export class GroupBookingComponent implements OnInit {
   async submitForm() {
     if (this.profileForm.valid) {
       let data: any = this.profileForm.value;
-      data.phone = this.profileForm.get('phone');
-      data.phone = data.phone.value.number;
+      data.phone = this.phoneNumber;
 
       await this.ticket.bookingData.next(data);
       this.router.navigate(['/guests-booking']);

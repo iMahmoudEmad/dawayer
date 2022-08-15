@@ -22,6 +22,8 @@ export class GuestBookingComponent implements OnInit {
   selectedItem: any;
   guestNum: number = 0;
   ownerData: any;
+  phoneNumber!: string;
+  phoneError!: boolean;
 
   form = this.fb.group({
     guests: this.fb.array([]),
@@ -33,14 +35,18 @@ export class GuestBookingComponent implements OnInit {
     private fb: FormBuilder
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.ticket
       .getTickets()
       .subscribe((ticket: any) => (this.tickets = ticket.response));
 
-    this.ticket.bookingData.subscribe((data) => {
-      this.ownerData = data;
-      this.addGuest(0);
+    await this.ticket.bookingData.subscribe((res: any) => {
+      if (res) {
+        this.ownerData = res;
+        this.addGuest(0);
+      } else {
+        this.router.navigate(['/group-booking']);
+      }
     });
   }
 
@@ -92,14 +98,13 @@ export class GuestBookingComponent implements OnInit {
     }
   }
 
-  verifyPhone(phone: string) {
-    if (phone?.length == 11) {
+  verifyPhone(phone: any) {
+    if (phone?.number?.length == 11) {
       this.ticket.verifyPhone(phone).subscribe((res: any) => {
-        // if (res.status == 'SUCCESS') {
-        //   this.form.patchValue({
-        //     phone,
-        //   });
-        // }
+        console.log('res', res);
+        res.status == 'SUCCESS'
+          ? (this.phoneNumber = phone.number)
+          : (this.phoneError = true);
       });
     }
   }
