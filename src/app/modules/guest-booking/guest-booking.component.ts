@@ -40,7 +40,6 @@ export class GuestBookingComponent implements OnInit {
 
     this.ticket.bookingData.subscribe((data) => {
       this.ownerData = data;
-      console.log('ownerData', this.ownerData);
       this.addGuest(0);
     });
   }
@@ -75,7 +74,6 @@ export class GuestBookingComponent implements OnInit {
         phone: this.getValidity(index)?.value.phone.number,
       });
 
-      console.log(this.getValidity(index)?.value);
       this.submitForm();
     }
   }
@@ -102,30 +100,63 @@ export class GuestBookingComponent implements OnInit {
         //     phone,
         //   });
         // }
-        // console.log(res);
       });
+    }
+  }
+
+  guestNavigationText(): string {
+    if (this.guestNum > 1) {
+      return `< Back to guest ${this.guestNum}`;
+    } else {
+      return '< Back to personal info';
+    }
+  }
+
+  decreaseGuestNumber() {
+    if (this.guestNum > 1) {
+      this.guestNum = this.guestNum - 1;
+    } else {
+      this.router.navigate(['/group-booking']);
     }
   }
 
   get Accommodation() {
     const accommodation = [];
-    if (this.ownerData?.doubleTent?.quantity)
+    if (this.ownerData?.numberOfGuests?.quantity) {
+      accommodation.push({
+        id: this.ownerData?.numberOfGuests?.id,
+        name: 'Ticket',
+        price: this.ownerData?.numberOfGuests?.price,
+        quantity: this.ownerData?.numberOfGuests?.quantity,
+      });
+    }
+
+    if (this.ownerData?.doubleTent?.quantity) {
       accommodation.push({
         id: this.ownerData?.doubleTent?.id,
+        name: this.ownerData?.doubleTent?.name,
+        price: this.ownerData?.doubleTent?.price,
         quantity: this.ownerData?.doubleTent?.quantity,
       });
+    }
 
-    if (this.ownerData?.quadTent?.quantity)
+    if (this.ownerData?.quadTent?.quantity) {
       accommodation.push({
         id: this.ownerData?.quadTent?.id,
+        name: this.ownerData?.quadTent?.name,
+        price: this.ownerData?.quadTent?.price,
         quantity: this.ownerData?.quadTent?.quantity,
       });
+    }
 
-    if (this.ownerData?.islandBungalow?.quantity)
+    if (this.ownerData?.islandBungalow?.quantity) {
       accommodation.push({
         id: this.ownerData?.islandBungalow?.id,
+        name: this.ownerData?.islandBungalow?.name,
+        price: this.ownerData?.islandBungalow?.price,
         quantity: this.ownerData?.islandBungalow?.quantity,
       });
+    }
 
     return accommodation;
   }
@@ -133,16 +164,11 @@ export class GuestBookingComponent implements OnInit {
   submitForm() {
     let data: any = {
       guests: [this.ownerData, ...this.guests.value],
+      accommodation: this.Accommodation || [],
     };
 
-    if (this.Accommodation.length) data.accommodation = this.Accommodation;
+    this.ticket.summaryData.next(data);
 
-    this.ticket.bookingConfirmation(data).subscribe();
-
-    // console.log(data);
-  }
-
-  test() {
-    this.guestNum = this.guestNum - 1;
+    this.router.navigate(['/summary-booking']);
   }
 }

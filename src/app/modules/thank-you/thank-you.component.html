@@ -5,7 +5,7 @@
 
     <div class="alert">
       <p class="header">Group no.</p>
-      <h2>19873</h2>
+      <h2>{{ groupData?.groupId }}</h2>
       <p class="alert-body">You group is pending approval</p>
     </div>
   </header>
@@ -18,9 +18,9 @@
 
     <div class="guests">
       <ul>
-        <li *ngFor="let item of [1, 2, 3, 4, 5]">
-          <span class="name">Mohamed Alaa Elsayed</span>
-          <span class="code">O-982134</span>
+        <li *ngFor="let guest of groupData?.guests">
+          <span class="name">{{ guest?.fullName }}</span>
+          <span class="code">{{ guest?.guestId }}</span>
         </li>
       </ul>
     </div>

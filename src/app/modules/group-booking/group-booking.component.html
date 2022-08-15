@@ -73,10 +73,10 @@
       <h3>Booking for how many guests?</h3>
 
       <div class="numberOfGuests mb-2">
-        <span class="clicked minus" (click)="decrement()">
+        <span class="clicked minus" (click)="decrement(tickets?.ticket[0])">
           <img
             src="assets/{{
-              inputValue.numberOfGuests.value?.quantity == 1
+              inputValue.numberOfGuests.value?.quantity == 0
                 ? 'minus-disabled'
                 : 'minus'
             }}.png"
@@ -87,7 +87,7 @@
           <img src="assets/user.png" alt="guest photo" class="user mb-6" />
           <span>{{ inputValue.numberOfGuests.value?.quantity }} Guest</span>
         </p>
-        <span class="clicked plus" (click)="increment()">
+        <span class="clicked plus" (click)="increment(tickets?.ticket[0])">
           <img src="assets/plus.png" alt="plus" />
         </span>
       </div>
@@ -161,10 +161,7 @@
           <h3>{{ item?.name }}</h3>
 
           <div class="numberOfGuests">
-            <span
-              class="clicked minus"
-              (click)="decrement(item?.name, item?._id)"
-            >
+            <span class="clicked minus" (click)="decrement(item)">
               <img
                 src="assets/{{
                   accommodationValue(item.name)?.quantity == 0
@@ -184,10 +181,7 @@
               />
               <span>{{ accommodationValue(item.name)?.quantity }} Guest</span>
             </p>
-            <span
-              class="clicked plus"
-              (click)="increment(item?.name, item?._id)"
-            >
+            <span class="clicked plus" (click)="increment(item)">
               <img src="assets/plus.png" alt="plus" />
             </span>
           </div>

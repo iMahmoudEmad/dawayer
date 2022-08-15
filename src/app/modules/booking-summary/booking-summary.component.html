@@ -1,1 +1,83 @@
-<p>booking-summary works!</p>
+<section class="main">
+  <header>
+    <h2 class="title">Booking Summary</h2>
+  </header>
+
+  <div class="body">
+    <div class="alert">
+      <img src="assets/credits.png" alt="credits" />
+      <p>
+        Once your submission is approved, each guest will receive a payment link
+        to pay for their tickets.
+      </p>
+    </div>
+
+    <div class="paymentDetails" *ngIf="bookingData?.accommodation">
+      <h2 class="title">Payment details</h2>
+      <div class="payment" *ngFor="let item of bookingData?.accommodation">
+        <span class="left"
+          >{{ item?.name }} ({{ item?.quantity }} x {{ item?.price }} EGP)</span
+        >
+        <span class="right">{{ item?.quantity * item?.price }} EGP</span>
+      </div>
+      <div class="payment border">
+        <span class="left">Total Price</span>
+        <span class="right big">{{ totalAmount() }} EGP</span>
+      </div>
+    </div>
+
+    <ng-container *ngFor="let person of bookingData?.guests">
+      <div class="personalInfo" *ngIf="person?.isOwner">
+        <h2 class="title">Your personal info.</h2>
+        <div class="content">
+          <ul>
+            <li>{{ person?.fullName }}</li>
+            <li>{{ person?.email }}</li>
+            <li>{{ person?.phone }}</li>
+            <li>{{ person?.socialMediaLink }}</li>
+            <li *ngIf="person?.transportation">
+              <span class="left">Transportation</span>
+              <span class="right">{{ person?.transportation }}</span>
+            </li>
+            <li *ngIf="person?.isVegeterian">
+              <span class="left">Food Preference</span>
+              <span class="right">Vegeterian</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="groupDetails" *ngIf="bookingData?.guests?.length">
+      <h2 class="title">Group details</h2>
+      <ng-container *ngFor="let person of bookingData?.guests; let i = index">
+        <div
+          class="guest"
+          *ngIf="!person?.isOwner"
+          (click)="selectedPerson(person)"
+        >
+          <span class="left">{{ person?.fullName }}</span>
+          <span class="left">^</span>
+        </div>
+        <div class="content" *ngIf="person?.phone == selectedPhone">
+          <ul>
+            <li>{{ person?.fullName }}</li>
+            <li>{{ person?.email }}</li>
+            <li>{{ person?.phone }}</li>
+            <li>{{ person?.socialMediaLink }}</li>
+            <li *ngIf="person?.transportation">
+              <span class="left">Transportation</span>
+              <span class="right">{{ person?.transportation }}</span>
+            </li>
+            <li *ngIf="person?.isVegeterian">
+              <span class="left">Food Preference</span>
+              <span class="right">Vegeterian</span>
+            </li>
+          </ul>
+        </div>
+      </ng-container>
+    </div>
+
+    <button class="btn" (click)="submitSummary()">Continue to Summary</button>
+  </div>
+</section>

@@ -20,13 +20,23 @@ export class GroupBookingComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     phone: new FormControl('', Validators.required),
     socialMediaLink: new FormControl('', Validators.required),
-    numberOfGuests: new FormControl({ id: '', quantity: 1 }),
+    numberOfGuests: new FormControl({
+      id: '',
+      quantity: 0,
+      name: '',
+      price: 0,
+    }),
     transporationChecked: new FormControl(false),
     transporation: new FormControl(''),
     isVegeterian: new FormControl(false),
-    doubleTent: new FormControl({ id: '', quantity: 0 }),
-    quadTent: new FormControl({ id: '', quantity: 0 }),
-    islandBungalow: new FormControl({ id: '', quantity: 0 }),
+    doubleTent: new FormControl({ id: '', quantity: 0, name: '', price: 0 }),
+    quadTent: new FormControl({ id: '', quantity: 0, name: '', price: 0 }),
+    islandBungalow: new FormControl({
+      id: '',
+      quantity: 0,
+      name: '',
+      price: 0,
+    }),
     isOwner: new FormControl(true),
   });
 
@@ -53,21 +63,34 @@ export class GroupBookingComponent implements OnInit {
     return data.value;
   }
 
-  increment(key: string = 'numberOfGuests', id: string = 'numberOfGuests') {
-    key = this.formatName(key);
-    const count: any = this.profileForm.get(key);
+  increment(item?: any) {
+    const name =
+      item?.name !== 'Ticket' ? this.formatName(item?.name) : 'numberOfGuests';
+    const count: any = this.profileForm.get(name);
+
     this.profileForm.patchValue({
-      [key]: { id, quantity: count.value?.quantity + 1 },
+      [name]: {
+        id: item?._id,
+        quantity: count.value?.quantity + 1,
+        name: item?.name,
+        price: item?.price,
+      },
     });
   }
 
-  decrement(key: string = 'numberOfGuests', id: string = 'numberOfGuests') {
-    key = this.formatName(key);
-    const count: any = this.profileForm.get(key);
+  decrement(item?: any) {
+    const name =
+      item?.name !== 'Ticket' ? this.formatName(item?.name) : 'numberOfGuests';
+    const count: any = this.profileForm.get(name);
 
     if (count?.value?.quantity >= 1)
       this.profileForm.patchValue({
-        [key]: { id, quantity: count.value?.quantity - 1 },
+        [name]: {
+          id: item?._id,
+          quantity: count.value?.quantity - 1,
+          name: item?.name,
+          price: item?.price,
+        },
       });
   }
 
@@ -91,7 +114,6 @@ export class GroupBookingComponent implements OnInit {
         //     phone,
         //   });
         // }
-        console.log(res);
       });
     }
   }
@@ -101,10 +123,8 @@ export class GroupBookingComponent implements OnInit {
       let data: any = this.profileForm.value;
       data.phone = this.profileForm.get('phone');
       data.phone = data.phone.value.number;
-      console.log(data);
 
       await this.ticket.bookingData.next(data);
-      this.ticket.bookingData.subscribe((res) => console.log('res', res));
       this.router.navigate(['/guests-booking']);
     }
   }

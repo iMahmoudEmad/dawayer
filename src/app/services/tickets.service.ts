@@ -8,6 +8,8 @@ import { BehaviorSubject } from 'rxjs';
 export class TicketsService {
   guestsData = new BehaviorSubject<any[]>([]);
   bookingData = new BehaviorSubject<object>({});
+  summaryData = new BehaviorSubject<object>({});
+  confirmedData = new BehaviorSubject<object>({});
 
   constructor(private http: HttpClient) {}
 

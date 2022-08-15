@@ -1,0 +1,161 @@
+.body {
+  font-family: "Inter";
+  color: #39241f;
+
+  .alert {
+    padding: 1rem;
+    background-color: #faf7f5;
+    border: 1px solid #ededed;
+    position: relative;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+
+    img {
+      width: 2rem;
+      height: 2rem;
+      position: absolute;
+      left: 1rem;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
+
+    p {
+      font-size: 0.75rem;
+      padding-inline-start: 3rem;
+    }
+  }
+
+  .paymentDetails {
+    .title {
+      font-size: 1.125rem;
+      color: #6d6d6d;
+      font-family: "DM Serif Display";
+      margin-bottom: 1.125rem;
+    }
+
+    .payment {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+
+      &.border {
+        margin-bottom: 3rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        border-top: 1px solid #ededed;
+        border-bottom: 1px solid #ededed;
+      }
+
+      .left {
+        color: #6d6d6d;
+        font-size: 0.875rem;
+      }
+
+      .right {
+        font-size: 1rem;
+        color: #39241f;
+        text-align: end;
+
+        &.big {
+          font-size: 1.125rem;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  .content {
+    background-color: #fff;
+    border: 1px solid #ededed;
+    border-radius: 0.5rem;
+    padding: 1rem;
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      color: #39241f;
+
+      li {
+        font-size: 0.875rem;
+        font-family: "Inter";
+        margin-bottom: 0.5rem;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        .left {
+          display: inline-block;
+          width: 115px;
+          color: #6d6d6d;
+          text-transform: capitalize;
+        }
+      }
+    }
+  }
+
+  .personalInfo {
+    margin-bottom: 1.5rem;
+
+    .title {
+      font-size: 1.125rem;
+      color: #6d6d6d;
+      font-family: "DM Serif Display";
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .groupDetails {
+    margin-bottom: 4rem;
+
+    .content {
+      margin-bottom: 1rem;
+    }
+
+    .title {
+      font-size: 1.125rem;
+      color: #6d6d6d;
+      font-family: "DM Serif Display";
+      margin-bottom: 0.5rem;
+    }
+
+    .guest {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      border: 1px solid #ededed;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+
+      .left {
+        font-size: 1.125rem;
+        font-family: "DM Serif Display";
+        color: #39241f;
+        text-transform: capitalize;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  .btn {
+    width: 100%;
+    height: 54px;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1.125rem;
+    background: #44ad8f;
+    color: #fff;
+    font-family: "Inter";
+
+    &.disabled {
+      background: #f6f6f6;
+      color: #bbb;
+    }
+  }
+}
