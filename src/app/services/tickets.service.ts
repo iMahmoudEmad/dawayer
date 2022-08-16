@@ -21,9 +21,9 @@ export class TicketsService {
     return this.http.post('https://dawayer.herokuapp.com/api/v1/groups', data);
   }
 
-  verifyPhone(mobile: string) {
+  verifyPhone(phone: string) {
     return this.http.get(
-      `https://dawayer.herokuapp.com/api/v1/guests/verifyPhone?phone=${mobile}`
+      `https://dawayer.herokuapp.com/api/v1/guests/verifyPhone?phone=${phone}`
     );
   }
 }
