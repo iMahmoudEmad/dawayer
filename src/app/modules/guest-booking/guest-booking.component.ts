@@ -103,7 +103,7 @@ export class GuestBookingComponent implements OnInit {
       this.ticket.verifyPhone(phone).subscribe((res: any) => {
         console.log('res', res);
         res.status == 'SUCCESS'
-          ? (this.phoneNumber = encodeURIComponent(`+2${phone.number}`))
+          ? (this.phoneNumber = `+2${phone.number}`)
           : (this.phoneError = true);
       });
     }
