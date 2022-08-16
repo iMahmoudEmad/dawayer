@@ -77,7 +77,7 @@
                 formControlName="phone"
                 class="input w-100 b-none"
                 [class.error]="phoneError"
-                (ngModelChange)="verifyPhone($event?.number)"
+                (ngModelChange)="verifyPhone($event)"
               ></ngx-intl-tel-input>
               <p class="error" *ngIf="phoneError">
                 This mobile number is already inserted before.
@@ -173,8 +173,8 @@
             <div class="form-control">
               <button
                 class="btn"
-                [class.disabled]="guestsForm.invalid"
-                [disabled]="guestsForm.invalid"
+                [class.disabled]="phoneError || guestsForm.invalid"
+                [disabled]="phoneError || guestsForm.invalid"
                 (click)="addGuest(i)"
               >
                 Continue to

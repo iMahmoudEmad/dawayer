@@ -102,12 +102,17 @@ export class GuestBookingComponent implements OnInit {
     if (phone?.number?.length == 11) {
       this.ticket
         .verifyPhone(encodeURIComponent(`+2${phone?.number}`))
-        .subscribe((res: any) => {
-          console.log('res', res, phone);
-          res.status == 'SUCCESS'
-            ? (this.phoneNumber = encodeURIComponent(`+2${phone?.number}`))
-            : (this.phoneError = true);
-        });
+        .subscribe(
+          (res: any) => {
+            if (res.status == 'SUCCESS') {
+              this.phoneError = false;
+              this.phoneNumber = `+2${phone?.number}`;
+            } else {
+              this.phoneError = true;
+            }
+          },
+          () => (this.phoneError = true)
+        );
     }
   }
 

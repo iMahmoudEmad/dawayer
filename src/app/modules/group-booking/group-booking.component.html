@@ -219,8 +219,8 @@
       <div class="form-control">
         <button
           class="btn"
-          [class.disabled]="profileForm.invalid"
-          [disabled]="profileForm.invalid"
+          [class.disabled]="phoneError || !profileForm.valid"
+          [disabled]="phoneError || !profileForm.valid"
           (click)="submitForm()"
         >
           Continue to Summary
