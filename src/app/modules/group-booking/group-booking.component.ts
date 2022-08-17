@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { CountryISO } from 'ngx-intl-tel-input';
 import { TicketsService } from 'src/app/services/tickets.service';
 
@@ -31,12 +31,22 @@ export class GroupBookingComponent implements OnInit {
     transporationChecked: new FormControl(false),
     transporation: new FormControl(''),
     isVegeterian: new FormControl(false),
-    doubleTent: new FormControl({ id: '', quantity: 0, name: '', price: 0 }),
-    quadTent: new FormControl({ id: '', quantity: 0, name: '', price: 0 }),
+    doubleTent: new FormControl({
+      id: '',
+      quantity: 0,
+      name: 'Double Tent',
+      price: 0,
+    }),
+    quadTent: new FormControl({
+      id: '',
+      quantity: 0,
+      name: 'Quad Tent',
+      price: 0,
+    }),
     islandBungalow: new FormControl({
       id: '',
       quantity: 0,
-      name: '',
+      name: 'Island Bungalow',
       price: 0,
     }),
     isOwner: new FormControl(true),
@@ -45,13 +55,20 @@ export class GroupBookingComponent implements OnInit {
   constructor(private ticket: TicketsService, private router: Router) {}
 
   ngOnInit(): void {
+    localStorage.removeItem('phoneList');
     this.ticket.bookingData.subscribe((res) =>
       this.profileForm.patchValue(res)
     );
 
-    this.ticket
-      .getTickets()
-      .subscribe((ticket: any) => (this.tickets = ticket.response));
+    this.ticket.getTickets().subscribe((ticket: any) => {
+      this.tickets = ticket.response;
+      this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+          return;
+        }
+        window.scrollTo(0, 0);
+      });
+    });
   }
 
   get inputValue() {
@@ -61,7 +78,7 @@ export class GroupBookingComponent implements OnInit {
   accommodationValue(name: string) {
     name = this.formatName(name);
     let data = this.profileForm.get(name) as FormControl;
-
+    console.log(data.value);
     return data.value;
   }
 
@@ -117,6 +134,10 @@ export class GroupBookingComponent implements OnInit {
             if (res.status == 'SUCCESS') {
               this.phoneError = false;
               this.phoneNumber = `+2${phone?.number}`;
+              localStorage.setItem(
+                'phoneList',
+                JSON.stringify([`+2${phone?.number}`])
+              );
             } else {
               this.phoneError = true;
             }
@@ -127,8 +148,13 @@ export class GroupBookingComponent implements OnInit {
   }
 
   async submitForm() {
-    console.log(this.profileForm.valid && !this.phoneError);
-    if (this.profileForm.valid && !this.phoneError) {
+    let guestsQuantity = this.inputValue.numberOfGuests.value?.quantity;
+    if (
+      this.profileForm.valid &&
+      !this.phoneError &&
+      guestsQuantity &&
+      guestsQuantity >= 1
+    ) {
       let data: any = this.profileForm.value;
       data.phone = this.phoneNumber;
 

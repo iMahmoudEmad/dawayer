@@ -8,6 +8,7 @@
       <div class="form-control">
         <label class="clicked mb-1" for="fullName"> Full name </label>
         <input
+          autofocus="on"
           type="text"
           formControlName="fullName"
           id="fullName"
@@ -183,7 +184,10 @@
                 alt="guest photo"
                 class="bungalow mb-6"
               />
-              <span>{{ accommodationValue(item.name)?.quantity }} Guest</span>
+              <span
+                >{{ accommodationValue(item.name)?.quantity }}
+                {{ accommodationValue(item.name)?.name }}</span
+              >
             </p>
             <span class="clicked plus" (click)="increment(item)">
               <img src="assets/plus.png" alt="plus" />
@@ -217,14 +221,7 @@
       </ng-container>
 
       <div class="form-control">
-        <button
-          class="btn"
-          [class.disabled]="phoneError || !profileForm.valid"
-          [disabled]="phoneError || !profileForm.valid"
-          (click)="submitForm()"
-        >
-          Continue to Summary
-        </button>
+        <button class="btn" (click)="submitForm()">Continue to Summary</button>
       </div>
     </form>
   </div>
