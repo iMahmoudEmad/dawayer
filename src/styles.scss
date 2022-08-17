@@ -24,6 +24,20 @@ body {
   margin: 0;
 }
 
+@media screen and(min-width:768px) {
+  body {
+    background-color: #f2f1ed;
+  }
+
+  main {
+    max-width: 500px;
+    margin: auto;
+    background: #fff;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+}
+
 .title {
   font-family: "DM Serif Display";
   font-weight: 400;

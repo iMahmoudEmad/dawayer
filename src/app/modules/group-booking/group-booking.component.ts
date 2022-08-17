@@ -28,8 +28,8 @@ export class GroupBookingComponent implements OnInit {
       name: '',
       price: 0,
     }),
-    transporationChecked: new FormControl(false),
-    transporation: new FormControl(''),
+    transportationChecked: new FormControl(false),
+    transportation: new FormControl(''),
     isVegeterian: new FormControl(false),
     doubleTent: new FormControl({
       id: '',
@@ -114,7 +114,7 @@ export class GroupBookingComponent implements OnInit {
 
   setSelectedTransportation(transportation: any) {
     if (transportation?.availability) {
-      this.profileForm.patchValue({ transporation: transportation?._id });
+      this.profileForm.patchValue({ transportation: transportation });
       this.selectedItem = transportation;
       this.isListShown = !this.isListShown;
     }

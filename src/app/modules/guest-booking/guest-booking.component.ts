@@ -91,7 +91,7 @@ export class GuestBookingComponent implements OnInit {
   setSelectedTransportation(transportation: any, index: number) {
     if (transportation?.availability) {
       this.getValidity(index)?.patchValue({
-        transportation: transportation?._id,
+        transportation,
       });
       this.selectedItem = transportation;
       this.isListShown = !this.isListShown;

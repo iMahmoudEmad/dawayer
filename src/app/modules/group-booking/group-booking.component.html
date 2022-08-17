@@ -100,16 +100,16 @@
       <div class="form-control">
         <input
           type="checkbox"
-          formControlName="transporationChecked"
-          id="transporationChecked"
+          formControlName="transportationChecked"
+          id="transportationChecked"
           class="checkbox"
         />
-        <label class="clicked" for="transporationChecked"
+        <label class="clicked" for="transportationChecked"
           >I’ll use the festival’s transporation option 🚐
         </label>
       </div>
 
-      <div class="form-control" *ngIf="inputValue.transporationChecked.value">
+      <div class="form-control" *ngIf="inputValue.transportationChecked.value">
         <div class="content clicked">
           <div class="data" (click)="isListShown = !isListShown">
             <h2 [class.active]="selectedItem?._id">

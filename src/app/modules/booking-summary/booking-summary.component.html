@@ -35,9 +35,9 @@
             <li>{{ person?.email }}</li>
             <li>{{ person?.phone }}</li>
             <li>{{ person?.socialMediaLink }}</li>
-            <li *ngIf="person?.transportation">
+            <li *ngIf="person?.transportation?.name">
               <span class="left">Transportation</span>
-              <span class="right">{{ person?.transportation }}</span>
+              <span class="right">{{ person?.transportation?.name }}</span>
             </li>
             <li *ngIf="person?.isVegeterian">
               <span class="left">Food Preference</span>
@@ -65,9 +65,9 @@
             <li>{{ person?.email }}</li>
             <li>{{ person?.phone }}</li>
             <li>{{ person?.socialMediaLink }}</li>
-            <li *ngIf="person?.transportation">
+            <li *ngIf="person?.transportation?.name">
               <span class="left">Transportation</span>
-              <span class="right">{{ person?.transportation }}</span>
+              <span class="right">{{ person?.transportation?.name }}</span>
             </li>
             <li *ngIf="person?.isVegeterian">
               <span class="left">Food Preference</span>
