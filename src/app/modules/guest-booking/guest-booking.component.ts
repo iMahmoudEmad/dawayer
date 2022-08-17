@@ -101,27 +101,23 @@ export class GuestBookingComponent implements OnInit {
   verifyPhone(phone: any) {
     let phoneList = [...JSON.parse(localStorage.getItem('phoneList') || '{}')];
 
-    let isPhoneFound = () =>
-      phoneList.map((phone) => phone.includes(phone?.number));
+    let isPhoneFound = () => {
+      return phoneList.map((phoneNumber) => {
+        return phoneNumber.includes(`${phone?.number}`);
+      })[0];
+    };
 
-    console.log('phoneList', phoneList);
     if (phone?.number?.length == 11) {
       this.ticket
         .verifyPhone(encodeURIComponent(`+2${phone?.number}`))
         .subscribe(
           (res: any) => {
-            if (res.status == 'SUCCESS' && !isPhoneFound) {
+            if (res.status == 'SUCCESS' && !isPhoneFound()) {
               this.phoneError = false;
               this.phoneNumber = `+2${phone?.number}`;
             } else {
               this.phoneError = true;
             }
-            console.log('phoneError', this.phoneError);
-            console.log('phone?.number', phone?.number);
-            console.log(
-              'phoneList?.includes(phone?.number)',
-              phoneList?.includes(phone?.number)
-            );
           },
           () => (this.phoneError = true)
         );

@@ -78,7 +78,6 @@ export class GroupBookingComponent implements OnInit {
   accommodationValue(name: string) {
     name = this.formatName(name);
     let data = this.profileForm.get(name) as FormControl;
-    console.log(data.value);
     return data.value;
   }
 
