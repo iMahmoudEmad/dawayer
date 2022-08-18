@@ -142,14 +142,14 @@ export class GuestBookingComponent implements OnInit {
 
   get Accommodation() {
     const accommodation = [];
-    if (this.ownerData?.numberOfGuests?.quantity) {
-      accommodation.push({
-        id: this.ownerData?.numberOfGuests?.id,
-        name: 'Ticket',
-        price: this.ownerData?.numberOfGuests?.price,
-        quantity: this.ownerData?.numberOfGuests?.quantity,
-      });
-    }
+    // if (this.ownerData?.numberOfGuests?.quantity) {
+    //   accommodation.push({
+    //     id: this.ownerData?.numberOfGuests?.id,
+    //     name: 'Ticket',
+    //     price: this.ownerData?.numberOfGuests?.price,
+    //     quantity: this.ownerData?.numberOfGuests?.quantity,
+    //   });
+    // }
 
     if (this.ownerData?.doubleTent?.quantity) {
       accommodation.push({
@@ -182,6 +182,7 @@ export class GuestBookingComponent implements OnInit {
   }
 
   submitForm() {
+    console.log(this.ownerData);
     let data: any = {
       guests: [this.ownerData, ...this.guests.value],
       accommodation: this.Accommodation || [],
@@ -189,6 +190,10 @@ export class GuestBookingComponent implements OnInit {
 
     this.ticket.summaryData.next(data);
 
-    this.router.navigate(['/summary-booking']);
+    if (this.ownerData?.numberOfGuests?.quantity) {
+      this.router.navigate(['/summary-booking']);
+    } else {
+      this.router.navigate(['/group-booking']);
+    }
   }
 }

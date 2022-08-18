@@ -15,6 +15,7 @@ export class BookingSummaryComponent implements OnInit {
 
   ngOnInit(): void {
     this.ticket.summaryData.subscribe((res: any) => {
+      console.log(res);
       res ? (this.bookingData = res) : this.router.navigate(['/group-booking']);
     });
   }

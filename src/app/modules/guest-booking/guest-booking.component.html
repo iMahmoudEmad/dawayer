@@ -12,13 +12,13 @@
             <a (click)="decreaseGuestNumber()">{{ guestNavigationText() }} </a>
 
             <div class="guestInfo">
-              Guest #{{ guestNum }} Info
+              Guest #{{ guestNum + 1 }} Info
 
               <div class="line">
                 <span class="before"></span>
                 <span class="data"
-                  >{{ guestNum }}/{{
-                    ownerData?.numberOfGuests?.quantity
+                  >{{ guestNum + 1 }}/{{
+                    ownerData?.numberOfGuests?.quantity + 1
                   }}</span
                 >
                 <span

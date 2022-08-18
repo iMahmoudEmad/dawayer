@@ -249,12 +249,17 @@
         gap: 0.5rem;
 
         span {
-          &:nth-child(even) {
-            margin-inline-start: 1.5rem;
-          }
+          // &:nth-child(even) {
+          //   margin-inline-start: 1.5rem;
+          // }
+
+          // &:last-of-type {
+          //   margin-inline-start: 0;
+          // }
 
           img {
             vertical-align: middle;
+            color: #bbbbbb;
           }
         }
       }
@@ -295,6 +300,10 @@
   .iti__selected-flag {
     border-right: 1px solid #ededed;
   }
+}
+
+.mb-15 {
+  margin-top: 1.5rem;
 }
 
 .mb-2 {

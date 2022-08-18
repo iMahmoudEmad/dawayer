@@ -148,17 +148,17 @@ export class GroupBookingComponent implements OnInit {
 
   async submitForm() {
     let guestsQuantity = this.inputValue.numberOfGuests.value?.quantity;
-    if (
-      this.profileForm.valid &&
-      !this.phoneError &&
-      guestsQuantity &&
-      guestsQuantity >= 1
-    ) {
+    if (this.profileForm.valid && !this.phoneError) {
       let data: any = this.profileForm.value;
       data.phone = this.phoneNumber;
 
-      await this.ticket.bookingData.next(data);
-      this.router.navigate(['/guests-booking']);
+      if (guestsQuantity && guestsQuantity >= 1) {
+        await this.ticket.bookingData.next(data);
+        this.router.navigate(['/guests-booking']);
+      } else {
+        await this.ticket.summaryData.next({ guests: [data] });
+        this.router.navigate(['/summary-booking']);
+      }
     }
   }
 }

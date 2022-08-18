@@ -56,7 +56,7 @@
         </p>
       </div>
 
-      <div class="form-control mb-6">
+      <div class="form-control mb-15">
         <label class="clicked mb-1" for="socialMediaLink"
           >Social media link
         </label>
@@ -72,29 +72,6 @@
               inputValue.socialMediaLink.touched)
           "
         />
-      </div>
-
-      <h3 class="note">A chance to know you more</h3>
-      <h3>Booking for how many guests?</h3>
-
-      <div class="numberOfGuests mb-2">
-        <span class="clicked minus" (click)="decrement(tickets?.ticket[0])">
-          <img
-            src="assets/{{
-              inputValue.numberOfGuests.value?.quantity == 0
-                ? 'minus-disabled'
-                : 'minus'
-            }}.png"
-            alt="minus"
-          />
-        </span>
-        <p class="guestsLength">
-          <img src="assets/user.png" alt="guest photo" class="user mb-6" />
-          <span>{{ inputValue.numberOfGuests.value?.quantity }} Guest</span>
-        </p>
-        <span class="clicked plus" (click)="increment(tickets?.ticket[0])">
-          <img src="assets/plus.png" alt="plus" />
-        </span>
       </div>
 
       <div class="form-control">
@@ -157,6 +134,29 @@
         <label class="clicked" for="isVegeterian">I’m a vegeterian 🥒 </label>
       </div>
 
+      <!-- <h3 class="note">A chance to know you more</h3> -->
+      <h3>Booking for how many guests?</h3>
+
+      <div class="numberOfGuests mb-2 mt-15">
+        <span class="clicked minus" (click)="decrement(tickets?.ticket[0])">
+          <img
+            src="assets/{{
+              inputValue.numberOfGuests.value?.quantity == 0
+                ? 'minus-disabled'
+                : 'minus'
+            }}.svg"
+            alt="minus"
+          />
+        </span>
+        <p class="guestsLength">
+          <img src="assets/users.svg" alt="guest photo" class="user mb-6" />
+          <span>{{ inputValue.numberOfGuests.value?.quantity }} Guest</span>
+        </p>
+        <span class="clicked plus" (click)="increment(tickets?.ticket[0])">
+          <img src="assets/plus.svg" alt="plus" />
+        </span>
+      </div>
+
       <ng-container *ngIf="tickets?.accommodation">
         <h2 class="accommodation title">Accommodation</h2>
         <h3 class="accommodation note">
@@ -172,7 +172,7 @@
                   accommodationValue(item.name)?.quantity == 0
                     ? 'minus-disabled'
                     : 'minus'
-                }}.png"
+                }}.svg"
                 alt="minus"
               />
             </span>
@@ -180,7 +180,7 @@
               <img
                 src="assets/{{
                   item?.name?.includes('Island') ? 'bungalow' : 'tent'
-                }}.png"
+                }}.svg"
                 alt="guest photo"
                 class="bungalow mb-6"
               />
@@ -190,31 +190,33 @@
               >
             </p>
             <span class="clicked plus" (click)="increment(item)">
-              <img src="assets/plus.png" alt="plus" />
+              <img src="assets/plus.svg" alt="plus" />
             </span>
           </div>
           <div class="pricing" *ngIf="item?.price">
             <div class="content">
               <div class="left">
                 <span *ngIf="item?.items?.numberOfPersons">
-                  <img src="assets/users-disabled.png" alt="users" />
+                  <img src="assets/users-disabled.svg" alt="users" />
                   For {{ item?.items?.numberOfPersons }}
                   {{ item?.items?.numberOfPersons > 1 ? "persons" : "person" }}
                 </span>
                 <span *ngIf="item?.items?.numberOfBeds">
-                  <img src="assets/users-disabled.png" alt="users" />
-                  {{ item?.items?.numberOfBeds }} Beds
+                  <img src="assets/beds.svg" alt="beds" />
+                  {{ item?.items?.numberOfBeds }} Bed{{
+                    item?.items?.numberOfBeds > 1 ? "s" : ""
+                  }}
                 </span>
                 <span *ngIf="item?.items?.haveBathroom">
-                  <img src="assets/users-disabled.png" alt="users" />
+                  <img src="assets/bathroom.svg" alt="bathroom" />
                   Bathroom
                 </span>
                 <span *ngIf="item?.items?.haveWaterHeater">
-                  <img src="assets/users-disabled.png" alt="users" />
+                  <img src="assets/water-heater.svg" alt="water-heater" />
                   Water Heater
                 </span>
               </div>
-              <div class="right">{{ item?.price }} EGP/each</div>
+              <div class="right">{{ item?.price }} EGP Per Tent</div>
             </div>
           </div>
         </ng-container>

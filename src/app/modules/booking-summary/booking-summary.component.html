@@ -5,7 +5,7 @@
 
   <div class="body">
     <div class="alert">
-      <img src="assets/credits.png" alt="credits" />
+      <img src="assets/summary.svg" alt="credits" />
       <p>
         Once your submission is approved, each guest will receive a payment link
         to pay for their tickets.
@@ -49,32 +49,30 @@
     </ng-container>
 
     <div class="groupDetails" *ngIf="bookingData?.guests?.length">
-      <h2 class="title">Group details</h2>
       <ng-container *ngFor="let person of bookingData?.guests; let i = index">
-        <div
-          class="guest"
-          *ngIf="!person?.isOwner"
-          (click)="selectedPerson(person)"
-        >
-          <span class="left">{{ person?.fullName }}</span>
-          <span class="left">^</span>
-        </div>
-        <div class="content" *ngIf="person?.phone == selectedPhone">
-          <ul>
-            <li>{{ person?.fullName }}</li>
-            <li>{{ person?.email }}</li>
-            <li>{{ person?.phone }}</li>
-            <li>{{ person?.socialMediaLink }}</li>
-            <li *ngIf="person?.transportation?.name">
-              <span class="left">Transportation</span>
-              <span class="right">{{ person?.transportation?.name }}</span>
-            </li>
-            <li *ngIf="person?.isVegeterian">
-              <span class="left">Food Preference</span>
-              <span class="right">Vegeterian</span>
-            </li>
-          </ul>
-        </div>
+        <ng-container *ngIf="!person?.isOwner">
+          <h2 class="title">Group details</h2>
+          <div class="guest" (click)="selectedPerson(person)">
+            <span class="left">{{ person?.fullName }}</span>
+            <span class="left">^</span>
+          </div>
+          <div class="content" *ngIf="person?.phone == selectedPhone">
+            <ul>
+              <li>{{ person?.fullName }}</li>
+              <li>{{ person?.email }}</li>
+              <li>{{ person?.phone }}</li>
+              <li>{{ person?.socialMediaLink }}</li>
+              <li *ngIf="person?.transportation?.name">
+                <span class="left">Transportation</span>
+                <span class="right">{{ person?.transportation?.name }}</span>
+              </li>
+              <li *ngIf="person?.isVegeterian">
+                <span class="left">Food Preference</span>
+                <span class="right">Vegeterian</span>
+              </li>
+            </ul>
+          </div>
+        </ng-container>
       </ng-container>
     </div>
 
