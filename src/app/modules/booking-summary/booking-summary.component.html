@@ -12,7 +12,7 @@
       </p>
     </div>
 
-    <div class="paymentDetails" *ngIf="bookingData?.accommodation">
+    <div class="paymentDetails" *ngIf="bookingData?.accommodation?.length">
       <h2 class="title">Payment details</h2>
       <div class="payment" *ngFor="let item of bookingData?.accommodation">
         <span class="left"
@@ -54,7 +54,9 @@
           <h2 class="title">Group details</h2>
           <div class="guest" (click)="selectedPerson(person)">
             <span class="left">{{ person?.fullName }}</span>
-            <span class="left">^</span>
+            <span class="left">
+              <img src="assets/dropdown-arrow.svg" alt="dropdown arrow" />
+            </span>
           </div>
           <div class="content" *ngIf="person?.phone == selectedPhone">
             <ul>
@@ -71,6 +73,13 @@
                 <span class="right">Vegeterian</span>
               </li>
             </ul>
+
+            <div class="actions">
+              <button class="edit">Edit info</button>
+              <button class="remove" (click)="removePerson(person?.phone)">
+                Remove
+              </button>
+            </div>
           </div>
         </ng-container>
       </ng-container>

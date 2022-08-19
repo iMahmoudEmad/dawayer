@@ -35,6 +35,17 @@ export class BookingSummaryComponent implements OnInit {
     this.selectedPhone = person?.phone;
   }
 
+  removePerson(phone: string) {
+    let dataAfterRemoved = this.bookingData;
+    dataAfterRemoved = dataAfterRemoved.guests.filter((person: any) => {
+      return person?.phone !== phone;
+    });
+
+    this.bookingData.guests = dataAfterRemoved;
+
+    console.log('this.bookingData', this.bookingData);
+  }
+
   submitSummary() {
     this.ticket.bookingConfirmation(this.bookingData).subscribe((res: any) => {
       this.ticket.confirmedData.next(res?.response?.group);

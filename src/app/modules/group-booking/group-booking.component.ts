@@ -154,17 +154,78 @@ export class GroupBookingComponent implements OnInit {
     }
   }
 
+  Accommodation(data: any) {
+    const accommodation = [];
+    // if (data?.numberOfGuests?.quantity) {
+    //   accommodation.push({
+    //     id: data?.numberOfGuests?.id,
+    //     name: 'Ticket',
+    //     price: data?.numberOfGuests?.price,
+    //     quantity: data?.numberOfGuests?.quantity,
+    //   });
+    // }
+
+    if (data?.doubleTent?.quantity) {
+      accommodation.push({
+        id: data?.doubleTent?.id,
+        name: data?.doubleTent?.name,
+        price: data?.doubleTent?.price,
+        quantity: data?.doubleTent?.quantity,
+      });
+    }
+
+    if (data?.quadTent?.quantity) {
+      accommodation.push({
+        id: data?.quadTent?.id,
+        name: data?.quadTent?.name,
+        price: data?.quadTent?.price,
+        quantity: data?.quadTent?.quantity,
+      });
+    }
+
+    if (data?.islandBungalow?.quantity) {
+      accommodation.push({
+        id: data?.islandBungalow?.id,
+        name: data?.islandBungalow?.name,
+        price: data?.islandBungalow?.price,
+        quantity: data?.islandBungalow?.quantity,
+      });
+    }
+
+    return accommodation;
+  }
+
   async submitForm() {
+    // await this.profileForm.patchValue({
+    //   ...this.profileForm.value,
+    //   phone: `${this.phoneNumber.substring(2)}`,
+    // });
+    // this.profileForm.updateValueAndValidity();
     let guestsQuantity = this.inputValue.numberOfGuests.value?.quantity;
-    if (this.profileForm.valid && !this.phoneError) {
-      let data: any = this.profileForm.value;
-      data.phone = this.phoneNumber;
+    // console.log(typeof this.inputValue.phone.value);
+    // console.log(this.inputValue.phone.value);
+    // console.log(this.inputValue.phone.valid);
+    // console.log(this.inputValue.phone.errors);
+    // console.log(this.profileForm.valid);
+    // console.log(this.profileForm.invalid);
+    // console.log(this.profileForm.errors);
+    // console.log(this.profileForm.value);
+    // console.log(guestsQuantity);
+    if (
+      // this.profileForm.valid &&
+      !this.phoneError
+    ) {
+      let data: any = {
+        accommodation: this.Accommodation(this.profileForm.value) || [],
+        guests: [this.profileForm.value],
+      };
+      data.guests[0].phone = this.phoneNumber;
 
       if (guestsQuantity && guestsQuantity >= 1) {
         await this.ticket.bookingData.next(data);
         this.router.navigate(['/guests-booking']);
       } else {
-        await this.ticket.summaryData.next({ guests: [data] });
+        await this.ticket.summaryData.next(data);
         this.router.navigate(['/summary-booking']);
       }
     }

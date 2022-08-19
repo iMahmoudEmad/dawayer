@@ -18,14 +18,15 @@
                 <span class="before"></span>
                 <span class="data"
                   >{{ guestNum + 1 }}/{{
-                    ownerData?.numberOfGuests?.quantity + 1
+                    ownerData?.guests[0]?.numberOfGuests?.quantity + 1
                   }}</span
                 >
                 <span
                   class="after"
                   [ngStyle]="{
                     width:
-                      (100 / ownerData?.numberOfGuests?.quantity) * guestNum +
+                      (100 / ownerData?.guests[0]?.numberOfGuests?.quantity) *
+                        guestNum +
                       '%'
                   }"
                 ></span>
@@ -109,6 +110,7 @@
                 id="transportationChecked"
                 class="checkbox"
               />
+              <span class="checkmark"></span>
               <label class="clicked" for="transportationChecked"
                 >I’ll use the festival’s transporation option 🚐
               </label>
@@ -167,6 +169,7 @@
                 id="isVegeterian"
                 class="checkbox"
               />
+              <span class="checkmark"></span>
               <label class="clicked" for="isVegeterian"
                 >I’m a vegeterian 🥒
               </label>
@@ -181,7 +184,7 @@
               >
                 Continue to
                 {{
-                  guestNum < ownerData?.numberOfGuests?.quantity
+                  guestNum < ownerData?.guests[0]?.numberOfGuests?.quantity
                     ? "Guest #" + (guestNum + 1)
                     : "Summary"
                 }}

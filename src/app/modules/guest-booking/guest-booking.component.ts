@@ -41,6 +41,7 @@ export class GuestBookingComponent implements OnInit {
       .subscribe((ticket: any) => (this.tickets = ticket.response));
 
     await this.ticket.bookingData.subscribe((res: any) => {
+      console.log('guest bookingData res', res);
       if (res) {
         this.ownerData = res;
         this.addGuest(0);
@@ -59,7 +60,7 @@ export class GuestBookingComponent implements OnInit {
   }
 
   addGuest(index: number) {
-    if (this.guestNum < this.ownerData?.numberOfGuests?.quantity) {
+    if (this.guestNum < this.ownerData?.guests[0]?.numberOfGuests?.quantity) {
       this.guestNum++;
       const guestForm = this.fb.group({
         fullName: ['', Validators.required],
@@ -145,57 +146,16 @@ export class GuestBookingComponent implements OnInit {
     }
   }
 
-  get Accommodation() {
-    const accommodation = [];
-    // if (this.ownerData?.numberOfGuests?.quantity) {
-    //   accommodation.push({
-    //     id: this.ownerData?.numberOfGuests?.id,
-    //     name: 'Ticket',
-    //     price: this.ownerData?.numberOfGuests?.price,
-    //     quantity: this.ownerData?.numberOfGuests?.quantity,
-    //   });
-    // }
-
-    if (this.ownerData?.doubleTent?.quantity) {
-      accommodation.push({
-        id: this.ownerData?.doubleTent?.id,
-        name: this.ownerData?.doubleTent?.name,
-        price: this.ownerData?.doubleTent?.price,
-        quantity: this.ownerData?.doubleTent?.quantity,
-      });
-    }
-
-    if (this.ownerData?.quadTent?.quantity) {
-      accommodation.push({
-        id: this.ownerData?.quadTent?.id,
-        name: this.ownerData?.quadTent?.name,
-        price: this.ownerData?.quadTent?.price,
-        quantity: this.ownerData?.quadTent?.quantity,
-      });
-    }
-
-    if (this.ownerData?.islandBungalow?.quantity) {
-      accommodation.push({
-        id: this.ownerData?.islandBungalow?.id,
-        name: this.ownerData?.islandBungalow?.name,
-        price: this.ownerData?.islandBungalow?.price,
-        quantity: this.ownerData?.islandBungalow?.quantity,
-      });
-    }
-
-    return accommodation;
-  }
-
   submitForm() {
-    console.log(this.ownerData);
+    console.log(this.guests.value);
     let data: any = {
-      guests: [this.ownerData, ...this.guests.value],
-      accommodation: this.Accommodation || [],
+      accommodation: this.ownerData?.accommodation,
+      guests: [...this.ownerData?.guests, ...this.guests.value],
     };
 
     this.ticket.summaryData.next(data);
 
-    if (this.ownerData?.numberOfGuests?.quantity) {
+    if (this.ownerData?.guests[0]?.numberOfGuests?.quantity) {
       this.router.navigate(['/summary-booking']);
     } else {
       this.router.navigate(['/group-booking']);

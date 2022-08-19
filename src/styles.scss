@@ -20,8 +20,13 @@
 }
 
 body {
-  padding: 1rem 1rem 3rem;
   margin: 0;
+}
+
+section.main {
+  padding: 1rem 1rem 3rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 @media screen and(min-width:768px) {
@@ -33,7 +38,6 @@ body {
     max-width: 500px;
     margin: auto;
     background: #fff;
-    padding: 1rem;
     border-radius: 0.5rem;
   }
 }

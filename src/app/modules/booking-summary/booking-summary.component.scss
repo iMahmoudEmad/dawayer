@@ -95,6 +95,29 @@
         }
       }
     }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.5rem;
+
+      button {
+        border: none;
+        background: transparent;
+        font-family: "Inter";
+        font-weight: 400;
+        font-size: 1rem;
+      }
+
+      .edit {
+        color: #0085ff;
+      }
+
+      .remove {
+        color: #6d6d6d;
+      }
+    }
   }
 
   .personalInfo {
@@ -130,6 +153,7 @@
       border: 1px solid #ededed;
       border-radius: 0.5rem;
       margin-bottom: 1rem;
+      cursor: pointer;
 
       .left {
         font-size: 1.125rem;
@@ -139,6 +163,10 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+
+        img {
+          vertical-align: middle;
+        }
       }
     }
   }

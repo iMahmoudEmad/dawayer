@@ -51,17 +51,12 @@
           [class.error]="phoneError"
           (ngModelChange)="verifyPhone($event)"
         ></ngx-intl-tel-input>
-        inputValue.phone.invalid: {{ inputValue.phone.invalid | json }}
-        <br />
-        inputValue.phone.dirty: {{ inputValue.phone.dirty | json }}
-        <br />
-        inputValue.phone.touched: {{ inputValue.phone.touched | json }}
+
         <p
           class="error"
           *ngIf="
-            inputValue.phone.invalid &&
-            inputValue.phone.dirty &&
-            inputValue.phone.touched
+            inputValue.phone.errors &&
+            inputValue.phone.errors['validatePhoneNumber']?.valid == false
           "
         >
           Please enter a valid mobile number.
