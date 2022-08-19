@@ -81,6 +81,7 @@
           id="transportationChecked"
           class="checkbox"
         />
+        <span class="checkmark"></span>
         <label class="clicked" for="transportationChecked"
           >I’ll use the festival’s transporation option 🚐
         </label>
@@ -94,7 +95,9 @@
                 selectedItem?.name || "Select the nearest pick-up point to you"
               }}
             </h2>
-            <span>^</span>
+            <span>
+              <img src="assets/dropdown-arrow.svg" alt="dropdown arrow" />
+            </span>
           </div>
 
           <div class="list" *ngIf="isListShown">
@@ -131,6 +134,7 @@
           id="isVegeterian"
           class="checkbox"
         />
+        <span class="checkmark"></span>
         <label class="clicked" for="isVegeterian">I’m a vegeterian 🥒 </label>
       </div>
 
