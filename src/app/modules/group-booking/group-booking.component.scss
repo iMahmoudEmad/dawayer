@@ -123,6 +123,10 @@
         border-radius: 0.5rem;
         padding-inline-start: 0.5rem;
 
+        &:focus {
+          border: 2px solid #44ad8f;
+        }
+
         &::placeholder {
           font-size: 0.75rem;
         }
@@ -165,7 +169,7 @@
         }
       }
 
-      span {
+      span.arrow {
         border-inline-start: 1px solid #ededed;
         padding-inline-start: 0.5rem;
 

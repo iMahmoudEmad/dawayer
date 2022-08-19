@@ -51,6 +51,21 @@
           [class.error]="phoneError"
           (ngModelChange)="verifyPhone($event)"
         ></ngx-intl-tel-input>
+        inputValue.phone.invalid: {{ inputValue.phone.invalid | json }}
+        <br />
+        inputValue.phone.dirty: {{ inputValue.phone.dirty | json }}
+        <br />
+        inputValue.phone.touched: {{ inputValue.phone.touched | json }}
+        <p
+          class="error"
+          *ngIf="
+            inputValue.phone.invalid &&
+            inputValue.phone.dirty &&
+            inputValue.phone.touched
+          "
+        >
+          Please enter a valid mobile number.
+        </p>
         <p class="error" *ngIf="phoneError">
           This mobile number is already inserted before.
         </p>
@@ -95,7 +110,7 @@
                 selectedItem?.name || "Select the nearest pick-up point to you"
               }}
             </h2>
-            <span>
+            <span class="arrow">
               <img src="assets/dropdown-arrow.svg" alt="dropdown arrow" />
             </span>
           </div>
@@ -227,7 +242,13 @@
       </ng-container>
 
       <div class="form-control">
-        <button class="btn" (click)="submitForm()">Continue to Summary</button>
+        <button class="btn" (click)="submitForm()">
+          {{
+            inputValue.numberOfGuests.value?.quantity
+              ? "Continue to group details"
+              : "Continue to Summary"
+          }}
+        </button>
       </div>
     </form>
   </div>

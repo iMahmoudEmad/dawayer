@@ -20,7 +20,10 @@ export class GroupBookingComponent implements OnInit {
   profileForm = new FormGroup({
     fullName: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
-    phone: new FormControl('', Validators.required),
+    phone: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^(\+201|01|00201)[0-2,5]{1}[0-9]{8}/g),
+    ]),
     socialMediaLink: new FormControl('', [
       Validators.required,
       Validators.pattern(

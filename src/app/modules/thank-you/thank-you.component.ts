@@ -21,4 +21,12 @@ export class ThankYouComponent implements OnInit {
       }
     });
   }
+
+  /**
+   * TODO
+   * Implement function to copy all codes
+   */
+  copyCode() {
+    navigator.clipboard.writeText('copyText.value');
+  }
 }
