@@ -1,0 +1,158 @@
+<section class="main">
+  <header>
+    <h2 class="title">Your personal info.</h2>
+  </header>
+
+  <div class="body">
+    <form [formGroup]="profileForm">
+      <div class="form-control">
+        <label class="clicked mb-1" for="fullName"> Full name </label>
+        <input
+          autofocus="on"
+          type="text"
+          formControlName="fullName"
+          id="fullName"
+          class="input w-100"
+          [class.error]="
+            inputValue.fullName.invalid &&
+            (inputValue.fullName.dirty || inputValue.fullName.touched)
+          "
+        />
+      </div>
+
+      <div class="form-control">
+        <label class="clicked mb-1" for="email"> Email </label>
+        <input
+          type="text"
+          formControlName="email"
+          id="email"
+          class="input w-100"
+          [class.error]="
+            inputValue.email.invalid &&
+            (inputValue.email.dirty || inputValue.email.touched)
+          "
+        />
+      </div>
+
+      <div class="form-control b-none">
+        <label class="clicked mb-1" for="phone"> Mobile number </label>
+        <ngx-intl-tel-input
+          [enableAutoCountrySelect]="false"
+          [enablePlaceholder]="true"
+          [searchCountryFlag]="true"
+          [selectFirstCountry]="false"
+          [maxLength]="11"
+          [phoneValidation]="true"
+          [selectedCountryISO]="CountryISO.Egypt"
+          [inputId]="'phone'"
+          name="phone"
+          formControlName="phone"
+          class="input w-100 b-none"
+          [class.error]="phoneError"
+          (ngModelChange)="verifyPhone($event)"
+        ></ngx-intl-tel-input>
+
+        <p
+          class="error"
+          *ngIf="
+            inputValue.phone.errors &&
+            inputValue.phone.errors['validatePhoneNumber']?.valid == false
+          "
+        >
+          Please enter a valid mobile number.
+        </p>
+        <p class="error" *ngIf="phoneError">
+          This mobile number is already inserted before.
+        </p>
+      </div>
+
+      <div class="form-control mb-15">
+        <label class="clicked mb-1" for="socialMediaLink"
+          >Social media link
+        </label>
+        <input
+          type="text"
+          formControlName="socialMediaLink"
+          id="socialMediaLink"
+          placeholder="facebook.com/PartyBooster"
+          class="input w-100"
+          [class.error]="
+            inputValue.socialMediaLink.invalid &&
+            (inputValue.socialMediaLink.dirty ||
+              inputValue.socialMediaLink.touched)
+          "
+        />
+      </div>
+
+      <div class="form-control">
+        <input
+          type="checkbox"
+          formControlName="transportationChecked"
+          id="transportationChecked"
+          class="checkbox"
+        />
+        <span class="checkmark"></span>
+        <label class="clicked" for="transportationChecked"
+          >I’ll use the festival’s transporation option 🚐
+        </label>
+      </div>
+
+      <div class="form-control" *ngIf="inputValue.transportationChecked.value">
+        <div class="content clicked">
+          <div class="data" (click)="isListShown = !isListShown">
+            <h2 [class.active]="selectedItem?._id">
+              {{
+                selectedItem?.name || "Select the nearest pick-up point to you"
+              }}
+            </h2>
+            <span class="arrow">
+              <img src="assets/dropdown-arrow.svg" alt="dropdown arrow" />
+            </span>
+          </div>
+
+          <div class="list" *ngIf="isListShown">
+            <ul>
+              <li
+                *ngFor="let transportationItem of tickets.transportation"
+                (click)="setSelectedTransportation(transportationItem)"
+                [class.disabled]="!transportationItem?.availability"
+                [class.selected]="selectedItem?._id == transportationItem?._id"
+              >
+                <span>{{ transportationItem?.name }}</span>
+                <!-- <span>10:00 AM</span> -->
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pricing" *ngIf="selectedItem">
+          <div class="content">
+            <div class="left">
+              <span *ngIf="selectedItem">
+                There will be {{ selectedItem?.price }} EGP transportation fees
+                added to the ticket.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-control mb-2">
+        <input
+          type="checkbox"
+          formControlName="isVegeterian"
+          id="isVegeterian"
+          class="checkbox"
+        />
+        <span class="checkmark"></span>
+        <label class="clicked" for="isVegeterian">I’m a vegeterian 🥒 </label>
+      </div>
+
+      <div class="form-control">
+        <button class="btn" (click)="submitForm()">
+          Save and back to Summary
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

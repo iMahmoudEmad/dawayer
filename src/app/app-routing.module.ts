@@ -29,6 +29,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'summary-booking/:idx',
+    loadChildren: () =>
+      import(
+        './modules/add-edit-booking-summary/add-edit-booking-summary.module'
+      ).then((m) => m.AddEditBookingSummaryModule),
+  },
+  {
     path: 'thank-you',
     loadChildren: () =>
       import('./modules/thank-you/thank-you.module').then(
