@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <ng-container *ngFor="let person of bookingData?.guests">
+    <ng-container *ngFor="let person of bookingData?.guests; let i = index">
       <div class="personalInfo" *ngIf="person?.isOwner">
         <h2 class="title">Your personal info.</h2>
         <div class="content">
@@ -44,6 +44,12 @@
               <span class="right">Vegeterian</span>
             </li>
           </ul>
+
+          <div class="actions center">
+            <button class="edit" [routerLink]="'/summary-booking/' + i">
+              Edit info
+            </button>
+          </div>
         </div>
       </div>
     </ng-container>
@@ -75,7 +81,9 @@
             </ul>
 
             <div class="actions">
-              <button class="edit">Edit info</button>
+              <button class="edit" [routerLink]="'/summary-booking/' + i">
+                Edit info
+              </button>
               <button class="remove" (click)="removePerson(person?.phone)">
                 Remove
               </button>

@@ -102,6 +102,10 @@
       align-items: center;
       margin-top: 1.5rem;
 
+      &.center {
+        justify-content: center;
+      }
+
       button {
         border: none;
         background: transparent;

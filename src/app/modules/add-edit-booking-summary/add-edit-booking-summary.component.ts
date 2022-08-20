@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { CountryISO } from 'ngx-intl-tel-input';
 import { TicketsService } from 'src/app/services/tickets.service';
 
@@ -10,6 +10,8 @@ import { TicketsService } from 'src/app/services/tickets.service';
   styleUrls: ['./add-edit-booking-summary.component.scss'],
 })
 export class AddEditBookingSummaryComponent implements OnInit {
+  dynamicIdx: number | string = 0;
+  backupData!: any;
   tickets: any;
   CountryISO = CountryISO;
   isListShown: boolean = false;
@@ -36,13 +38,22 @@ export class AddEditBookingSummaryComponent implements OnInit {
     isOwner: new FormControl(false),
   });
 
-  constructor(private ticket: TicketsService, private router: Router) {}
+  constructor(
+    private ticket: TicketsService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    localStorage.removeItem('phoneList');
-    this.ticket.bookingData.subscribe((res) =>
-      this.profileForm.patchValue(res)
-    );
+    this.route.params.subscribe((params) => (this.dynamicIdx = params['idx']));
+
+    this.ticket.summaryData.subscribe((res) => {
+      this.backupData = res;
+
+      this.profileForm.patchValue({
+        ...this.backupData?.guests[this.dynamicIdx],
+      });
+    });
 
     this.ticket.getTickets().subscribe((ticket: any) => {
       this.tickets = ticket.response;
@@ -90,37 +101,24 @@ export class AddEditBookingSummaryComponent implements OnInit {
   }
 
   submitForm() {
-    // await this.profileForm.patchValue({
-    //   ...this.profileForm.value,
-    //   phone: `${this.phoneNumber.substring(2)}`,
-    // });
-    // this.profileForm.updateValueAndValidity();
-    // console.log(typeof this.inputValue.phone.value);
-    // console.log(this.inputValue.phone.value);
-    // console.log(this.inputValue.phone.valid);
-    // console.log(this.inputValue.phone.errors);
-    // console.log(this.profileForm.valid);
-    // console.log(this.profileForm.invalid);
-    // console.log(this.profileForm.errors);
-    // console.log(this.profileForm.value);
-    // console.log(guestsQuantity);
-    if (
-      // this.profileForm.valid &&
-      !this.phoneError
-    ) {
-      let data: any = {
-        guests: [this.profileForm.value],
-      };
-      data.guests[0].phone = this.phoneNumber;
+    this.backupData.guests[this.dynamicIdx] = this.profileForm?.value;
+    console.log(
+      'this.backupData.guests[this.dynamicIdx].phone',
+      this.backupData.guests[this.dynamicIdx].phone
+    );
+    if (this.backupData.guests[this.dynamicIdx].phone?.number?.length > 11) {
+      this.backupData.guests[this.dynamicIdx].phone = `${
+        this.backupData.guests[this.dynamicIdx]?.phone?.number
+      }`;
+    } else {
+      this.backupData.guests[this.dynamicIdx].phone = `+2${
+        this.backupData.guests[this.dynamicIdx]?.phone?.number
+      }`;
+    }
 
-      // if (guestsQuantity && guestsQuantity >= 1) {
-      this.ticket.bookingData.next(data);
-      this.router.navigate(['/guests-booking']);
-      // }
-      // else {
-      //   await this.ticket.summaryData.next(data);
-      //   this.router.navigate(['/summary-booking']);
-      // }
+    if (!this.phoneError) {
+      this.ticket.summaryData.next(this.backupData);
+      this.router.navigate(['/summary-booking']);
     }
   }
 }
