@@ -85,12 +85,12 @@ export class AddEditBookingSummaryComponent implements OnInit {
   verifyPhone(phone: any) {
     if (phone?.number?.length == 11) {
       this.ticket
-        .verifyPhone(encodeURIComponent(`+2${phone?.number}`))
+        .verifyPhone(encodeURIComponent(`${phone?.number}`))
         .subscribe(
           (res: any) => {
             if (res.status == 'SUCCESS') {
               this.phoneError = false;
-              this.phoneNumber = `+2${phone?.number}`;
+              this.phoneNumber = `${phone?.number}`;
             } else {
               this.phoneError = true;
             }
@@ -111,7 +111,7 @@ export class AddEditBookingSummaryComponent implements OnInit {
         this.backupData.guests[this.dynamicIdx]?.phone?.number
       }`;
     } else {
-      this.backupData.guests[this.dynamicIdx].phone = `+2${
+      this.backupData.guests[this.dynamicIdx].phone = `${
         this.backupData.guests[this.dynamicIdx]?.phone?.number
       }`;
     }

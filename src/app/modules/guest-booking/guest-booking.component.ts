@@ -120,7 +120,7 @@ export class GuestBookingComponent implements OnInit {
           (res: any) => {
             if (res.status == 'SUCCESS' && !isPhoneFound()) {
               this.phoneError = false;
-              this.phoneNumber = `+2${phone?.number}`;
+              this.phoneNumber = `${phone?.number}`;
             } else {
               this.phoneError = true;
             }

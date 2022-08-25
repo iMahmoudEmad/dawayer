@@ -140,10 +140,10 @@ export class GroupBookingComponent implements OnInit {
           (res: any) => {
             if (res.status == 'SUCCESS') {
               this.phoneError = false;
-              this.phoneNumber = `+2${phone?.number}`;
+              this.phoneNumber = `${phone?.number}`;
               localStorage.setItem(
                 'phoneList',
-                JSON.stringify([`+2${phone?.number}`])
+                JSON.stringify([`${phone?.number}`])
               );
             } else {
               this.phoneError = true;
@@ -196,23 +196,16 @@ export class GroupBookingComponent implements OnInit {
   }
 
   async submitForm() {
-    // await this.profileForm.patchValue({
-    //   ...this.profileForm.value,
-    //   phone: `${this.phoneNumber.substring(2)}`,
-    // });
-    // this.profileForm.updateValueAndValidity();
+    await this.profileForm.patchValue({
+      ...this.profileForm.value,
+      phone: `${this.phoneNumber?.substring(2)}`,
+    });
+    this.profileForm.updateValueAndValidity();
     let guestsQuantity = this.inputValue.numberOfGuests.value?.quantity;
-    // console.log(typeof this.inputValue.phone.value);
-    // console.log(this.inputValue.phone.value);
-    // console.log(this.inputValue.phone.valid);
-    // console.log(this.inputValue.phone.errors);
-    // console.log(this.profileForm.valid);
-    // console.log(this.profileForm.invalid);
-    // console.log(this.profileForm.errors);
-    // console.log(this.profileForm.value);
-    // console.log(guestsQuantity);
+    console.log(this.inputValue.phone.errors);
+    
     if (
-      // this.profileForm.valid &&
+      this.profileForm.valid &&
       !this.phoneError
     ) {
       let data: any = {

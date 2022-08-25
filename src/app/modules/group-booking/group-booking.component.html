@@ -42,7 +42,7 @@
           [searchCountryFlag]="true"
           [selectFirstCountry]="false"
           [maxLength]="11"
-          [phoneValidation]="true"
+          [phoneValidation]="false"
           [selectedCountryISO]="CountryISO.Egypt"
           [inputId]="'phone'"
           name="phone"
@@ -237,7 +237,10 @@
       </ng-container>
 
       <div class="form-control">
-        <button class="btn" (click)="submitForm()">
+        <button class="btn" 
+        [class.disabled]="phoneError || profileForm.invalid"
+        [disabled]="phoneError || profileForm.invalid"
+        (click)="submitForm()">
           {{
             inputValue.numberOfGuests.value?.quantity
               ? "Continue to group details"
