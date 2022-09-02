@@ -1,3 +1,5 @@
+@import '../../../_variables.scss';
+
 .body {
   font-family: "Inter";
 
@@ -34,7 +36,7 @@
         border-radius: 0.5rem;
         font-weight: 600;
         font-size: 1.125rem;
-        background: #34557B;
+        background: $brand_color;
         color: #fff;
         font-family: "Inter";
 
@@ -74,8 +76,8 @@
       }
 
       &:checked ~ .checkmark {
-        background-color: #34557B;
-        border: 1px solid #34557B;
+        background-color: $brand_color;
+        border: 1px solid $brand_color;
 
         &:after {
           display: block;
@@ -124,7 +126,7 @@
         padding-inline-start: 0.5rem;
 
         &:focus {
-          border: 2px solid #34557B;
+          border: 2px solid $brand_color;
         }
 
         &::placeholder {
