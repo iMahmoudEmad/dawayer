@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { TicketsService } from 'src/app/services/tickets.service';
 
 @Component({
@@ -10,8 +11,9 @@ import { TicketsService } from 'src/app/services/tickets.service';
 export class BookingSummaryComponent implements OnInit {
   bookingData: any;
   selectedPhone!: string;
+  isLoaderShown!: boolean;
 
-  constructor(private ticket: TicketsService, private router: Router) {}
+  constructor(private ticket: TicketsService, private router: Router, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.ticket.summaryData.subscribe((res: any) => {
@@ -47,9 +49,17 @@ export class BookingSummaryComponent implements OnInit {
   }
 
   submitSummary() {
+    this.isLoaderShown = true;
+
     this.ticket.bookingConfirmation(this.bookingData).subscribe((res: any) => {
+      this.isLoaderShown = false;
       this.ticket.confirmedData.next(res?.response?.group);
+      this.toastr.success('', 'Booking successfully!');
+      
       this.router.navigate(['/thank-you']);
+    },(err: any) => {
+      this.isLoaderShown = false;
+      this.toastr.error('', err?.messages?.en || "An error occured in server, please try later");
     });
   }
 }

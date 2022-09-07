@@ -10,7 +10,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^14.1.0",
+    "@angular/animations": "^14.2.1",
     "@angular/common": "^14.1.0",
     "@angular/compiler": "^14.1.0",
     "@angular/core": "^14.1.0",
@@ -22,6 +22,7 @@
     "intl-tel-input": "17.0.8",
     "ngx-bootstrap": "^6.2.0",
     "ngx-intl-tel-input": "^3.2.0",
+    "ngx-toastr": "^15.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

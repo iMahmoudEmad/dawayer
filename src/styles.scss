@@ -51,6 +51,33 @@ section.main {
   color: #1E3045;
 }
 
+.loading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+  padding: 2rem;
+  background-color: #fff;
+  z-index: 2;
+
+  img{
+    width: 150px;
+    height: 150px;
+  }
+}
+
+.btn-loading-img {
+  width: 1rem;
+  height: 1rem;
+  margin-inline-start: 1rem;
+  vertical-align: middle;
+}
+
 .b-none {
   border: none !important;
 }

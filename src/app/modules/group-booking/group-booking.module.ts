@@ -21,6 +21,6 @@ const routes: Routes = [
     HttpClientModule,
     ReactiveFormsModule,
     NgxIntlTelInputModule,
-  ],
+  ]
 })
 export class GroupBookingModule {}

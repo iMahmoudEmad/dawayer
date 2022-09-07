@@ -10,6 +10,7 @@ export class TicketsService {
   bookingData = new BehaviorSubject<object>({});
   summaryData = new BehaviorSubject<object>({});
   confirmedData = new BehaviorSubject<object>({});
+  loader = new BehaviorSubject<boolean>(true);
 
   constructor(private http: HttpClient) {}
 

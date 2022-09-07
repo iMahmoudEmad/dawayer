@@ -8,7 +8,7 @@
       <div class="form-control">
         <label class="clicked mb-1" for="fullName"> Full name </label>
         <input
-          autofocus="on"
+          autofocus
           type="text"
           formControlName="fullName"
           id="fullName"
@@ -230,7 +230,7 @@
                   Water Heater
                 </span>
               </div>
-              <div class="right">{{ item?.price }} EGP Per Tent</div>
+              <div class="right">{{ item?.price }} EGP / Tent</div>
             </div>
           </div>
         </ng-container>
@@ -241,10 +241,10 @@
         [class.disabled]="phoneError || profileForm.invalid"
         [disabled]="phoneError || profileForm.invalid"
         (click)="submitForm()">
-          {{
+          Continue to {{
             inputValue.numberOfGuests.value?.quantity
-              ? "Continue to group details"
-              : "Continue to Summary"
+              ? "group details"
+              : "Summary"
           }}
         </button>
       </div>

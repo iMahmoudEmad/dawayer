@@ -93,6 +93,10 @@
       </ng-container>
     </div>
 
-    <button class="btn" (click)="submitSummary()">Confirm and Submit</button>
+    <button class="btn" (click)="submitSummary()">
+      Confirm and Submit
+
+      <img src="assets/btn-loader.gif" alt="loader" class="btn-loading-img" *ngIf="isLoaderShown" />
+    </button>
   </div>
 </section>
