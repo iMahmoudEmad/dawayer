@@ -23,8 +23,20 @@
     }
 
     &:last-of-type {
-      margin-top: 4rem;
-      margin-bottom: 4rem;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      max-width: 500px;
+      left: 0;
+      right: 0;
+      margin: auto;
+      background-color: #fff;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-right: 1rem;
+      padding-left: 1rem;
 
       .btn {
         width: 100%;

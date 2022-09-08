@@ -214,8 +214,9 @@ export class GroupBookingComponent implements OnInit {
     console.log(this.inputValue.phone.errors);
     
     if (
-      this.profileForm.valid &&
-      !this.phoneError
+      (this.profileForm.valid &&
+      !this.phoneError) ||
+      (!this.inputValue.transportation.value && this.inputValue.transportationChecked.value)
     ) {
       let data: any = {
         accommodation: this.Accommodation(this.profileForm.value) || [],
