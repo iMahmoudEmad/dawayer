@@ -5,6 +5,7 @@ import { GroupBookingComponent } from './group-booking.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 const routes: Routes = [
   {
@@ -18,9 +19,11 @@ const routes: Routes = [
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
+    ToastrModule.forRoot(),
     HttpClientModule,
     ReactiveFormsModule,
     NgxIntlTelInputModule,
-  ]
+  ],
+  providers: [ToastrService]
 })
 export class GroupBookingModule {}

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NavigationEnd, Router } from '@angular/router';
 import { CountryISO } from 'ngx-intl-tel-input';
+import { ToastrService } from 'ngx-toastr';
 import { TicketsService } from 'src/app/services/tickets.service';
 
 @Component({
@@ -16,6 +17,8 @@ export class GroupBookingComponent implements OnInit {
   selectedItem: any;
   phoneNumber!: string;
   phoneError!: boolean;
+  accommodationQty: number = 0;
+  guestQty: number = 0;
 
   profileForm = new FormGroup({
     fullName: new FormControl('', Validators.required),
@@ -60,7 +63,7 @@ export class GroupBookingComponent implements OnInit {
     isOwner: new FormControl(true),
   });
 
-  constructor(private ticket: TicketsService, private router: Router) {}
+  constructor(private ticket: TicketsService, private router: Router, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     localStorage.removeItem('phoneList');
@@ -89,25 +92,31 @@ export class GroupBookingComponent implements OnInit {
     return data.value;
   }
 
-  increment(item?: any) {
-    const name =
-      item?.name !== 'Ticket' ? this.formatName(item?.name) : 'numberOfGuests';
-    const count: any = this.profileForm.get(name);
+  increment(item?: any, isGuestIncrease?: boolean) {
+    if(isGuestIncrease || this.accommodationQty < 8) {
+      const name =
+        item?.name !== 'Ticket' ? this.formatName(item?.name) : 'numberOfGuests';
+      const count: any = this.profileForm.get(name);
+      if (!isGuestIncrease) this.accommodationQty += 1;
 
-    this.profileForm.patchValue({
-      [name]: {
-        id: item?._id,
-        quantity: count.value?.quantity + 1,
-        name: item?.name,
-        price: item?.price,
-      },
-    });
+      this.profileForm.patchValue({
+        [name]: {
+          id: item?._id,
+          quantity: count.value?.quantity + 1,
+          name: item?.name,
+          price: item?.price,
+        },
+      });
+    } else {
+      this.noAvailableQty(this.accommodationQty);
+    }
   }
 
   decrement(item?: any) {
     const name =
       item?.name !== 'Ticket' ? this.formatName(item?.name) : 'numberOfGuests';
     const count: any = this.profileForm.get(name);
+    this.accommodationQty -= 1;
 
     if (count?.value?.quantity >= 1)
       this.profileForm.patchValue({
@@ -222,5 +231,9 @@ export class GroupBookingComponent implements OnInit {
         this.router.navigate(['/summary-booking']);
       }
     }
+  }
+
+  noAvailableQty(availableQuantity?: number|string) {
+    this.toastr.error('', availableQuantity == 0 ? "All tickets has been booked" : "You reach the maximum quantity");
   }
 }
