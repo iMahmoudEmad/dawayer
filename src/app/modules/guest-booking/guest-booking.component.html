@@ -9,7 +9,7 @@
           *ngFor="let guestsForm of guests?.controls; let i = index"
         >
           <div [formGroup]="getFormGroupAt(i)" *ngIf="i + 1 == guestNum">
-            <a (click)="decreaseGuestNumber()">{{ guestNavigationText() }} </a>
+            <a class="clicked" (click)="decreaseGuestNumber()">{{ guestNavigationText() }} </a>
 
             <div class="guestInfo">
               Guest #{{ guestNum + 1 }} Info
