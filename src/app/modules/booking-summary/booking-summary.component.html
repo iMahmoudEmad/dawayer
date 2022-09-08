@@ -93,10 +93,10 @@
       </ng-container>
     </div>
 
-    <button class="btn" (click)="submitSummary()">
-      Confirm and Submit
+    <button class="btn" (click)="!isLoaderShown ? submitSummary() : ''" [disabled]="isLoaderShown">
+      {{!isLoaderShown ? 'Confirm and Submit' : ''}}
 
-      <img src="assets/btn-loader.gif" alt="loader" class="btn-loading-img" *ngIf="isLoaderShown" />
+      <img src="assets/spinner.svg" alt="loader" class="btn-loading-img" *ngIf="isLoaderShown" />
     </button>
   </div>
 </section>

@@ -78,6 +78,14 @@ section.main {
   height: 1rem;
   margin-inline-start: 1rem;
   vertical-align: middle;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin { 
+  100% { 
+      -webkit-transform: rotate(360deg); 
+      transform:rotate(360deg); 
+  } 
 }
 
 .b-none {
