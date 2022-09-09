@@ -217,7 +217,7 @@
               >
             </p>
             <span class="clicked plus" (click)="accommodationValue(item.name)?.quantity !== item?.availableQuantity ? increment(item) : noAvailableQty(item?.availableQuantity)">
-              <img [src]="accommodationQty !== 8 ? 'assets/plus.svg' : 'assets/plus-disabled.svg'" alt="plus" />
+              <img [src]="accommodationQty !== 8 && item?.availableQuantity !== 0 ? 'assets/plus.svg' : 'assets/plus-disabled.svg'" alt="plus" />
             </span>
           </div>
           <h3 class="note mb-2 mt-8" [class.active]="item?.availableQuantity == 0" *ngIf="item?.availableQuantity == 0">
