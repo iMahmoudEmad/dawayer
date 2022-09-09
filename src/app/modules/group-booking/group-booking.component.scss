@@ -265,6 +265,10 @@
     justify-content: space-between;
     align-items: center;
 
+    &.opacity{
+      opacity: .5;
+    }
+
     .minus,
     .plus {
       width: 1.5rem;
@@ -376,6 +380,21 @@
 
   .iti__selected-flag {
     border-right: 1px solid #ededed;
+  }
+}
+
+.note.active{
+  background-color: #F6F6F6;
+  color: #1E3045;
+  font-size: .75rem;
+  font-family: 'Inter';
+  padding: 10px;
+  margin-top: .5rem;
+
+  img{
+    width:1rem;
+    height: 1rem;
+    vertical-align: middle;
   }
 }
 

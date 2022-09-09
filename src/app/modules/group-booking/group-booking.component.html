@@ -7,7 +7,7 @@
         <p>Registeration Form</p>
       </div>
     </div>
-    
+
     <h2 class="title">Your personal info.</h2>
   </header>
 
@@ -163,7 +163,7 @@
       <!-- <h3 class="note">A chance to know you more</h3> -->
       <h3>Booking for how many guests?</h3>
 
-      <div class="numberOfGuests mb-2 mt-15">
+      <div class="numberOfGuests mt-15" [class.mb-2]="inputValue.numberOfGuests.value?.quantity !== 10">
         <span class="clicked minus" (click)="decrement(tickets?.ticket[0])">
           <img
             src="assets/{{
@@ -179,9 +179,10 @@
           <span>{{ inputValue.numberOfGuests.value?.quantity }} Guest</span>
         </p>
         <span class="clicked plus" (click)="inputValue.numberOfGuests.value?.quantity !== 10 ? increment(tickets?.ticket[0], true) : this.noAvailableQty(10)">
-          <img src="assets/plus.svg" alt="plus" />
+          <img [src]="inputValue.numberOfGuests.value?.quantity !== 10 ? 'assets/plus.svg' : 'assets/plus-disabled.svg'" alt="plus" />
         </span>
       </div>
+      <h3 class="note mb-2 mt-8" *ngIf="inputValue.numberOfGuests.value?.quantity == 10">You have reached the maximum available quantity</h3>
 
       <ng-container *ngIf="tickets?.accommodation">
         <h2 class="accommodation title">Accommodation</h2>
@@ -191,7 +192,7 @@
         <ng-container *ngFor="let item of tickets?.accommodation">
           <h3>{{ item?.name }}</h3>
 
-          <div class="numberOfGuests">
+          <div class="numberOfGuests" [class.opacity]="item?.availableQuantity == 0">
             <span class="clicked minus" (click)="decrement(item)">
               <img
                 src="assets/{{
@@ -216,10 +217,16 @@
               >
             </p>
             <span class="clicked plus" (click)="accommodationValue(item.name)?.quantity !== item?.availableQuantity ? increment(item) : noAvailableQty(item?.availableQuantity)">
-              <img src="assets/plus.svg" alt="plus" />
+              <img [src]="accommodationQty !== 8 ? 'assets/plus.svg' : 'assets/plus-disabled.svg'" alt="plus" />
             </span>
           </div>
-          <div class="pricing" *ngIf="item?.price">
+          <h3 class="note mb-2 mt-8" [class.active]="item?.availableQuantity == 0" *ngIf="item?.availableQuantity == 0">
+            <img src="assets/not.svg" alt="not" />
+            Sorry, {{accommodationValue(item.name)?.name}} are not available right now 🙁
+          </h3>
+          <h3 class="note mb-2 mt-8" *ngIf="accommodationQty == 8">You have reached the maximum available quantity</h3>
+
+          <div class="pricing" *ngIf="item?.price && item?.availableQuantity !== 0">
             <div class="content">
               <div class="left">
                 <span *ngIf="item?.items?.numberOfPersons">
