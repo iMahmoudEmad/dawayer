@@ -9,6 +9,7 @@
         <label class="clicked mb-1" for="fullName"> Full name </label>
         <input
           autofocus
+          autocomplete="off"
           type="text"
           formControlName="fullName"
           id="fullName"
@@ -24,6 +25,7 @@
         <label class="clicked mb-1" for="email"> Email </label>
         <input
           type="text"
+          autocomplete="off"
           formControlName="email"
           id="email"
           class="input w-100"
@@ -37,6 +39,7 @@
       <div class="form-control b-none">
         <label class="clicked mb-1" for="phone"> Mobile number </label>
         <ngx-intl-tel-input
+          autocomplete="off"
           autocomplete="nope"
           [enableAutoCountrySelect]="false"
           [enablePlaceholder]="true"
@@ -73,6 +76,7 @@
         </label>
         <input
           type="text"
+          autocomplete="off"
           formControlName="socialMediaLink"
           id="socialMediaLink"
           class="input w-100"
@@ -216,7 +220,7 @@
                   {{ item?.items?.numberOfPersons > 1 ? "persons" : "person" }}
                 </span>
                 <span *ngIf="item?.items?.numberOfBeds">
-                  <img src="assets/beds.svg" alt="beds" />
+                  <img [src]="item?.items?.numberOfBeds == 1 ? 'assets/bed.svg' : 'assets/beds.svg' " alt="beds" />
                   {{ item?.items?.numberOfBeds }} Bed{{
                     item?.items?.numberOfBeds > 1 ? "s" : ""
                   }}
