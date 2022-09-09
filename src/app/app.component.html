@@ -2,7 +2,7 @@
   <div class="loading" *ngIf="isLoaderShown">
     <img src="assets/loading.gif" alt="loader image" />
   </div>
-  
+
   <ng-container *ngIf="!isLoaderShown">
     <router-outlet (activate)="onActivate($event)"></router-outlet>
   </ng-container>

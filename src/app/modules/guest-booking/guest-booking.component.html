@@ -7,7 +7,7 @@
         <p>Registeration Form</p>
       </div>
     </div>
-    
+
     <h2 class="title">Your personal info.</h2>
   </header>
   <div class="body">
@@ -17,7 +17,9 @@
           *ngFor="let guestsForm of guests?.controls; let i = index"
         >
           <div [formGroup]="getFormGroupAt(i)" *ngIf="i + 1 == guestNum">
-            <a class="clicked" (click)="decreaseGuestNumber()">{{ guestNavigationText() }} </a>
+            <a class="clicked" (click)="decreaseGuestNumber()"
+              >{{ guestNavigationText() }}
+            </a>
 
             <div class="guestInfo">
               Guest #{{ guestNum + 1 }} Info

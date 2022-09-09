@@ -1,4 +1,4 @@
-@import '../../../_variables.scss';
+@import "../../../_variables.scss";
 
 .main {
   .header-image {
@@ -106,8 +106,6 @@
       }
     }
   }
-
-
 
   .form-control {
     margin-bottom: 1.5rem;
@@ -274,7 +272,7 @@
         color: #989898;
 
         &.active {
-          color: #1E3045;
+          color: #1e3045;
         }
       }
 
@@ -311,7 +309,7 @@
           border-bottom: 1px solid #ededed;
           font-weight: 400;
           font-size: 0.875rem;
-          color: #1E3045;
+          color: #1e3045;
           display: flex;
           justify-content: space-between;
           align-items: center;

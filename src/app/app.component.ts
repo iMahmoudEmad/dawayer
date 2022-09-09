@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'dawayer';
-  isLoaderShown:boolean = true;
+  isLoaderShown: boolean = true;
 
   constructor(private ticket: TicketsService) {
     setTimeout(() => {

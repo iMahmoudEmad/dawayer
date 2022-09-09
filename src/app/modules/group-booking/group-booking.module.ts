@@ -24,6 +24,6 @@ const routes: Routes = [
     ReactiveFormsModule,
     NgxIntlTelInputModule,
   ],
-  providers: [ToastrService]
+  providers: [ToastrService],
 })
 export class GroupBookingModule {}

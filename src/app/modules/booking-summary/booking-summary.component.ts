@@ -13,7 +13,11 @@ export class BookingSummaryComponent implements OnInit {
   selectedPhone!: string;
   isLoaderShown!: boolean;
 
-  constructor(private ticket: TicketsService, private router: Router, private toastr: ToastrService) {}
+  constructor(
+    private ticket: TicketsService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.ticket.summaryData.subscribe((res: any) => {
@@ -51,15 +55,21 @@ export class BookingSummaryComponent implements OnInit {
   submitSummary() {
     this.isLoaderShown = true;
 
-    this.ticket.bookingConfirmation(this.bookingData).subscribe((res: any) => {
-      this.isLoaderShown = false;
-      this.ticket.confirmedData.next(res?.response?.group);
-      this.toastr.success('', 'Booking successfully!');
-      
-      this.router.navigate(['/thank-you']);
-    },(err: any) => {
-      this.isLoaderShown = false;
-      this.toastr.error('', err?.messages?.en || "An error occured in server, please try later");
-    });
+    this.ticket.bookingConfirmation(this.bookingData).subscribe(
+      (res: any) => {
+        this.isLoaderShown = false;
+        this.ticket.confirmedData.next(res?.response?.group);
+        this.toastr.success('', 'Booking successfully!');
+
+        this.router.navigate(['/thank-you']);
+      },
+      (err: any) => {
+        this.isLoaderShown = false;
+        this.toastr.error(
+          '',
+          err?.messages?.en || 'An error occured in server, please try later'
+        );
+      }
+    );
   }
 }

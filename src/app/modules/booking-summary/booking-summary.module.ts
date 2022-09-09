@@ -22,6 +22,6 @@ const routes: Routes = [
     HttpClientModule,
     ReactiveFormsModule,
   ],
-  providers: [ToastrService]
+  providers: [ToastrService],
 })
 export class BookingSummaryModule {}

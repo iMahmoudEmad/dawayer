@@ -163,7 +163,10 @@
       <!-- <h3 class="note">A chance to know you more</h3> -->
       <h3>Booking for how many guests?</h3>
 
-      <div class="numberOfGuests mt-15" [class.mb-2]="inputValue.numberOfGuests.value?.quantity !== 10">
+      <div
+        class="numberOfGuests mt-15"
+        [class.mb-2]="inputValue.numberOfGuests.value?.quantity !== 10"
+      >
         <span class="clicked minus" (click)="decrement(tickets?.ticket[0])">
           <img
             src="assets/{{
@@ -178,11 +181,30 @@
           <img src="assets/users.svg" alt="guest photo" class="user mb-6" />
           <span>{{ inputValue.numberOfGuests.value?.quantity }} Guest</span>
         </p>
-        <span class="clicked plus" (click)="inputValue.numberOfGuests.value?.quantity !== 10 ? increment(tickets?.ticket[0], true) : this.noAvailableQty(10)">
-          <img [src]="inputValue.numberOfGuests.value?.quantity !== 10 ? 'assets/plus.svg' : 'assets/plus-disabled.svg'" alt="plus" />
+        <span
+          class="clicked plus"
+          (click)="
+            inputValue.numberOfGuests.value?.quantity !== 10
+              ? increment(tickets?.ticket[0], true)
+              : this.noAvailableQty(10)
+          "
+        >
+          <img
+            [src]="
+              inputValue.numberOfGuests.value?.quantity !== 10
+                ? 'assets/plus.svg'
+                : 'assets/plus-disabled.svg'
+            "
+            alt="plus"
+          />
         </span>
       </div>
-      <h3 class="note mb-2 mt-8" *ngIf="inputValue.numberOfGuests.value?.quantity == 10">You have reached the maximum available quantity</h3>
+      <h3
+        class="note mb-2 mt-8"
+        *ngIf="inputValue.numberOfGuests.value?.quantity == 10"
+      >
+        You have reached the maximum available quantity
+      </h3>
 
       <ng-container *ngIf="tickets?.accommodation">
         <h2 class="accommodation title">Accommodation</h2>
@@ -192,7 +214,10 @@
         <ng-container *ngFor="let item of tickets?.accommodation">
           <h3>{{ item?.name }}</h3>
 
-          <div class="numberOfGuests" [class.opacity]="item?.availableQuantity == 0">
+          <div
+            class="numberOfGuests"
+            [class.opacity]="item?.availableQuantity == 0"
+          >
             <span class="clicked minus" (click)="decrement(item)">
               <img
                 src="assets/{{
@@ -216,26 +241,68 @@
                 {{ accommodationValue(item.name)?.name }}</span
               >
             </p>
-            <span class="clicked plus" (click)="accommodationValue(item.name)?.quantity !== item?.availableQuantity ? increment(item) : noAvailableQty(item?.availableQuantity)">
-              <img [src]="accommodationQty !== 8 && item?.availableQuantity !== 0 ? 'assets/plus.svg' : 'assets/plus-disabled.svg'" alt="plus" />
+            <span
+              class="clicked plus"
+              (click)="
+                accommodationValue(item.name)?.quantity !==
+                item?.availableQuantity
+                  ? increment(item)
+                  : noAvailableQty(item?.availableQuantity)
+              "
+            >
+              <img
+                [src]="
+                  accommodationQty !== 8 && item?.availableQuantity !== 0
+                    ? 'assets/plus.svg'
+                    : 'assets/plus-disabled.svg'
+                "
+                alt="plus"
+              />
             </span>
           </div>
-          <h3 class="note mb-2 mt-8" [class.active]="item?.availableQuantity == 0" *ngIf="item?.availableQuantity == 0">
+          <h3
+            class="note mb-2 mt-8"
+            [class.active]="item?.availableQuantity == 0"
+            *ngIf="item?.availableQuantity == 0"
+          >
             <img src="assets/not.svg" alt="not" />
-            Sorry, {{accommodationValue(item.name)?.name}} are not available right now 🙁
+            Sorry, {{ accommodationValue(item.name)?.name }} are not available
+            right now 🙁
           </h3>
-          <h3 class="note mb-2 mt-8" *ngIf="accommodationQty == 8 && item?.availableQuantity !== 0">You have reached the maximum available quantity</h3>
+          <h3
+            class="note mb-2 mt-8"
+            *ngIf="accommodationQty == 8 && item?.availableQuantity !== 0"
+          >
+            You have reached the maximum available quantity
+          </h3>
 
-          <div class="pricing" *ngIf="item?.price && item?.availableQuantity !== 0">
+          <div
+            class="pricing"
+            *ngIf="item?.price && item?.availableQuantity !== 0"
+          >
             <div class="content">
               <div class="left">
                 <span *ngIf="item?.items?.numberOfPersons">
-                  <img [src]="item?.items?.numberOfPersons > 2 ? 'assets/persons.svg' : 'assets/users-disabled.svg'" alt="users" />
+                  <img
+                    [src]="
+                      item?.items?.numberOfPersons > 2
+                        ? 'assets/persons.svg'
+                        : 'assets/users-disabled.svg'
+                    "
+                    alt="users"
+                  />
                   For {{ item?.items?.numberOfPersons }}
                   {{ item?.items?.numberOfPersons > 1 ? "persons" : "person" }}
                 </span>
                 <span *ngIf="item?.items?.numberOfBeds">
-                  <img [src]="item?.items?.numberOfBeds == 1 ? 'assets/bed.svg' : 'assets/beds.svg' " alt="beds" />
+                  <img
+                    [src]="
+                      item?.items?.numberOfBeds == 1
+                        ? 'assets/bed.svg'
+                        : 'assets/beds.svg'
+                    "
+                    alt="beds"
+                  />
                   {{ item?.items?.numberOfBeds }} Bed{{
                     item?.items?.numberOfBeds > 1 ? "s" : ""
                   }}
@@ -256,11 +323,24 @@
       </ng-container>
 
       <div class="form-control">
-        <button class="btn" 
-        [class.disabled]="(phoneError || profileForm.invalid) || (!inputValue.transportation.value && inputValue.transportationChecked.value)"
-        [disabled]="(phoneError || profileForm.invalid) || (!inputValue.transportation.value && inputValue.transportationChecked.value)"
-        (click)="submitForm()">
-          Continue to {{
+        <button
+          class="btn"
+          [class.disabled]="
+            phoneError ||
+            profileForm.invalid ||
+            (!inputValue.transportation.value &&
+              inputValue.transportationChecked.value)
+          "
+          [disabled]="
+            phoneError ||
+            profileForm.invalid ||
+            (!inputValue.transportation.value &&
+              inputValue.transportationChecked.value)
+          "
+          (click)="submitForm()"
+        >
+          Continue to
+          {{
             inputValue.numberOfGuests.value?.quantity
               ? "group details"
               : "Summary"

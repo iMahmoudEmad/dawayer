@@ -1,8 +1,8 @@
-@import '../../../_variables.scss';
+@import "../../../_variables.scss";
 
 .body {
   font-family: "Inter";
-  color: #1E3045;
+  color: #1e3045;
 
   .alert {
     padding: 1rem;
@@ -57,7 +57,7 @@
 
       .right {
         font-size: 1rem;
-        color: #1E3045;
+        color: #1e3045;
         text-align: end;
         font-family: "Inter";
 
@@ -79,7 +79,7 @@
       list-style: none;
       margin: 0;
       padding: 0;
-      color: #1E3045;
+      color: #1e3045;
 
       li {
         font-size: 0.875rem;
@@ -164,7 +164,7 @@
       .left {
         font-size: 1.125rem;
         font-family: "DM Serif Display";
-        color: #1E3045;
+        color: #1e3045;
         text-transform: capitalize;
         overflow: hidden;
         white-space: nowrap;

@@ -22,11 +22,15 @@ export class ThankYouComponent implements OnInit {
     });
   }
 
-  /**
-   * TODO
-   * Implement function to copy all codes
-   */
   copyCode() {
-    navigator.clipboard.writeText('copyText.value');
+    let groupOfIds: any[] = [];
+
+    if (this.groupData?.guests?.length) {
+      for (let guest of this.groupData?.guests) {
+        groupOfIds.push(guest?.guestId);
+      }
+    }
+
+    navigator.clipboard.writeText(groupOfIds.join(' - '));
   }
 }

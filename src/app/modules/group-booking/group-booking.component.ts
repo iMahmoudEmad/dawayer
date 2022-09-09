@@ -63,7 +63,11 @@ export class GroupBookingComponent implements OnInit {
     isOwner: new FormControl(true),
   });
 
-  constructor(private ticket: TicketsService, private router: Router, private toastr: ToastrService) {}
+  constructor(
+    private ticket: TicketsService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     localStorage.removeItem('phoneList');
@@ -93,9 +97,11 @@ export class GroupBookingComponent implements OnInit {
   }
 
   increment(item?: any, isGuestIncrease?: boolean) {
-    if(isGuestIncrease || this.accommodationQty < 8) {
+    if (isGuestIncrease || this.accommodationQty < 8) {
       const name =
-        item?.name !== 'Ticket' ? this.formatName(item?.name) : 'numberOfGuests';
+        item?.name !== 'Ticket'
+          ? this.formatName(item?.name)
+          : 'numberOfGuests';
       const count: any = this.profileForm.get(name);
       if (!isGuestIncrease) this.accommodationQty += 1;
 
@@ -212,11 +218,11 @@ export class GroupBookingComponent implements OnInit {
     this.profileForm.updateValueAndValidity();
     let guestsQuantity = this.inputValue.numberOfGuests.value?.quantity;
     console.log(this.inputValue.phone.errors);
-    
+
     if (
-      (this.profileForm.valid &&
-      !this.phoneError) ||
-      (!this.inputValue.transportation.value && this.inputValue.transportationChecked.value)
+      (this.profileForm.valid && !this.phoneError) ||
+      (!this.inputValue.transportation.value &&
+        this.inputValue.transportationChecked.value)
     ) {
       let data: any = {
         accommodation: this.Accommodation(this.profileForm.value) || [],
@@ -234,7 +240,12 @@ export class GroupBookingComponent implements OnInit {
     }
   }
 
-  noAvailableQty(availableQuantity?: number|string) {
-    this.toastr.warning('', availableQuantity == 0 ? "All tickets has been booked" : "You reach the maximum quantity");
+  noAvailableQty(availableQuantity?: number | string) {
+    this.toastr.warning(
+      '',
+      availableQuantity == 0
+        ? 'All tickets has been booked'
+        : 'You reach the maximum quantity'
+    );
   }
 }

@@ -1,11 +1,11 @@
-@import '../../../_variables.scss';
+@import "../../../_variables.scss";
 
 .body {
   font-family: "Inter";
 
   p.error {
     font-size: 0.75rem;
-    color: #BC584C;
+    color: #bc584c;
   }
 
   a {
@@ -43,7 +43,7 @@
         bottom: -8px;
         display: block;
         width: 100%;
-        background: #BC584C;
+        background: #bc584c;
       }
 
       .before {
@@ -224,7 +224,7 @@
         color: #989898;
 
         &.active {
-          color: #1E3045;
+          color: #1e3045;
         }
       }
 
@@ -261,7 +261,7 @@
           border-bottom: 1px solid #ededed;
           font-weight: 400;
           font-size: 0.875rem;
-          color: #1E3045;
+          color: #1e3045;
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -359,7 +359,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: #1E3045;
+      color: #1e3045;
       font-size: 0.75rem;
 
       .left {

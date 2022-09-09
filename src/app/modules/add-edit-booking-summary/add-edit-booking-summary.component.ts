@@ -84,19 +84,17 @@ export class AddEditBookingSummaryComponent implements OnInit {
 
   verifyPhone(phone: any) {
     if (phone?.number?.length == 11) {
-      this.ticket
-        .verifyPhone(encodeURIComponent(`${phone?.number}`))
-        .subscribe(
-          (res: any) => {
-            if (res.status == 'SUCCESS') {
-              this.phoneError = false;
-              this.phoneNumber = `${phone?.number}`;
-            } else {
-              this.phoneError = true;
-            }
-          },
-          () => (this.phoneError = true)
-        );
+      this.ticket.verifyPhone(encodeURIComponent(`${phone?.number}`)).subscribe(
+        (res: any) => {
+          if (res.status == 'SUCCESS') {
+            this.phoneError = false;
+            this.phoneNumber = `${phone?.number}`;
+          } else {
+            this.phoneError = true;
+          }
+        },
+        () => (this.phoneError = true)
+      );
     }
   }
 

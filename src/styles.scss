@@ -50,10 +50,10 @@ section.main {
   font-size: 24px;
   margin-top: 0;
   margin-bottom: 0.5rem;
-  color: #1E3045;
+  color: #1e3045;
 }
 
-.loading{
+.loading {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,7 +67,7 @@ section.main {
   background-color: #fff;
   z-index: 2;
 
-  img{
+  img {
     width: 150px;
     height: 150px;
   }
@@ -78,14 +78,14 @@ section.main {
   height: 1rem;
   margin-inline-start: 1rem;
   vertical-align: middle;
-  animation:spin 1s linear infinite;
+  animation: spin 1s linear infinite;
 }
 
-@keyframes spin { 
-  100% { 
-      -webkit-transform: rotate(360deg); 
-      transform:rotate(360deg); 
-  } 
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
 .b-none {
@@ -116,29 +116,29 @@ button {
   cursor: pointer;
 }
 
-.app-header{
+.app-header {
   display: flex;
   align-items: center;
   padding-bottom: 1rem;
   margin-bottom: 1.5rem;
   border-bottom: 1px solid #ededed;
 
-  .content{
-    padding-inline-start: .5rem;
+  .content {
+    padding-inline-start: 0.5rem;
 
     h1 {
       font-family: "DM Serif Display";
-      color: #34557B;
+      color: #34557b;
       font-size: 1rem;
       margin-top: 0;
       margin-bottom: 0;
       font-weight: 400;
     }
-  
-    p{
+
+    p {
       font-size: 10px;
-      color: #6D6D6D;
-      font-family: 'Inter';
+      color: #6d6d6d;
+      font-family: "Inter";
     }
   }
 }
