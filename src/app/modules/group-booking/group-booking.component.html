@@ -224,7 +224,7 @@
             <img src="assets/not.svg" alt="not" />
             Sorry, {{accommodationValue(item.name)?.name}} are not available right now 🙁
           </h3>
-          <h3 class="note mb-2 mt-8" *ngIf="accommodationQty == 8">You have reached the maximum available quantity</h3>
+          <h3 class="note mb-2 mt-8" *ngIf="accommodationQty == 8 && item?.availableQuantity !== 0">You have reached the maximum available quantity</h3>
 
           <div class="pricing" *ngIf="item?.price && item?.availableQuantity !== 0">
             <div class="content">
