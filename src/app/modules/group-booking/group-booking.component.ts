@@ -235,6 +235,6 @@ export class GroupBookingComponent implements OnInit {
   }
 
   noAvailableQty(availableQuantity?: number|string) {
-    this.toastr.error('', availableQuantity == 0 ? "All tickets has been booked" : "You reach the maximum quantity");
+    this.toastr.warning('', availableQuantity == 0 ? "All tickets has been booked" : "You reach the maximum quantity");
   }
 }
