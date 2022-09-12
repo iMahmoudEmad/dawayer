@@ -21,7 +21,6 @@ export class BookingSummaryComponent implements OnInit {
 
   ngOnInit(): void {
     this.ticket.summaryData.subscribe((res: any) => {
-      console.log(res);
       res ? (this.bookingData = res) : this.router.navigate(['/group-booking']);
     });
   }
@@ -48,8 +47,6 @@ export class BookingSummaryComponent implements OnInit {
     });
 
     this.bookingData.guests = dataAfterRemoved;
-
-    console.log('this.bookingData', this.bookingData);
   }
 
   submitSummary() {

@@ -10,10 +10,6 @@
   font-family: "Inter";
   src: url("assets/fonts/Inter-Regular.ttf");
 }
-@font-face {
-  font-family: "DM Serif Display";
-  src: url("assets/fonts/DMSerifDisplay-Regular.ttf");
-}
 
 * {
   box-sizing: border-box;
@@ -28,7 +24,7 @@ section.main {
   margin-top: 2rem;
   margin-bottom: 2rem;
   position: relative;
-  min-height: 85vw;
+  min-height: 85vh;
 }
 
 @media screen and(min-width:768px) {
@@ -45,8 +41,8 @@ section.main {
 }
 
 .title {
-  font-family: "DM Serif Display";
-  font-weight: 400;
+  font-family: "Inter";
+  font-weight: 600;
   font-size: 24px;
   margin-top: 0;
   margin-bottom: 0.5rem;
@@ -127,12 +123,12 @@ button {
     padding-inline-start: 0.5rem;
 
     h1 {
-      font-family: "DM Serif Display";
+      font-family: "Inter";
       color: #34557b;
       font-size: 1rem;
       margin-top: 0;
       margin-bottom: 0;
-      font-weight: 400;
+      font-weight: 600;
     }
 
     p {

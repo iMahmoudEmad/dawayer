@@ -100,10 +100,6 @@ export class AddEditBookingSummaryComponent implements OnInit {
 
   submitForm() {
     this.backupData.guests[this.dynamicIdx] = this.profileForm?.value;
-    console.log(
-      'this.backupData.guests[this.dynamicIdx].phone',
-      this.backupData.guests[this.dynamicIdx].phone
-    );
     if (this.backupData.guests[this.dynamicIdx].phone?.number?.length > 11) {
       this.backupData.guests[this.dynamicIdx].phone = `${
         this.backupData.guests[this.dynamicIdx]?.phone?.number

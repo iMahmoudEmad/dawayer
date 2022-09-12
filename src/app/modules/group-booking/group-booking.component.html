@@ -96,6 +96,8 @@
         />
       </div>
 
+      <h2 class="title transportationTitle">Transportation</h2>
+
       <div class="form-control">
         <input
           type="checkbox"
@@ -105,7 +107,7 @@
         />
         <span class="checkmark"></span>
         <label class="clicked" for="transportationChecked"
-          >I’ll use the festival’s transporation option 🚐
+          >I’ll use the Festival Bus 🚐
         </label>
       </div>
 
@@ -181,6 +183,7 @@
           <img src="assets/users.svg" alt="guest photo" class="user mb-6" />
           <span>{{ inputValue.numberOfGuests.value?.quantity }} Guest</span>
         </p>
+
         <span
           class="clicked plus"
           (click)="
@@ -209,7 +212,9 @@
       <ng-container *ngIf="tickets?.accommodation">
         <h2 class="accommodation title">Accommodation</h2>
         <h3 class="accommodation note">
-          If you would like to accomodate with us, choose your favorite ⛺️
+          Please choose your preferred tent size ⛺️
+          <br />
+          For rooms & hotels please contact +20100
         </h3>
         <ng-container *ngFor="let item of tickets?.accommodation">
           <h3>{{ item?.name }}</h3>
@@ -231,11 +236,16 @@
             <p class="guestsLength">
               <img
                 src="assets/{{
-                  item?.name?.includes('Island') ? 'bungalow' : 'tent'
+                  item?.name?.includes('Byot')
+                    ? 'byot'
+                    : item?.name?.includes('bungalow')
+                    ? 'bungalow'
+                    : 'tent'
                 }}.svg"
                 alt="guest photo"
                 class="bungalow mb-6"
               />
+
               <span
                 >{{ accommodationValue(item.name)?.quantity }}
                 {{ accommodationValue(item.name)?.name }}</span
@@ -282,39 +292,50 @@
           >
             <div class="content">
               <div class="left">
-                <span *ngIf="item?.items?.numberOfPersons">
-                  <img
-                    [src]="
-                      item?.items?.numberOfPersons > 2
-                        ? 'assets/persons.svg'
-                        : 'assets/users-disabled.svg'
-                    "
-                    alt="users"
-                  />
-                  For {{ item?.items?.numberOfPersons }}
-                  {{ item?.items?.numberOfPersons > 1 ? "persons" : "person" }}
-                </span>
-                <span *ngIf="item?.items?.numberOfBeds">
-                  <img
-                    [src]="
-                      item?.items?.numberOfBeds == 1
-                        ? 'assets/bed.svg'
-                        : 'assets/beds.svg'
-                    "
-                    alt="beds"
-                  />
-                  {{ item?.items?.numberOfBeds }} Bed{{
-                    item?.items?.numberOfBeds > 1 ? "s" : ""
-                  }}
-                </span>
-                <span *ngIf="item?.items?.haveBathroom">
-                  <img src="assets/bathroom.svg" alt="bathroom" />
-                  Bathroom
-                </span>
-                <span *ngIf="item?.items?.haveWaterHeater">
-                  <img src="assets/water-heater.svg" alt="water-heater" />
-                  Water Heater
-                </span>
+                <ng-container *ngIf="!item?.name?.includes('Byot')">
+                  <span *ngIf="item?.items?.numberOfPersons">
+                    <img
+                      [src]="
+                        item?.items?.numberOfPersons > 2
+                          ? 'assets/persons.svg'
+                          : 'assets/users-disabled.svg'
+                      "
+                      alt="users"
+                    />
+                    For {{ item?.items?.numberOfPersons }}
+                    {{
+                      item?.items?.numberOfPersons > 1 ? "persons" : "person"
+                    }}
+                  </span>
+                  <span *ngIf="item?.items?.numberOfBeds">
+                    <img
+                      [src]="
+                        item?.items?.numberOfBeds == 1
+                          ? 'assets/bed.svg'
+                          : 'assets/beds.svg'
+                      "
+                      alt="beds"
+                    />
+                    {{ item?.items?.numberOfBeds }} Bed{{
+                      item?.items?.numberOfBeds > 1 ? "s" : ""
+                    }}
+                  </span>
+                  <span *ngIf="item?.items?.haveBathroom">
+                    <img src="assets/bathroom.svg" alt="bathroom" />
+                    Bathroom
+                  </span>
+                  <span *ngIf="item?.items?.haveWaterHeater">
+                    <img src="assets/water-heater.svg" alt="water-heater" />
+                    Water Heater
+                  </span>
+                </ng-container>
+
+                <ng-container *ngIf="item?.name?.includes('Byot')">
+                  <span
+                    >Bring your own tent and we will provide the area. Please
+                    specify how many slots you want?</span
+                  >
+                </ng-container>
               </div>
               <div class="right">{{ item?.price }} EGP / Tent</div>
             </div>

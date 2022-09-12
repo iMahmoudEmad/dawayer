@@ -42,24 +42,6 @@ export class GroupBookingComponent implements OnInit {
     transportationChecked: new FormControl(false),
     transportation: new FormControl(''),
     isVegeterian: new FormControl(false),
-    doubleTent: new FormControl({
-      id: '',
-      quantity: 0,
-      name: 'Double Tent',
-      price: 0,
-    }),
-    quadTent: new FormControl({
-      id: '',
-      quantity: 0,
-      name: 'Quad Tent',
-      price: 0,
-    }),
-    islandBungalow: new FormControl({
-      id: '',
-      quantity: 0,
-      name: 'Island Bungalow',
-      price: 0,
-    }),
     isOwner: new FormControl(true),
   });
 
@@ -72,11 +54,24 @@ export class GroupBookingComponent implements OnInit {
   ngOnInit(): void {
     localStorage.removeItem('phoneList');
     this.ticket.bookingData.subscribe((res) =>
-      this.profileForm.patchValue(res)
+      this.profileForm?.patchValue(res)
     );
 
     this.ticket.getTickets().subscribe((ticket: any) => {
       this.tickets = ticket.response;
+      this.tickets.accommodation.map((accommodation: any) => {
+        this.profileForm.addControl(
+          accommodation?.name?.charAt(0).toLowerCase() +
+            accommodation?.name?.slice(1).replace(/ /g, ''),
+          new FormControl({
+            id: accommodation?._id,
+            quantity: 0,
+            name: this.formatName(accommodation?.name),
+            price: accommodation?.price,
+          })
+        );
+      });
+
       this.router.events.subscribe((evt) => {
         if (!(evt instanceof NavigationEnd)) {
           return;
@@ -92,23 +87,25 @@ export class GroupBookingComponent implements OnInit {
 
   accommodationValue(name: string) {
     name = this.formatName(name);
-    let data = this.profileForm.get(name) as FormControl;
-    return data.value;
+
+    let data = this.profileForm?.get(name) as FormControl;
+    return data?.value;
   }
 
   increment(item?: any, isGuestIncrease?: boolean) {
     if (isGuestIncrease || this.accommodationQty < 8) {
-      const name =
+      let name =
         item?.name !== 'Ticket'
           ? this.formatName(item?.name)
           : 'numberOfGuests';
-      const count: any = this.profileForm.get(name);
+
+      const count: any = this.profileForm?.get(name);
       if (!isGuestIncrease) this.accommodationQty += 1;
 
-      this.profileForm.patchValue({
+      this.profileForm?.patchValue({
         [name]: {
           id: item?._id,
-          quantity: count.value?.quantity + 1,
+          quantity: count?.value?.quantity + 1,
           name: item?.name,
           price: item?.price,
         },
@@ -121,11 +118,11 @@ export class GroupBookingComponent implements OnInit {
   decrement(item?: any) {
     const name =
       item?.name !== 'Ticket' ? this.formatName(item?.name) : 'numberOfGuests';
-    const count: any = this.profileForm.get(name);
+    const count: any = this.profileForm?.get(name);
     this.accommodationQty -= 1;
 
     if (count?.value?.quantity >= 1)
-      this.profileForm.patchValue({
+      this.profileForm?.patchValue({
         [name]: {
           id: item?._id,
           quantity: count.value?.quantity - 1,
@@ -137,14 +134,14 @@ export class GroupBookingComponent implements OnInit {
 
   setSelectedTransportation(transportation: any) {
     if (transportation?.availability) {
-      this.profileForm.patchValue({ transportation: transportation });
+      this.profileForm?.patchValue({ transportation: transportation });
       this.selectedItem = transportation;
       this.isListShown = !this.isListShown;
     }
   }
 
   formatName(name: string) {
-    return name.charAt(0).toLowerCase() + name.slice(1).replace(/ /g, '');
+    return name?.charAt(0).toLowerCase() + name?.slice(1).replace(/ /g, '');
   }
 
   verifyPhone(phone: any) {
@@ -171,62 +168,47 @@ export class GroupBookingComponent implements OnInit {
 
   Accommodation(data: any) {
     const accommodation = [];
-    // if (data?.numberOfGuests?.quantity) {
-    //   accommodation.push({
-    //     id: data?.numberOfGuests?.id,
-    //     name: 'Ticket',
-    //     price: data?.numberOfGuests?.price,
-    //     quantity: data?.numberOfGuests?.quantity,
-    //   });
-    // }
 
-    if (data?.doubleTent?.quantity) {
-      accommodation.push({
-        id: data?.doubleTent?.id,
-        name: data?.doubleTent?.name,
-        price: data?.doubleTent?.price,
-        quantity: data?.doubleTent?.quantity,
-      });
-    }
+    for (let property in data) {
+      if (property.includes('double') && data[property]?.quantity) {
+        accommodation.push({
+          ...data[property],
+        });
+      }
 
-    if (data?.quadTent?.quantity) {
-      accommodation.push({
-        id: data?.quadTent?.id,
-        name: data?.quadTent?.name,
-        price: data?.quadTent?.price,
-        quantity: data?.quadTent?.quantity,
-      });
-    }
+      if (property.includes('quad') && data[property]?.quantity) {
+        accommodation.push({
+          ...data[property],
+        });
+      }
 
-    if (data?.islandBungalow?.quantity) {
-      accommodation.push({
-        id: data?.islandBungalow?.id,
-        name: data?.islandBungalow?.name,
-        price: data?.islandBungalow?.price,
-        quantity: data?.islandBungalow?.quantity,
-      });
+      if (property.includes('byot') && data[property]?.quantity) {
+        accommodation.push({
+          ...data[property],
+        });
+      }
     }
 
     return accommodation;
   }
 
   async submitForm() {
-    await this.profileForm.patchValue({
-      ...this.profileForm.value,
+    await this.profileForm?.patchValue({
+      ...this.profileForm?.value,
       phone: `${this.phoneNumber?.substring(2)}`,
     });
-    this.profileForm.updateValueAndValidity();
+    this.profileForm?.updateValueAndValidity();
     let guestsQuantity = this.inputValue.numberOfGuests.value?.quantity;
-    console.log(this.inputValue.phone.errors);
 
     if (
-      (this.profileForm.valid && !this.phoneError) ||
+      (this.profileForm?.valid && !this.phoneError) ||
       (!this.inputValue.transportation.value &&
         this.inputValue.transportationChecked.value)
     ) {
       let data: any = {
-        accommodation: this.Accommodation(this.profileForm.value) || [],
-        guests: [this.profileForm.value],
+        accommodation:
+          (await this.Accommodation(this.profileForm?.value)) || [],
+        guests: [this.profileForm?.value],
       };
       data.guests[0].phone = this.phoneNumber;
 

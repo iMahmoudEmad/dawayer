@@ -41,7 +41,6 @@ export class GuestBookingComponent implements OnInit {
       .subscribe((ticket: any) => (this.tickets = ticket.response));
 
     await this.ticket.bookingData.subscribe((res: any) => {
-      console.log('guest bookingData res', res);
       if (res) {
         this.ownerData = res;
         this.addGuest(0);
@@ -147,7 +146,6 @@ export class GuestBookingComponent implements OnInit {
   }
 
   submitForm() {
-    console.log(this.guests.value);
     let data: any = {
       accommodation: this.ownerData?.accommodation,
       guests: [...this.ownerData?.guests, ...this.guests.value],

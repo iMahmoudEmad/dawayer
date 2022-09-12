@@ -18,7 +18,8 @@
   }
 
   .guestInfo {
-    font-family: "DM Serif Display";
+    font-family: "Inter";
+    font-weight: 600;
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
     position: relative;
@@ -91,7 +92,7 @@
         border: none;
         border-radius: 0.5rem;
         font-weight: 600;
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         background: $brand_color;
         color: #fff;
         font-family: "Inter";
