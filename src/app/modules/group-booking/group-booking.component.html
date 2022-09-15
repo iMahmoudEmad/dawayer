@@ -96,6 +96,17 @@
         />
       </div>
 
+      <div class="form-control mb-2">
+        <input
+          type="checkbox"
+          formControlName="isVegeterian"
+          id="isVegeterian"
+          class="checkbox"
+        />
+        <span class="checkmark"></span>
+        <label class="clicked" for="isVegeterian">I’m a vegeterian 🥒 </label>
+      </div>
+
       <h2 class="title transportationTitle">Transportation</h2>
 
       <div class="form-control">
@@ -151,23 +162,12 @@
         </div>
       </div>
 
-      <div class="form-control mb-2">
-        <input
-          type="checkbox"
-          formControlName="isVegeterian"
-          id="isVegeterian"
-          class="checkbox"
-        />
-        <span class="checkmark"></span>
-        <label class="clicked" for="isVegeterian">I’m a vegeterian 🥒 </label>
-      </div>
-
       <!-- <h3 class="note">A chance to know you more</h3> -->
       <h3>How many guests are you booking for?</h3>
 
       <div
         class="numberOfGuests mt-15"
-        [class.mb-2]="inputValue.numberOfGuests.value?.quantity !== 10"
+        [class.mb-2]="inputValue.numberOfGuests.value?.quantity !== 9"
       >
         <span class="clicked minus" (click)="decrement(tickets?.ticket[0])">
           <img
@@ -181,20 +181,20 @@
         </span>
         <p class="guestsLength">
           <img src="assets/users.svg" alt="guest photo" class="user mb-6" />
-          <span>{{ inputValue.numberOfGuests.value?.quantity }} Guest</span>
+          <span>{{ guestValue == 0 ? 1 : guestValue }} Guest</span>
         </p>
 
         <span
           class="clicked plus"
           (click)="
-            inputValue.numberOfGuests.value?.quantity !== 10
+            inputValue.numberOfGuests.value?.quantity !== 9
               ? increment(tickets?.ticket[0], true)
-              : this.noAvailableQty(10)
+              : this.noAvailableQty(9)
           "
         >
           <img
             [src]="
-              inputValue.numberOfGuests.value?.quantity !== 10
+              inputValue.numberOfGuests.value?.quantity !== 9
                 ? 'assets/plus.svg'
                 : 'assets/plus-disabled.svg'
             "
@@ -204,7 +204,7 @@
       </div>
       <h3
         class="note mb-2 mt-8"
-        *ngIf="inputValue.numberOfGuests.value?.quantity == 10"
+        *ngIf="inputValue.numberOfGuests.value?.quantity == 9"
       >
         You have reached the maximum available quantity
       </h3>
@@ -332,10 +332,10 @@
 
                 <ng-container *ngIf="item?.name?.includes('Byot')">
                   <span>
-                    Bring your own tent and we will provide the area. 
-                    <br>
+                    Bring your own tent and we will provide the area.
+                    <br />
                     Please specify how many slots you want?
-                    </span>
+                  </span>
                 </ng-container>
               </div>
               <div class="right">{{ item?.price }} EGP / Tent</div>

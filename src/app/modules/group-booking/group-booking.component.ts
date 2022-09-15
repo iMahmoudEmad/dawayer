@@ -81,6 +81,11 @@ export class GroupBookingComponent implements OnInit {
     });
   }
 
+  get guestValue() {
+    let value = this.inputValue.numberOfGuests.value?.quantity;
+    return value && value + 1;
+  }
+
   get inputValue() {
     return this.profileForm['controls'];
   }
