@@ -188,7 +188,7 @@
           class="clicked plus"
           (click)="
             inputValue.numberOfGuests.value?.quantity !== 9
-              ? increment(tickets?.ticket[0], true)
+              ? increment(tickets?.ticket[0], true, 'numberOfGuests')
               : this.noAvailableQty(9)
           "
         >
