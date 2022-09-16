@@ -71,6 +71,16 @@ export class GroupBookingComponent implements OnInit {
           })
         );
       });
+      // this.profileForm.addControl(
+      //   this.tickets.ticket[0]?.name?.charAt(0).toLowerCase() +
+      //   this.tickets.ticket[0]?.name?.slice(1).replace(/ /g, ''),
+      //   new FormControl({
+      //     id: this.tickets.ticket[0]?._id,
+      //     quantity: 0,
+      //     name: this.formatName(this.tickets.ticket[0]?.name),
+      //     price: this.tickets.ticket[0]?.price,
+      //   })
+      // );
 
       this.router.events.subscribe((evt) => {
         if (!(evt instanceof NavigationEnd)) {
@@ -99,8 +109,9 @@ export class GroupBookingComponent implements OnInit {
 
   increment(item?: any, isGuestIncrease?: boolean) {
     if (isGuestIncrease || this.accommodationQty < 8) {
+      console.log('item',this.tickets)
       let name =
-        item?.name !== 'Ticket'
+        item?.name !== 'Festival Pass'
           ? this.formatName(item?.name)
           : 'numberOfGuests';
 
