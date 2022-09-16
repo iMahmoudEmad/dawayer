@@ -22,6 +22,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'accommodation-booking',
+    loadChildren: () =>
+      import('./modules/accommodation/accommodation.module').then(
+        (m) => m.AccommodationModule
+      ),
+  },
+  {
     path: 'summary-booking',
     loadChildren: () =>
       import('./modules/booking-summary/booking-summary.module').then(

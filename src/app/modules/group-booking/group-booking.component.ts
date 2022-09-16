@@ -28,10 +28,7 @@ export class GroupBookingComponent implements OnInit {
       Validators.pattern(/^(\+201|01|00201)[0-2,5]{1}[0-9]{8}/g),
     ]),
     socialMediaLink: new FormControl('', [
-      Validators.required,
-      // Validators.pattern(
-      //   /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/
-      // ),
+      Validators.required
     ]),
     numberOfGuests: new FormControl({
       id: '',
@@ -71,16 +68,6 @@ export class GroupBookingComponent implements OnInit {
           })
         );
       });
-      // this.profileForm.addControl(
-      //   this.tickets.ticket[0]?.name?.charAt(0).toLowerCase() +
-      //   this.tickets.ticket[0]?.name?.slice(1).replace(/ /g, ''),
-      //   new FormControl({
-      //     id: this.tickets.ticket[0]?._id,
-      //     quantity: 0,
-      //     name: this.formatName(this.tickets.ticket[0]?.name),
-      //     price: this.tickets.ticket[0]?.price,
-      //   })
-      // );
 
       this.router.events.subscribe((evt) => {
         if (!(evt instanceof NavigationEnd)) {
@@ -98,13 +85,6 @@ export class GroupBookingComponent implements OnInit {
 
   get inputValue() {
     return this.profileForm['controls'];
-  }
-
-  accommodationValue(name: string) {
-    name = this.formatName(name);
-
-    let data = this.profileForm?.get(name) as FormControl;
-    return data?.value;
   }
 
   increment(item?: any, isGuestIncrease?: boolean, passingName?:string) {
@@ -230,7 +210,7 @@ export class GroupBookingComponent implements OnInit {
         this.router.navigate(['/guests-booking']);
       } else {
         await this.ticket.summaryData.next(data);
-        this.router.navigate(['/summary-booking']);
+        this.router.navigate(['/accommodation-booking']);
       }
     }
   }
