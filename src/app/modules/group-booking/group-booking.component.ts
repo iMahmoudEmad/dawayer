@@ -107,13 +107,10 @@ export class GroupBookingComponent implements OnInit {
     return data?.value;
   }
 
-  increment(item?: any, isGuestIncrease?: boolean) {
+  increment(item?: any, isGuestIncrease?: boolean, passingName?:string) {
     if (isGuestIncrease || this.accommodationQty < 8) {
       console.log('item',this.tickets)
-      let name =
-        item?.name !== 'Festival Pass'
-          ? this.formatName(item?.name)
-          : 'numberOfGuests';
+      let name = passingName || this.formatName(item?.name);
 
       const count: any = this.profileForm?.get(name);
       if (!isGuestIncrease) this.accommodationQty += 1;
