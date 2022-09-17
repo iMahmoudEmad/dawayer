@@ -27,9 +27,7 @@ export class GroupBookingComponent implements OnInit {
       Validators.required,
       Validators.pattern(/^(\+201|01|00201)[0-2,5]{1}[0-9]{8}/g),
     ]),
-    socialMediaLink: new FormControl('', [
-      Validators.required
-    ]),
+    socialMediaLink: new FormControl('', [Validators.required]),
     numberOfGuests: new FormControl({
       id: '',
       quantity: 0,
@@ -87,10 +85,11 @@ export class GroupBookingComponent implements OnInit {
     return this.profileForm['controls'];
   }
 
-  increment(item?: any, isGuestIncrease?: boolean, passingName?:string) {
+  increment(item?: any, isGuestIncrease?: boolean, passingName?: string) {
     if (isGuestIncrease || this.accommodationQty < 8) {
-      console.log('item',passingName)
-      let name = passingName? this.formatName(passingName) : this.formatName(item?.name);
+      let name = passingName
+        ? this.formatName(passingName)
+        : this.formatName(item?.name);
 
       const count: any = this.profileForm?.get(name);
       if (!isGuestIncrease) this.accommodationQty += 1;
@@ -108,9 +107,10 @@ export class GroupBookingComponent implements OnInit {
     }
   }
 
-  decrement(item?: any) {
-    const name =
-      item?.name !== 'Ticket' ? this.formatName(item?.name) : 'numberOfGuests';
+  decrement(item?: any, passingName?: string) {
+    let name = passingName
+        ? this.formatName(passingName)
+        : this.formatName(item?.name);
     const count: any = this.profileForm?.get(name);
     this.accommodationQty -= 1;
 
@@ -205,11 +205,11 @@ export class GroupBookingComponent implements OnInit {
       };
       data.guests[0].phone = this.phoneNumber;
 
+      await this.ticket.summaryData.next(data);
+
       if (guestsQuantity && guestsQuantity >= 1) {
-        await this.ticket.bookingData.next(data);
         this.router.navigate(['/guests-booking']);
       } else {
-        await this.ticket.summaryData.next(data);
         this.router.navigate(['/accommodation-booking']);
       }
     }

@@ -1,5 +1,4 @@
 <section class="main">
-
   <header>
     <div class="app-header">
       <img src="assets/logo.png" alt="dawayer logo" />
@@ -12,15 +11,24 @@
     <h2 class="title">Accommodation.</h2>
   </header>
 
-
   <div class="body">
     <form [formGroup]="profileForm">
       <ng-container *ngIf="tickets?.accommodation">
         <!-- <h2 class="accommodation title">Accommodation</h2> -->
         <h3 class="accommodation note">
-          Please choose your preferred tent size ⛺️
-          <br />
-          For rooms & hotels please contact +20100
+          Under the accomodation segment please update the write up to:
+          <br /><br />
+          Please choose your preferred tent size. <br />
+          Tents prices are per tent for 3 nights <br />
+          BYOT price is per person for 3 nights
+          <br /><br />
+          For on island rooms & near by hotels please contact us at
+          <br /><br />
+          <a href="mailto:reservations@dawayerfestival.com"
+            >Reservations@dawayerfestival.com</a
+          >
+          <br /><br />
+          <a href="tel:+201005189891">+20 100 518 9891</a>
         </h3>
         <ng-container *ngFor="let item of tickets?.accommodation">
           <h3>{{ item?.name }}</h3>
@@ -41,21 +49,15 @@
             </span>
             <p class="guestsLength">
               <img
-                src="assets/{{
-                  item?.name?.includes('Byot')
-                    ? 'byot'
-                    : item?.name?.includes('bungalow')
-                    ? 'bungalow'
-                    : 'tent'
-                }}.svg"
+                [src]="item?.productIcon || item?.name.toLowerCase().includes('own') ? 'assets/byot.svg' : 'assets/tent.svg'"
                 alt="guest photo"
                 class="bungalow mb-6"
               />
 
-              <span
-                >{{ accommodationValue(item.name)?.quantity }}
-                {{ accommodationValue(item.name)?.name }}</span
-              >
+              <span>
+                {{ accommodationValue(item.name)?.quantity }}
+                {{ item?.quantityIndecator || item?.name }}
+              </span>
             </p>
             <span
               class="clicked plus"
@@ -98,65 +100,64 @@
           >
             <div class="content">
               <div class="left">
-                <ng-container *ngIf="!item?.name?.includes('Byot')">
-                  <span *ngIf="item?.items?.numberOfPersons">
-                    <img
-                      [src]="
-                        item?.items?.numberOfPersons > 2
-                          ? 'assets/persons.svg'
-                          : 'assets/users-disabled.svg'
-                      "
-                      alt="users"
-                    />
-                    For {{ item?.items?.numberOfPersons }}
-                    {{
-                      item?.items?.numberOfPersons > 1 ? "persons" : "person"
-                    }}
-                  </span>
-                  <span *ngIf="item?.items?.numberOfBeds">
-                    <img
-                      [src]="
-                        item?.items?.numberOfBeds == 1
-                          ? 'assets/bed.svg'
-                          : 'assets/beds.svg'
-                      "
-                      alt="beds"
-                    />
-                    {{ item?.items?.numberOfBeds }} Bed{{
-                      item?.items?.numberOfBeds > 1 ? "s" : ""
-                    }}
-                  </span>
-                  <span *ngIf="item?.items?.haveBathroom">
-                    <img src="assets/bathroom.svg" alt="bathroom" />
-                    Bathroom
-                  </span>
-                  <span *ngIf="item?.items?.haveWaterHeater">
-                    <img src="assets/water-heater.svg" alt="water-heater" />
-                    Water Heater
-                  </span>
+                <ng-container *ngIf="!item?.description">
+                  <ng-container *ngIf="!item?.name?.includes('Byot')">
+                    <span *ngIf="item?.items?.numberOfPersons">
+                      <img
+                        [src]="
+                          item?.items?.numberOfPersons > 2
+                            ? 'assets/persons.svg'
+                            : 'assets/users-disabled.svg'
+                        "
+                        alt="users"
+                      />
+                      For {{ item?.items?.numberOfPersons }}
+                      {{
+                        item?.items?.numberOfPersons > 1 ? "persons" : "person"
+                      }}
+                    </span>
+                    <span *ngIf="item?.items?.numberOfBeds">
+                      <img
+                        [src]="
+                          item?.items?.numberOfBeds == 1
+                            ? 'assets/bed.svg'
+                            : 'assets/beds.svg'
+                        "
+                        alt="beds"
+                      />
+                      {{ item?.items?.numberOfBeds }} Bed{{
+                        item?.items?.numberOfBeds > 1 ? "s" : ""
+                      }}
+                    </span>
+                    <span *ngIf="item?.items?.haveBathroom">
+                      <img src="assets/bathroom.svg" alt="bathroom" />
+                      Bathroom
+                    </span>
+                    <span *ngIf="item?.items?.haveWaterHeater">
+                      <img src="assets/water-heater.svg" alt="water-heater" />
+                      Water Heater
+                    </span>
+                  </ng-container>
+
+                  <ng-container *ngIf="item?.name?.includes('Byot')">
+                    <span>
+                      Bring your own tent and we will provide the area.
+                      <br />
+                      Please specify how many slots you want?
+                    </span>
+                  </ng-container>
                 </ng-container>
 
-                <ng-container *ngIf="item?.name?.includes('Byot')">
-                  <span>
-                    Bring your own tent and we will provide the area.
-                    <br />
-                    Please specify how many slots you want?
-                  </span>
-                </ng-container>
+                <p *ngIf="item?.description">{{ item?.description }}</p>
               </div>
-              <div class="right">{{ item?.price }} EGP / Tent</div>
+              <div class="right">{{ item?.price }} EGP / {{item?.typePer || 'each'}}</div>
             </div>
           </div>
         </ng-container>
       </ng-container>
 
       <div class="form-control">
-        <button
-          class="btn"
-          (click)="submitForm()"
-        >
-          Continue to Summary
-        </button>
+        <button class="btn" (click)="submitForm()">Continue to Summary</button>
       </div>
     </form>
   </div>

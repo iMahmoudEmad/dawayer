@@ -7,37 +7,19 @@ import { TicketsService } from 'src/app/services/tickets.service';
 @Component({
   selector: 'app-accommodation',
   templateUrl: './accommodation.component.html',
-  styleUrls: ['./accommodation.component.scss']
+  styleUrls: ['./accommodation.component.scss'],
 })
 export class AccommodationComponent implements OnInit {
   tickets: any;
   accommodationQty: number = 0;
 
-  profileForm = new FormGroup({
-    fullName: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    phone: new FormControl('', [
-      Validators.required,
-      Validators.pattern(/^(\+201|01|00201)[0-2,5]{1}[0-9]{8}/g),
-    ]),
-    socialMediaLink: new FormControl('', [
-      Validators.required
-    ]),
-    numberOfGuests: new FormControl({
-      id: '',
-      quantity: 0,
-      name: '',
-      price: 0,
-    }),
-    transportationChecked: new FormControl(false),
-    transportation: new FormControl(''),
-    isVegeterian: new FormControl(false),
-    isOwner: new FormControl(true),
-  });
-  
-  constructor(private ticket: TicketsService, 
+  profileForm = new FormGroup({});
+
+  constructor(
+    private ticket: TicketsService,
     private router: Router,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.ticket.getTickets().subscribe((ticket: any) => {
@@ -68,10 +50,11 @@ export class AccommodationComponent implements OnInit {
     return name?.charAt(0).toLowerCase() + name?.slice(1).replace(/ /g, '');
   }
 
-  increment(item?: any, isGuestIncrease?: boolean, passingName?:string) {
+  increment(item?: any, isGuestIncrease?: boolean, passingName?: string) {
     if (isGuestIncrease || this.accommodationQty < 8) {
-      console.log('item',passingName)
-      let name = passingName? this.formatName(passingName) : this.formatName(item?.name);
+      let name = passingName
+        ? this.formatName(passingName)
+        : this.formatName(item?.name);
 
       const count: any = this.profileForm?.get(name);
       if (!isGuestIncrease) this.accommodationQty += 1;
@@ -142,7 +125,7 @@ export class AccommodationComponent implements OnInit {
   get inputValue() {
     return this.profileForm['controls'];
   }
-  
+
   async submitForm() {
     await this.profileForm?.patchValue({
       ...this.profileForm?.value,
@@ -150,11 +133,10 @@ export class AccommodationComponent implements OnInit {
     this.profileForm?.updateValueAndValidity();
 
     let data: any = {
-      accommodation:
-        (await this.Accommodation(this.profileForm?.value)) || [],
-      guests: [this.profileForm?.value],
+      ...this.ticket.summaryData.value,
+      accommodation: (await this.Accommodation(this.profileForm?.value)) || [],
     };
-
+    console.log(data);
     await this.ticket.summaryData.next(data);
     this.router.navigate(['/summary-booking']);
   }
