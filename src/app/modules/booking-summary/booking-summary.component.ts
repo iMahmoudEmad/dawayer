@@ -12,6 +12,7 @@ export class BookingSummaryComponent implements OnInit {
   bookingData: any;
   selectedPhone!: string;
   isLoaderShown!: boolean;
+  voucherCode!: string;
 
   constructor(
     private ticket: TicketsService,
@@ -49,9 +50,15 @@ export class BookingSummaryComponent implements OnInit {
     this.bookingData.guests = dataAfterRemoved;
   }
 
+  voucherCodeVerify() {
+    this.ticket.voucherCodeVerify(this.voucherCode).subscribe((res: any) => {
+      console.log('voucher res ---->', res);
+    });
+  }
+
   submitSummary() {
     this.isLoaderShown = true;
-
+    this.bookingData.voucher = this.voucherCode;
     this.ticket.bookingConfirmation(this.bookingData).subscribe(
       (res: any) => {
         this.isLoaderShown = false;

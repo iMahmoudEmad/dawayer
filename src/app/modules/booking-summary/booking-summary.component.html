@@ -12,6 +12,21 @@
       </p>
     </div>
 
+    <!-- <div class="voucher">
+      <img src="assets/voucher.svg" alt="voucher icon" />
+      <input
+        autofocus
+        autocomplete="off"
+        type="text"
+        [(ngModel)]="voucherCode"
+        id="voucherCode"
+        class="input w-100"
+        [class.error]="true"
+        placeholder="Insert Voucher Code"
+      />
+      <button class="submit" [class.disabled]="!voucherCode">Submit</button>
+    </div> -->
+
     <div class="paymentDetails" *ngIf="bookingData?.accommodation?.length">
       <h2 class="title">Payment details</h2>
       <div class="payment" *ngFor="let item of bookingData?.accommodation">

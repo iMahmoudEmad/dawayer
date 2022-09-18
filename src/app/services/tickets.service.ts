@@ -27,4 +27,10 @@ export class TicketsService {
       `https://dawayer.herokuapp.com/api/v1/guests/verifyPhone?phone=${phone}`
     );
   }
+
+  voucherCodeVerify(code: string) {
+    return this.http.get(
+      `https://dawayer.herokuapp.com/api/v1/vouchers/verify?code=${code}`
+    );
+  }
 }

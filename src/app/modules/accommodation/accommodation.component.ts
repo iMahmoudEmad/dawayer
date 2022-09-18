@@ -93,11 +93,11 @@ export class AccommodationComponent implements OnInit {
     const accommodation = [];
 
     for (let property in data) {
-      // if (property.includes('double') && data[property]?.quantity) {
-      accommodation.push({
-        ...data[property],
-      });
-      // }
+      if (data[property]?.quantity) {
+        accommodation.push({
+          ...data[property],
+        });
+      }
 
       // if (property.includes('quad') && data[property]?.quantity) {
       //   accommodation.push({

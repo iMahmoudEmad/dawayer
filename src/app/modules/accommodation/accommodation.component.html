@@ -12,7 +12,7 @@
   </header>
 
   <div class="body">
-    <form [formGroup]="profileForm">
+    <form autocomplete="off" [formGroup]="profileForm">
       <ng-container *ngIf="tickets?.accommodation">
         <!-- <h2 class="accommodation title">Accommodation</h2> -->
         <h3 class="accommodation note">
