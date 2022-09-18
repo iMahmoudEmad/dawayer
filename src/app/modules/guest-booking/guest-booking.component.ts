@@ -40,14 +40,14 @@ export class GuestBookingComponent implements OnInit {
       .getTickets()
       .subscribe((ticket: any) => (this.tickets = ticket.response));
 
-    await this.ticket.summaryData.subscribe((res: any) => {
-      if (res) {
-        this.ownerData = res;
+    // await this.ticket.summaryData.subscribe((res: any) => {
+    //   if (res) {
+        this.ownerData = this.ticket.summaryData.value;
         this.addGuest(0);
-      } else {
-        this.router.navigate(['/group-booking']);
-      }
-    });
+      // } else {
+      //   this.router.navigate(['/group-booking']);
+      // }
+    // });
   }
 
   get guests() {
@@ -77,10 +77,9 @@ export class GuestBookingComponent implements OnInit {
       });
     } else {
       if(this.getValidity(index)?.value?.phone){
-        console.log(this.getValidity(index)?.value?.phone)
-        // this.getValidity(index)?.patchValue({
-        //   phone: this.getValidity(index)?.value?.phone?.number,
-        // });
+        this.getValidity(index)?.patchValue({
+          phone: this.getValidity(index)?.value?.phone?.number,
+        });
       }
 
       this.submitForm();
