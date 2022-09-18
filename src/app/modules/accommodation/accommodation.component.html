@@ -48,9 +48,10 @@
             <p class="guestsLength">
               <img
                 [src]="
-                  item?.productIcon || item?.name.toLowerCase().includes('own')
+                  item?.productIcon ||
+                  (item?.name.toLowerCase().includes('own')
                     ? 'assets/byot.svg'
-                    : 'assets/tent.svg'
+                    : 'assets/tent.svg')
                 "
                 alt="guest photo"
                 class="bungalow mb-6"
