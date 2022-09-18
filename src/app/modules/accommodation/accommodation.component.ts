@@ -93,23 +93,23 @@ export class AccommodationComponent implements OnInit {
     const accommodation = [];
 
     for (let property in data) {
-      if (property.includes('double') && data[property]?.quantity) {
+      // if (property.includes('double') && data[property]?.quantity) {
         accommodation.push({
           ...data[property],
         });
-      }
+      // }
 
-      if (property.includes('quad') && data[property]?.quantity) {
-        accommodation.push({
-          ...data[property],
-        });
-      }
+      // if (property.includes('quad') && data[property]?.quantity) {
+      //   accommodation.push({
+      //     ...data[property],
+      //   });
+      // }
 
-      if (property.includes('byot') && data[property]?.quantity) {
-        accommodation.push({
-          ...data[property],
-        });
-      }
+      // if (property.includes('byot') && data[property]?.quantity) {
+      //   accommodation.push({
+      //     ...data[property],
+      //   });
+      // }
     }
 
     return accommodation;
@@ -127,10 +127,10 @@ export class AccommodationComponent implements OnInit {
   }
 
   async submitForm() {
-    await this.profileForm?.patchValue({
-      ...this.profileForm?.value,
-    });
-    this.profileForm?.updateValueAndValidity();
+    // await this.profileForm?.patchValue({
+    //   ...this.profileForm?.value,
+    // });
+    // this.profileForm?.updateValueAndValidity();
 
     let data: any = {
       ...this.ticket.summaryData.value,
