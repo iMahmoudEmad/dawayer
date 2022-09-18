@@ -26,7 +26,7 @@ export class BookingSummaryComponent implements OnInit {
     this.ticket.summaryData.subscribe(async (res: any) => {
       if (res) {
         this.bookingData = res;
-        this.totalTransportationGuests();
+        await this.totalTransportationGuests();
       } else {
         this.router.navigate(['/group-booking']);
       }
@@ -35,8 +35,10 @@ export class BookingSummaryComponent implements OnInit {
 
   totalTransportationGuests() {
     this.bookingData?.guests?.map((item: any) => {
-      this.numOfTransportationGuests += 1;
-      this.totalAmoutOfTransportationGuests += item?.transportation?.price;
+      if (item?.transportationChecked && item?.transportation?.price) {
+        this.numOfTransportationGuests += 1;
+        this.totalAmoutOfTransportationGuests += item?.transportation?.price;
+      }
     });
   }
 
@@ -48,11 +50,18 @@ export class BookingSummaryComponent implements OnInit {
         this.bookingData?.accommodation[i]?.quantity *
         this.bookingData?.accommodation[i]?.price;
     }
-    return (
-      this.bookingData.guests[0]?.price * this.bookingData.guests?.length +
-      sum +
-      this.totalAmoutOfTransportationGuests
-    );
+    if (this.totalAmoutOfTransportationGuests) {
+      return (
+        this.bookingData.guests[0]?.price * this.bookingData.guests?.length +
+        sum +
+        this.totalAmoutOfTransportationGuests
+      );
+    } else {
+      return (
+        this.bookingData.guests[0]?.price * this.bookingData.guests?.length +
+        sum
+      );
+    }
   }
 
   selectedPerson(person: any) {

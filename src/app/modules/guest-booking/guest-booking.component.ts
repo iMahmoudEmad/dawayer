@@ -146,7 +146,7 @@ export class GuestBookingComponent implements OnInit {
       accommodation: this.ownerData?.accommodation,
       guests: [...this.ownerData?.guests, ...this.guests.value],
     };
-
+    console.log(data);
     this.ticket.summaryData.next(data);
     this.router.navigate(['/accommodation-booking']);
   }

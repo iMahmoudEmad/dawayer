@@ -44,12 +44,15 @@
       <div class="payment" *ngIf="numOfTransportationGuests">
         <span class="left">
           Transportation ({{ numOfTransportationGuests }} x
-          {{ bookingData?.guests[0]?.transportation?.price }} EGP)
+          {{
+            totalAmoutOfTransportationGuests / numOfTransportationGuests
+          }}
+          EGP)
         </span>
         <span class="right"
           >{{
             numOfTransportationGuests *
-              bookingData?.guests[0]?.transportation?.price
+              (totalAmoutOfTransportationGuests / numOfTransportationGuests)
           }}
           EGP</span
         >
