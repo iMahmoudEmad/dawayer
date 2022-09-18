@@ -29,6 +29,31 @@
 
     <div class="paymentDetails" *ngIf="bookingData?.accommodation?.length">
       <h2 class="title">Payment details</h2>
+      <div class="payment">
+        <span class="left">
+          Tickets ({{ bookingData?.guests?.length }} x
+          {{ bookingData?.guests[0]?.price }} EGP)
+        </span>
+        <span class="right"
+          >{{
+            bookingData?.guests?.length * bookingData?.guests[0]?.price
+          }}
+          EGP</span
+        >
+      </div>
+      <div class="payment">
+        <span class="left">
+          Transportation ({{ numOfTransportationGuests }} x
+          {{ bookingData?.guests[0]?.transportation?.price }} EGP)
+        </span>
+        <span class="right"
+          >{{
+            numOfTransportationGuests *
+              bookingData?.guests[0]?.transportation?.price
+          }}
+          EGP</span
+        >
+      </div>
       <div class="payment" *ngFor="let item of bookingData?.accommodation">
         <span class="left"
           >{{ item?.name }} ({{ item?.quantity }} x {{ item?.price }} EGP)</span

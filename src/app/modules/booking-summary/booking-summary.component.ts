@@ -13,6 +13,8 @@ export class BookingSummaryComponent implements OnInit {
   selectedPhone!: string;
   isLoaderShown!: boolean;
   voucherCode!: string;
+  numOfTransportationGuests: number = 0;
+  totalAmoutOfTransportationGuests: number = 0;
 
   constructor(
     private ticket: TicketsService,
@@ -21,8 +23,20 @@ export class BookingSummaryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.ticket.summaryData.subscribe((res: any) => {
-      res ? (this.bookingData = res) : this.router.navigate(['/group-booking']);
+    this.ticket.summaryData.subscribe(async (res: any) => {
+      if (res) {
+        this.bookingData = res;
+        this.totalTransportationGuests();
+      } else {
+        this.router.navigate(['/group-booking']);
+      }
+    });
+  }
+
+  totalTransportationGuests() {
+    this.bookingData?.guests?.map((item: any) => {
+      this.numOfTransportationGuests += 1;
+      this.totalAmoutOfTransportationGuests += item?.transportation?.price;
     });
   }
 
@@ -34,7 +48,11 @@ export class BookingSummaryComponent implements OnInit {
         this.bookingData?.accommodation[i]?.quantity *
         this.bookingData?.accommodation[i]?.price;
     }
-    return sum;
+    return (
+      this.bookingData.guests[0]?.price * this.bookingData.guests?.length +
+      sum +
+      this.totalAmoutOfTransportationGuests
+    );
   }
 
   selectedPerson(person: any) {

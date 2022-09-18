@@ -204,6 +204,7 @@ export class GroupBookingComponent implements OnInit {
         guests: [this.profileForm?.value],
       };
       data.guests[0].phone = this.phoneNumber;
+      data.guests[0].price = this.tickets.ticket[0].price;
 
       await this.ticket.summaryData.next(data);
 
