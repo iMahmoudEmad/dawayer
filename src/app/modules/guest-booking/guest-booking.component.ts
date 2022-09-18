@@ -48,8 +48,6 @@ export class GuestBookingComponent implements OnInit {
         this.router.navigate(['/group-booking']);
       }
     });
-
-    this.ticket.summaryData.unsubscribe();
   }
 
   get guests() {
