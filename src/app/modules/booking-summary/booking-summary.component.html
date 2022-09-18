@@ -41,7 +41,7 @@
           EGP</span
         >
       </div>
-      <div class="payment">
+      <div class="payment" *ngIf="numOfTransportationGuests">
         <span class="left">
           Transportation ({{ numOfTransportationGuests }} x
           {{ bookingData?.guests[0]?.transportation?.price }} EGP)
