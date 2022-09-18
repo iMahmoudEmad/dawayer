@@ -169,7 +169,10 @@
         class="numberOfGuests mt-15"
         [class.mb-2]="inputValue.numberOfGuests.value?.quantity !== 9"
       >
-        <span class="clicked minus" (click)="decrement(tickets?.ticket[0], 'numberOfGuests')">
+        <span
+          class="clicked minus"
+          (click)="decrement(tickets?.ticket[0], 'numberOfGuests')"
+        >
           <img
             src="assets/{{
               inputValue.numberOfGuests.value?.quantity == 0

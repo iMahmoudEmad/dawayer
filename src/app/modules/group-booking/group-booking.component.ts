@@ -109,8 +109,8 @@ export class GroupBookingComponent implements OnInit {
 
   decrement(item?: any, passingName?: string) {
     let name = passingName
-        ? this.formatName(passingName)
-        : this.formatName(item?.name);
+      ? this.formatName(passingName)
+      : this.formatName(item?.name);
     const count: any = this.profileForm?.get(name);
     this.accommodationQty -= 1;
 

@@ -94,9 +94,9 @@ export class AccommodationComponent implements OnInit {
 
     for (let property in data) {
       // if (property.includes('double') && data[property]?.quantity) {
-        accommodation.push({
-          ...data[property],
-        });
+      accommodation.push({
+        ...data[property],
+      });
       // }
 
       // if (property.includes('quad') && data[property]?.quantity) {

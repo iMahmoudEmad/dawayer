@@ -42,11 +42,11 @@ export class GuestBookingComponent implements OnInit {
 
     // await this.ticket.summaryData.subscribe((res: any) => {
     //   if (res) {
-        this.ownerData = this.ticket.summaryData.value;
-        this.addGuest(0);
-      // } else {
-      //   this.router.navigate(['/group-booking']);
-      // }
+    this.ownerData = this.ticket.summaryData.value;
+    this.addGuest(0);
+    // } else {
+    //   this.router.navigate(['/group-booking']);
+    // }
     // });
   }
 
@@ -76,7 +76,7 @@ export class GuestBookingComponent implements OnInit {
         phone: this.getValidity(index)?.value.phone.number,
       });
     } else {
-      if(this.getValidity(index)?.value?.phone){
+      if (this.getValidity(index)?.value?.phone) {
         this.getValidity(index)?.patchValue({
           phone: this.getValidity(index)?.value?.phone?.number,
         });

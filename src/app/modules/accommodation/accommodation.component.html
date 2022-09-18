@@ -47,14 +47,18 @@
             </span>
             <p class="guestsLength">
               <img
-                [src]="item?.productIcon || item?.name.toLowerCase().includes('own') ? 'assets/byot.svg' : 'assets/tent.svg'"
+                [src]="
+                  item?.productIcon || item?.name.toLowerCase().includes('own')
+                    ? 'assets/byot.svg'
+                    : 'assets/tent.svg'
+                "
                 alt="guest photo"
                 class="bungalow mb-6"
               />
 
               <span>
                 {{ accommodationValue(item.name)?.quantity }}
-                {{ item?.indicatorName || '' }}
+                {{ item?.indicatorName || "" }}
               </span>
             </p>
             <span
@@ -146,9 +150,11 @@
                   </ng-container>
                 </ng-container>
 
-                <p *ngIf="item?.description">{{ item?.description }}</p>
+                <pre *ngIf="item?.description">{{ item?.description }}</pre>
               </div>
-              <div class="right">{{ item?.price }} EGP / {{item?.typePer || 'each'}}</div>
+              <div class="right">
+                {{ item?.price }} EGP / {{ item?.typePer || "each" }}
+              </div>
             </div>
           </div>
         </ng-container>
