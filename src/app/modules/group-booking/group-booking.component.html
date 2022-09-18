@@ -12,12 +12,14 @@
   </header>
 
   <div class="body">
-    <form [formGroup]="profileForm">
+    <form autocomplete="off" [formGroup]="profileForm">
       <div class="form-control">
         <label class="clicked mb-1" for="fullName"> Full name </label>
         <input
           autofocus
           autocomplete="off"
+          spellcheck="false"
+          autocorrect="off"
           type="text"
           formControlName="fullName"
           id="fullName"
@@ -34,6 +36,8 @@
         <input
           type="text"
           autocomplete="off"
+          spellcheck="false"
+          autocorrect="off"
           formControlName="email"
           id="email"
           class="input w-100"
@@ -46,7 +50,25 @@
 
       <div class="form-control b-none">
         <label class="clicked mb-1" for="phone"> Mobile number </label>
-        <ngx-intl-tel-input
+
+        <input
+          type="text"
+          autocomplete="off"
+          spellcheck="false"
+          autocorrect="off"
+          formControlName="phone"
+          id="phone"
+          class="input w-100"
+          maxlength="11"
+          [class.error]="
+            phoneError ||
+            (inputValue.phone.invalid &&
+              (inputValue.phone.dirty || inputValue.phone.touched))
+          "
+          (change)="verifyPhone(inputValue.phone.value)"
+        />
+        <!-- <ngx-intl-tel-input
+          autocomplete="nope"
           [enableAutoCountrySelect]="false"
           [enablePlaceholder]="true"
           [searchCountryFlag]="true"
@@ -61,7 +83,7 @@
           [class.error]="phoneError"
           (ngModelChange)="verifyPhone($event)"
           customPlaceholder="01234567890"
-        ></ngx-intl-tel-input>
+        ></ngx-intl-tel-input> -->
 
         <p
           class="error"
@@ -84,6 +106,8 @@
         <input
           type="text"
           autocomplete="off"
+          spellcheck="false"
+          autocorrect="off"
           formControlName="socialMediaLink"
           id="socialMediaLink"
           class="input w-100"

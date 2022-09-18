@@ -138,24 +138,19 @@ export class GroupBookingComponent implements OnInit {
   }
 
   verifyPhone(phone: any) {
-    if (phone?.number?.length == 11) {
-      this.ticket
-        .verifyPhone(encodeURIComponent(`+2${phone?.number}`))
-        .subscribe(
-          (res: any) => {
-            if (res.status == 'SUCCESS') {
-              this.phoneError = false;
-              this.phoneNumber = `${phone?.number}`;
-              localStorage.setItem(
-                'phoneList',
-                JSON.stringify([`${phone?.number}`])
-              );
-            } else {
-              this.phoneError = true;
-            }
-          },
-          () => (this.phoneError = true)
-        );
+    if (phone?.length == 11) {
+      this.ticket.verifyPhone(encodeURIComponent(phone)).subscribe(
+        (res: any) => {
+          if (res.status == 'SUCCESS') {
+            this.phoneError = false;
+            this.phoneNumber = phone;
+            localStorage.setItem('phoneList', JSON.stringify([phone]));
+          } else {
+            this.phoneError = true;
+          }
+        },
+        () => (this.phoneError = true)
+      );
     }
   }
 
@@ -186,11 +181,6 @@ export class GroupBookingComponent implements OnInit {
   }
 
   async submitForm() {
-    await this.profileForm?.patchValue({
-      ...this.profileForm?.value,
-      phone: `${this.phoneNumber?.substring(2)}`,
-    });
-    this.profileForm?.updateValueAndValidity();
     let guestsQuantity = this.inputValue.numberOfGuests.value?.quantity;
 
     if (
