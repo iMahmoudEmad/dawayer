@@ -48,6 +48,8 @@ export class GuestBookingComponent implements OnInit {
         this.router.navigate(['/group-booking']);
       }
     });
+
+    this.ticket.summaryData.unsubscribe();
   }
 
   get guests() {
@@ -76,9 +78,12 @@ export class GuestBookingComponent implements OnInit {
         phone: this.getValidity(index)?.value.phone.number,
       });
     } else {
-      this.getValidity(index)?.patchValue({
-        phone: this.getValidity(index)?.value?.phone?.number,
-      });
+      if(this.getValidity(index)?.value?.phone){
+        console.log(this.getValidity(index)?.value?.phone)
+        // this.getValidity(index)?.patchValue({
+        //   phone: this.getValidity(index)?.value?.phone?.number,
+        // });
+      }
 
       this.submitForm();
     }
