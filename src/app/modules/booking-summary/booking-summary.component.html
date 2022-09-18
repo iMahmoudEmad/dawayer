@@ -27,7 +27,7 @@
       <button class="submit" [class.disabled]="!voucherCode">Submit</button>
     </div> -->
 
-    <div class="paymentDetails" *ngIf="bookingData?.accommodation?.length">
+    <div class="paymentDetails">
       <h2 class="title">Payment details</h2>
       <div class="payment">
         <span class="left">
@@ -54,12 +54,16 @@
           EGP</span
         >
       </div>
-      <div class="payment" *ngFor="let item of bookingData?.accommodation">
-        <span class="left"
-          >{{ item?.name }} ({{ item?.quantity }} x {{ item?.price }} EGP)</span
-        >
-        <span class="right">{{ item?.quantity * item?.price }} EGP</span>
-      </div>
+
+      <ng-container *ngIf="bookingData?.accommodation?.length">
+        <div class="payment" *ngFor="let item of bookingData?.accommodation">
+          <span class="left"
+            >{{ item?.name }} ({{ item?.quantity }} x
+            {{ item?.price }} EGP)</span
+          >
+          <span class="right">{{ item?.quantity * item?.price }} EGP</span>
+        </div>
+      </ng-container>
       <div class="payment border">
         <span class="left">Total Price</span>
         <span class="right big">{{ totalAmount() }} EGP</span>
