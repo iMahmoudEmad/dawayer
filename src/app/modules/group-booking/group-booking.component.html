@@ -47,7 +47,6 @@
       <div class="form-control b-none">
         <label class="clicked mb-1" for="phone"> Mobile number </label>
         <ngx-intl-tel-input
-          autocomplete="off"
           autocomplete="nope"
           [enableAutoCountrySelect]="false"
           [enablePlaceholder]="true"
@@ -62,6 +61,7 @@
           class="input w-100 b-none"
           [class.error]="phoneError"
           (ngModelChange)="verifyPhone($event)"
+          customPlaceholder="01234567890"
         ></ngx-intl-tel-input>
 
         <p
@@ -185,7 +185,7 @@
         <p class="guestsLength">
           <img src="assets/users.svg" alt="guest photo" class="user mb-6" />
           <span
-            >{{ guestValue == 0 ? "Just me" : guestValue + " Guest" }}
+            >{{ guestValue == 0 ? "Only Me" : guestValue + " Guest" }}
           </span>
         </p>
 
