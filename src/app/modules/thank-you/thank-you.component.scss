@@ -20,7 +20,7 @@
       font-family: "Inter";
 
       p.header {
-        font-size: .75rem;
+        font-size: 0.75rem;
       }
 
       h2 {
@@ -136,6 +136,48 @@
         text-decoration: none;
         color: #0085ff;
       }
+
+      &:last-of-type {
+        justify-content: center;
+        padding-top: 3rem;
+
+        img {
+          width: 20px;
+          height: 20px;
+          vertical-align: middle;
+        }
+
+        h2 {
+          color: #3d3d3d;
+          font-family: "Inter";
+          font-weight: 500;
+          font-size: 0.75rem;
+        }
+      }
+    }
+  }
+}
+
+h3 {
+  font-weight: 400;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+
+  &.note {
+    font-size: 0.75rem;
+    color: #6d6d6d;
+    margin-bottom: 1.5rem;
+
+    a {
+      font-size: 0.75rem;
+      font-family: "Inter";
+      color: #0085ff;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    &.accommodation {
+      margin-bottom: 2rem;
     }
   }
 }

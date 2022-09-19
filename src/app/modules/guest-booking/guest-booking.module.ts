@@ -5,6 +5,7 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
+import { OnlynumberModule } from 'src/app/onlynumber.module';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [GuestBookingComponent],
   imports: [
+    OnlynumberModule,
     RouterModule.forChild(routes),
     CommonModule,
     HttpClientModule,

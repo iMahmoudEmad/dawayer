@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { OnlynumberModule } from 'src/app/onlynumber.module';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [GroupBookingComponent],
   imports: [
+    OnlynumberModule,
     RouterModule.forChild(routes),
     CommonModule,
     ToastrModule.forRoot(),

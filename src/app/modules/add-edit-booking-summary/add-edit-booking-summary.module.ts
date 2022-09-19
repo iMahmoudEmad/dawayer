@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { AddEditBookingSummaryComponent } from './add-edit-booking-summary.component';
+import { OnlynumberModule } from 'src/app/onlynumber.module';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [AddEditBookingSummaryComponent],
   imports: [
+    OnlynumberModule,
     RouterModule.forChild(routes),
     CommonModule,
     ReactiveFormsModule,

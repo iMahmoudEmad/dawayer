@@ -77,12 +77,12 @@ export class GuestBookingComponent implements OnInit {
       });
       this.guests.push(guestForm);
       this.getValidity(index)?.patchValue({
-        phone: this.getValidity(index)?.value.phone.number,
+        phone: this.getValidity(index)?.value.phone,
       });
     } else {
       if (this.getValidity(index)?.value?.phone) {
         this.getValidity(index)?.patchValue({
-          phone: this.getValidity(index)?.value?.phone?.number,
+          phone: this.getValidity(index)?.value?.phone,
         });
       }
 
@@ -109,7 +109,7 @@ export class GuestBookingComponent implements OnInit {
     let phoneList = [...JSON.parse(localStorage.getItem('phoneList') || '{}')];
 
     let isPhoneFound = () =>
-      phoneList.map((phoneNumber) => phoneNumber.includes(`${phone}`))[0];
+      phoneList.map((phoneNumber) => phoneNumber.includes(phone))[0];
 
     if (phone?.length == 11) {
       this.ticket.verifyPhone(encodeURIComponent(phone)).subscribe(

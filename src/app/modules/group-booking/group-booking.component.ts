@@ -138,7 +138,7 @@ export class GroupBookingComponent implements OnInit {
   }
 
   verifyPhone(phone: any) {
-    if (phone?.length == 11) {
+    if (this.profileForm.value.phone && phone?.length == 11) {
       this.ticket.verifyPhone(encodeURIComponent(phone)).subscribe(
         (res: any) => {
           if (res.status == 'SUCCESS') {

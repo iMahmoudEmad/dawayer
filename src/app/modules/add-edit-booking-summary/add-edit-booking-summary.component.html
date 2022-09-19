@@ -53,8 +53,10 @@
           autocorrect="off"
           formControlName="phone"
           id="phone"
+          placeholder="01234567890"
           class="input w-100"
           maxlength="11"
+          appOnlynumber
           [class.error]="
             phoneError ||
             (inputValue.phone.invalid &&
@@ -104,7 +106,7 @@
         />
         <span class="checkmark"></span>
         <label class="clicked" for="transportationChecked"
-          >I’ll use the festival’s transporation option 🚐
+          >I’ll use the festival’s transporation option
         </label>
       </div>
 
@@ -155,7 +157,7 @@
           class="checkbox"
         />
         <span class="checkmark"></span>
-        <label class="clicked" for="isVegeterian">I’m a vegeterian 🥒 </label>
+        <label class="clicked" for="isVegeterian">I’m a vegeterian </label>
       </div>
 
       <div class="form-control">
