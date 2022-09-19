@@ -83,12 +83,13 @@ export class AddEditBookingSummaryComponent implements OnInit {
   }
 
   verifyPhone(phone: any) {
-    if (phone?.number?.length == 11) {
-      this.ticket.verifyPhone(encodeURIComponent(`${phone?.number}`)).subscribe(
+    phone = phone?.target?.value;
+    if (phone?.length == 11) {
+      this.ticket.verifyPhone(encodeURIComponent(phone)).subscribe(
         (res: any) => {
           if (res.status == 'SUCCESS') {
             this.phoneError = false;
-            this.phoneNumber = `${phone?.number}`;
+            this.phoneNumber = phone;
           } else {
             this.phoneError = true;
           }
@@ -99,16 +100,18 @@ export class AddEditBookingSummaryComponent implements OnInit {
   }
 
   submitForm() {
+    let price = this.backupData.guests[this.dynamicIdx].price;
     this.backupData.guests[this.dynamicIdx] = this.profileForm?.value;
-    if (this.backupData.guests[this.dynamicIdx].phone?.number?.length > 11) {
+    if (this.backupData.guests[this.dynamicIdx].phone?.length > 11) {
       this.backupData.guests[this.dynamicIdx].phone = `${
-        this.backupData.guests[this.dynamicIdx]?.phone?.number
+        this.backupData.guests[this.dynamicIdx]?.phone
       }`;
     } else {
       this.backupData.guests[this.dynamicIdx].phone = `${
-        this.backupData.guests[this.dynamicIdx]?.phone?.number
+        this.backupData.guests[this.dynamicIdx]?.phone
       }`;
     }
+    this.backupData.guests[this.dynamicIdx].price = price;
 
     if (!this.phoneError) {
       this.ticket.summaryData.next(this.backupData);

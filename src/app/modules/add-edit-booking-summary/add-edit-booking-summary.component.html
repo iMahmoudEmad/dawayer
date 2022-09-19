@@ -46,23 +46,22 @@
 
       <div class="form-control b-none">
         <label class="clicked mb-1" for="phone"> Mobile number </label>
-        <ngx-intl-tel-input
+        <input
+          type="text"
           autocomplete="off"
-          autocomplete="nope"
-          [enableAutoCountrySelect]="false"
-          [enablePlaceholder]="true"
-          [searchCountryFlag]="true"
-          [selectFirstCountry]="false"
-          [maxLength]="11"
-          [phoneValidation]="true"
-          [selectedCountryISO]="CountryISO.Egypt"
-          [inputId]="'phone'"
-          name="phone"
+          spellcheck="false"
+          autocorrect="off"
           formControlName="phone"
-          class="input w-100 b-none"
-          [class.error]="phoneError"
-          (ngModelChange)="verifyPhone($event)"
-        ></ngx-intl-tel-input>
+          id="phone"
+          class="input w-100"
+          maxlength="11"
+          [class.error]="
+            phoneError ||
+            (inputValue.phone.invalid &&
+              (inputValue.phone.dirty || inputValue.phone.touched))
+          "
+          (change)="verifyPhone($event)"
+        />
 
         <p
           class="error"
@@ -131,7 +130,6 @@
                 [class.selected]="selectedItem?._id == transportationItem?._id"
               >
                 <span>{{ transportationItem?.name }}</span>
-                <!-- <span>10:00 AM</span> -->
               </li>
             </ul>
           </div>
@@ -161,7 +159,12 @@
       </div>
 
       <div class="form-control">
-        <button class="btn" (click)="submitForm()">
+        <button
+          class="btn"
+          [class.disabled]="profileForm.invalid"
+          [disabled]="profileForm.invalid"
+          (click)="submitForm()"
+        >
           Save & Continue to Summary
         </button>
       </div>

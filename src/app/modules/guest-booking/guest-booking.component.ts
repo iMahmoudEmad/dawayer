@@ -59,7 +59,11 @@ export class GuestBookingComponent implements OnInit {
   }
 
   addGuest(index: number) {
-    if (this.guestNum < this.ownerData?.guests[0]?.numberOfGuests?.quantity) {
+    if (
+      this.guestNum <
+      (this.ownerData?.guests[0] &&
+        this.ownerData?.guests[0]?.numberOfGuests?.quantity)
+    ) {
       this.guestNum++;
       const guestForm = this.fb.group({
         fullName: ['', Validators.required],
@@ -101,27 +105,25 @@ export class GuestBookingComponent implements OnInit {
   }
 
   verifyPhone(phone: any) {
+    phone = phone?.target?.value;
     let phoneList = [...JSON.parse(localStorage.getItem('phoneList') || '{}')];
 
     let isPhoneFound = () =>
-      phoneList.map((phoneNumber) =>
-        phoneNumber.includes(`${phone?.number}`)
-      )[0];
+      phoneList.map((phoneNumber) => phoneNumber.includes(`${phone}`))[0];
 
-    if (phone?.number?.length == 11) {
-      this.ticket
-        .verifyPhone(encodeURIComponent(`+2${phone?.number}`))
-        .subscribe(
-          (res: any) => {
-            if (res.status == 'SUCCESS' && !isPhoneFound()) {
-              this.phoneError = false;
-              this.phoneNumber = `${phone?.number}`;
-            } else {
-              this.phoneError = true;
-            }
-          },
-          () => (this.phoneError = true)
-        );
+    if (phone?.length == 11) {
+      this.ticket.verifyPhone(encodeURIComponent(phone)).subscribe(
+        (res: any) => {
+          if (res.status == 'SUCCESS' && !isPhoneFound()) {
+            this.phoneError = false;
+            this.phoneNumber = phone;
+            localStorage.setItem('phoneList', JSON.stringify([phone]));
+          } else {
+            this.phoneError = true;
+          }
+        },
+        () => (this.phoneError = true)
+      );
     }
   }
 

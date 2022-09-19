@@ -67,23 +67,6 @@
           "
           (change)="verifyPhone(inputValue.phone.value)"
         />
-        <!-- <ngx-intl-tel-input
-          autocomplete="nope"
-          [enableAutoCountrySelect]="false"
-          [enablePlaceholder]="true"
-          [searchCountryFlag]="true"
-          [selectFirstCountry]="false"
-          [maxLength]="11"
-          [phoneValidation]="false"
-          [selectedCountryISO]="CountryISO.Egypt"
-          [inputId]="'phone'"
-          name="phone"
-          formControlName="phone"
-          class="input w-100 b-none"
-          [class.error]="phoneError"
-          (ngModelChange)="verifyPhone($event)"
-          customPlaceholder="01234567890"
-        ></ngx-intl-tel-input> -->
 
         <p
           class="error"
@@ -167,7 +150,6 @@
                 [class.selected]="selectedItem?._id == transportationItem?._id"
               >
                 <span>{{ transportationItem?.name }}</span>
-                <!-- <span>10:00 AM</span> -->
               </li>
             </ul>
           </div>
@@ -185,7 +167,6 @@
         </div>
       </div>
 
-      <!-- <h3 class="note">A chance to know you more</h3> -->
       <h3>How many guests are you booking for?</h3>
 
       <div
