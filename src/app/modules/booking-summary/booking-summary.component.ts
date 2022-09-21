@@ -12,7 +12,10 @@ export class BookingSummaryComponent implements OnInit {
   bookingData: any;
   selectedPhone!: string;
   isLoaderShown!: boolean;
-  voucherCode!: string;
+  isVoucherLoaderShown!: boolean;
+  voucherCode: string = '';
+  voucherData: any;
+  voucherError!: string;
   numOfTransportationGuests: number = 0;
   totalAmoutOfTransportationGuests: number = 0;
 
@@ -78,9 +81,27 @@ export class BookingSummaryComponent implements OnInit {
   }
 
   voucherCodeVerify() {
-    this.ticket.voucherCodeVerify(this.voucherCode).subscribe((res: any) => {
-      console.log('voucher res ---->', res);
-    });
+    this.isVoucherLoaderShown = true;
+    this.ticket.voucherCodeVerify(this.voucherCode).subscribe(
+      (res: any) => {
+        console.log(res?.response);
+        this.voucherData = res?.response?.voucher;
+        this.isVoucherLoaderShown = false;
+        this.toastr.success('', res?.messages?.en);
+      },
+      (err: any) => {
+        this.isVoucherLoaderShown = false;
+        console.log(err?.error);
+        this.voucherError = err?.error?.messages?.en;
+        this.toastr.error('', err?.error?.messages?.en);
+      }
+    );
+  }
+
+  resetVoucher() {
+    this.voucherError = '';
+    this.voucherCode = '';
+    this.voucherData = '';
   }
 
   submitSummary() {
@@ -96,10 +117,7 @@ export class BookingSummaryComponent implements OnInit {
       },
       (err: any) => {
         this.isLoaderShown = false;
-        this.toastr.error(
-          '',
-          err?.error?.messages?.en
-        );
+        this.toastr.error('', err?.error?.messages?.en);
       }
     );
   }

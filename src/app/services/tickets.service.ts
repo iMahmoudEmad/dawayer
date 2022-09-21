@@ -11,26 +11,27 @@ export class TicketsService {
   summaryData = new BehaviorSubject<object>({});
   confirmedData = new BehaviorSubject<object>({});
   loader = new BehaviorSubject<boolean>(true);
+  environmentUrl = 'https://dawayer.herokuapp.com'; //https://dawayer-staging.herokuapp.com
 
   constructor(private http: HttpClient) {}
 
   getTickets() {
-    return this.http.get('https://dawayer.herokuapp.com/api/v1/products');
+    return this.http.get(`${this.environmentUrl}/api/v1/products`);
   }
 
   bookingConfirmation(data: any) {
-    return this.http.post('https://dawayer.herokuapp.com/api/v1/groups', data);
+    return this.http.post(`${this.environmentUrl}/api/v1/groups`, data);
   }
 
   verifyPhone(phone: string) {
     return this.http.get(
-      `https://dawayer.herokuapp.com/api/v1/guests/verifyPhone?phone=${phone}`
+      `${this.environmentUrl}/api/v1/guests/verifyPhone?phone=${phone}`
     );
   }
 
   voucherCodeVerify(code: string) {
     return this.http.get(
-      `https://dawayer.herokuapp.com/api/v1/vouchers/verify?code=${code}`
+      `${this.environmentUrl}/api/v1/vouchers/verify?code=${code}`
     );
   }
 }

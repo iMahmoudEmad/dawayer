@@ -19,12 +19,78 @@
           Tickets ({{ bookingData?.guests?.length }} x
           {{ bookingData?.guests[0]?.price }} EGP)
         </span>
-        <span class="right"
-          >{{
-            bookingData?.guests?.length * bookingData?.guests[0]?.price
-          }}
-          EGP</span
-        >
+        <span class="right" [class.discount]="voucherData">
+          {{ bookingData?.guests?.length * bookingData?.guests[0]?.price }}
+          EGP
+        </span>
+      </div>
+      <div class="payment">
+        <div class="voucher" *ngIf="!voucherData">
+          <img
+            src="assets/voucher.svg"
+            alt="voucher logo"
+            class="voucher-logo"
+          />
+
+          <input
+            type="text"
+            class="voucher-input"
+            placeholder="Insert Voucher Code"
+            [(ngModel)]="voucherCode"
+            [class.error]="voucherError"
+          />
+
+          <span
+            class="voucher-btn clicked"
+            [class.active]="voucherCode"
+            [class.spinner]="voucherError || isVoucherLoaderShown"
+            (click)="voucherCode ? voucherCodeVerify() : ''"
+          >
+            <img
+              *ngIf="isVoucherLoaderShown"
+              src="assets/loading.gif"
+              alt="voucher loading"
+            />
+            <img
+              *ngIf="voucherError && voucherCode"
+              src="assets/close.svg"
+              alt="remove voucher value"
+              class="clicked"
+              (click)="resetVoucher()"
+            />
+
+            {{ !isVoucherLoaderShown && !voucherError ? "Submit" : "" }}
+          </span>
+        </div>
+
+        <ng-container *ngIf="voucherData">
+          <div class="left">
+            <span class="voucher-applied">{{ voucherData?.code }} Applied</span>
+            <br />
+            <span class="voucher-savings"
+              >{{ voucherData?.percentage }}% saving</span
+            >
+          </div>
+          <span class="right voucher-discount-number">
+            {{
+              bookingData?.guests?.length * bookingData?.guests[0]?.price -
+                (bookingData?.guests?.length *
+                  bookingData?.guests[0]?.price *
+                  voucherData?.percentage) /
+                  100
+            }}
+            EGP
+
+            <img
+              src="assets/close.svg"
+              alt="voucher loading"
+              class="clicked"
+              (click)="resetVoucher()"
+            />
+          </span>
+        </ng-container>
+
+        <p class="error" *ngIf="voucherError">Invalid voucher code.</p>
       </div>
       <div class="payment" *ngIf="numOfTransportationGuests">
         <span class="left">

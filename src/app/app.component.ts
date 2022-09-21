@@ -11,14 +11,10 @@ export class AppComponent {
   isLoaderShown: boolean = true;
 
   constructor(private ticket: TicketsService) {
-    setTimeout(() => {
-      this.isLoaderShown = false;
-    }, 1000);
+    setTimeout(() => (this.isLoaderShown = false), 1000);
   }
 
   onActivate(event: any) {
     window.scroll(0, 0);
-    //or document.body.scrollTop = 0;
-    //or document.querySelector('body').scrollTo(0,0)
   }
 }

@@ -42,6 +42,95 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+
+      p.error {
+        font-size: 0.75rem;
+        color: #bc584c;
+      }
+
+      .voucher {
+        position: relative;
+        font-family: "Inter";
+        font-weight: 400;
+        font-size: 0.875rem;
+        width: 100%;
+        height: 45px;
+
+        &-applied {
+          display: inline-block;
+          color: #34557b;
+          font-weight: 500;
+          font-size: 0.875rem;
+          margin-bottom: 0.25rem;
+        }
+
+        &-savings {
+          font-size: 0.75rem;
+        }
+
+        &-discount-number {
+          display: flex;
+          align-items: center;
+          font-size: 1rem;
+          color: #1e3045;
+
+          img {
+            width: 10px;
+            height: 10px;
+            margin-inline-start: 0.875rem;
+          }
+        }
+
+        &-logo,
+        &-btn {
+          position: absolute;
+        }
+
+        &-logo {
+          position: absolute;
+          left: 0.75rem;
+          top: 0.75rem;
+        }
+
+        &-input {
+          padding-inline-start: 2.5rem;
+          height: 45px;
+          width: 100%;
+          color: #1e3045;
+
+          &::placeholder {
+            color: #989898;
+            font-size: 0.75rem;
+          }
+
+          &.error {
+            border-color: red;
+            border-width: 1px;
+          }
+        }
+
+        &-btn {
+          right: 0.75rem;
+          color: #bbb;
+          top: 0.9rem;
+
+          &.active {
+            color: #34557b;
+            font-weight: 500;
+          }
+
+          .spinner {
+            top: 0.6rem;
+          }
+
+          img {
+            width: 1.5rem;
+            height: 1.5rem;
+            position: static;
+          }
+        }
+      }
 
       &.border {
         margin-bottom: 3rem;
@@ -61,6 +150,10 @@
         color: #1e3045;
         text-align: end;
         font-family: "Inter";
+
+        &.discount {
+          text-decoration: line-through;
+        }
 
         &.big {
           font-size: 1.125rem;
