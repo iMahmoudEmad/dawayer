@@ -98,7 +98,7 @@ export class BookingSummaryComponent implements OnInit {
         this.isLoaderShown = false;
         this.toastr.error(
           '',
-          err?.messages?.en || 'An error occured in server, please try later'
+          err?.error?.messages?.en
         );
       }
     );
