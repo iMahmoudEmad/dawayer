@@ -24,6 +24,7 @@ export class GuestBookingComponent implements OnInit {
   ownerData: any;
   phoneNumber!: string;
   phoneError!: boolean;
+  backupPhone!: string;
 
   form = this.fb.group({
     guests: this.fb.array([]),
@@ -40,14 +41,8 @@ export class GuestBookingComponent implements OnInit {
       .getTickets()
       .subscribe((ticket: any) => (this.tickets = ticket.response));
 
-    // await this.ticket.summaryData.subscribe((res: any) => {
-    //   if (res) {
     this.ownerData = this.ticket.summaryData.value;
     this.addGuest(0);
-    // } else {
-    //   this.router.navigate(['/group-booking']);
-    // }
-    // });
   }
 
   get guests() {
@@ -111,7 +106,8 @@ export class GuestBookingComponent implements OnInit {
     let isPhoneFound = () =>
       phoneList.map((phoneNumber) => phoneNumber.includes(phone))[0];
 
-    if (phone?.length == 11) {
+    if (this.backupPhone !== phone && phone?.length == 11) {
+      this.backupPhone = phone;
       this.ticket.verifyPhone(encodeURIComponent(phone)).subscribe(
         (res: any) => {
           if (res.status == 'SUCCESS' && !isPhoneFound()) {

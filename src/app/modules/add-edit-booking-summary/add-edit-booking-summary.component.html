@@ -62,7 +62,7 @@
             (inputValue.phone.invalid &&
               (inputValue.phone.dirty || inputValue.phone.touched))
           "
-          (change)="verifyPhone($event)"
+          (keyup)="verifyPhone($event)"
         />
 
         <p

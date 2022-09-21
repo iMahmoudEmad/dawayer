@@ -90,7 +90,7 @@ export class BookingSummaryComponent implements OnInit {
       (res: any) => {
         this.isLoaderShown = false;
         this.ticket.confirmedData.next(res?.response?.group);
-        this.toastr.success('', 'Booking successfully!');
+        this.toastr.success('', res?.messages?.en);
 
         this.router.navigate(['/thank-you']);
       },

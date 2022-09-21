@@ -19,6 +19,7 @@ export class GroupBookingComponent implements OnInit {
   phoneError!: boolean;
   accommodationQty: number = 0;
   guestQty: number = 0;
+  backupPhone!: string;
 
   profileForm = new FormGroup({
     fullName: new FormControl('', Validators.required),
@@ -138,7 +139,12 @@ export class GroupBookingComponent implements OnInit {
   }
 
   verifyPhone(phone: any) {
-    if (this.profileForm.value.phone && phone?.length == 11) {
+    if (
+      this.backupPhone !== phone &&
+      this.profileForm.value.phone &&
+      phone?.length == 11
+    ) {
+      this.backupPhone = phone;
       this.ticket.verifyPhone(encodeURIComponent(phone)).subscribe(
         (res: any) => {
           if (res.status == 'SUCCESS') {

@@ -67,7 +67,7 @@
             (inputValue.phone.invalid &&
               (inputValue.phone.dirty || inputValue.phone.touched))
           "
-          (change)="verifyPhone(inputValue.phone.value)"
+          (keyup)="verifyPhone(inputValue.phone.value)"
         />
 
         <p

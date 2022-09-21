@@ -18,6 +18,7 @@ export class AddEditBookingSummaryComponent implements OnInit {
   selectedItem: any;
   phoneNumber!: string;
   phoneError!: boolean;
+  backupPhone!: string;
 
   profileForm = new FormGroup({
     fullName: new FormControl('', Validators.required),
@@ -26,12 +27,7 @@ export class AddEditBookingSummaryComponent implements OnInit {
       Validators.required,
       Validators.pattern(/^(\+201|01|00201)[0-2,5]{1}[0-9]{8}/g),
     ]),
-    socialMediaLink: new FormControl('', [
-      Validators.required,
-      // Validators.pattern(
-      //   /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/
-      // ),
-    ]),
+    socialMediaLink: new FormControl('', [Validators.required]),
     transportationChecked: new FormControl(false),
     transportation: new FormControl(''),
     isVegeterian: new FormControl(false),
@@ -84,7 +80,8 @@ export class AddEditBookingSummaryComponent implements OnInit {
 
   verifyPhone(phone: any) {
     phone = phone?.target?.value;
-    if (phone?.length == 11) {
+    if (this.backupPhone !== phone && phone?.length == 11) {
+      this.backupPhone = phone;
       this.ticket.verifyPhone(encodeURIComponent(phone)).subscribe(
         (res: any) => {
           if (res.status == 'SUCCESS') {

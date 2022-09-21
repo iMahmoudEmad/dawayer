@@ -94,7 +94,7 @@
                     (getValidity(i).value?.phone?.dirty ||
                       getValidity(i).value?.phone?.touched))
                 "
-                (change)="verifyPhone($event)"
+                (keyup)="verifyPhone($event)"
               />
 
               <p class="error" *ngIf="phoneError">
