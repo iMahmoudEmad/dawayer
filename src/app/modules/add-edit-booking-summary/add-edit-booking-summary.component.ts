@@ -49,7 +49,8 @@ export class AddEditBookingSummaryComponent implements OnInit {
       this.profileForm.patchValue({
         ...this.backupData?.guests[this.dynamicIdx],
       });
-      this.selectedItem = this.backupData?.guests[this.dynamicIdx].transportation;
+      this.selectedItem =
+        this.backupData?.guests[this.dynamicIdx].transportation;
     });
 
     this.ticket.getTickets().subscribe((ticket: any) => {
