@@ -61,7 +61,7 @@ export class BookingSummaryComponent implements OnInit {
         this.totalAmoutOfTransportationGuests;
 
       if (this.voucherData) {
-        total -=
+        total =
           this.bookingData?.guests?.length *
             this.bookingData?.guests[0]?.price -
           (this.bookingData?.guests?.length *
@@ -70,14 +70,14 @@ export class BookingSummaryComponent implements OnInit {
             100;
       }
 
-      return total;
+      return total + sum + this.totalAmoutOfTransportationGuests;
     } else {
       total =
         this.bookingData.guests[0]?.price * this.bookingData.guests?.length +
         sum;
 
       if (this.voucherData) {
-        total -=
+        total =
           this.bookingData?.guests?.length *
             this.bookingData?.guests[0]?.price -
           (this.bookingData?.guests?.length *
@@ -86,7 +86,7 @@ export class BookingSummaryComponent implements OnInit {
             100;
       }
 
-      return total;
+      return total + sum + this.totalAmoutOfTransportationGuests;
     }
   }
 
