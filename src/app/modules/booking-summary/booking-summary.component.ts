@@ -84,14 +84,12 @@ export class BookingSummaryComponent implements OnInit {
     this.isVoucherLoaderShown = true;
     this.ticket.voucherCodeVerify(this.voucherCode).subscribe(
       (res: any) => {
-        console.log(res?.response);
         this.voucherData = res?.response?.voucher;
         this.isVoucherLoaderShown = false;
         this.toastr.success('', res?.messages?.en);
       },
       (err: any) => {
         this.isVoucherLoaderShown = false;
-        console.log(err?.error);
         this.voucherError = err?.error?.messages?.en;
         this.toastr.error('', err?.error?.messages?.en);
       }
@@ -111,7 +109,7 @@ export class BookingSummaryComponent implements OnInit {
       (res: any) => {
         this.isLoaderShown = false;
         this.ticket.confirmedData.next(res?.response?.group);
-        this.toastr.success('', res?.messages?.en);
+        this.toastr.success('', 'Voucher applied'); //res?.messages?.en
 
         this.router.navigate(['/thank-you']);
       },
