@@ -47,6 +47,7 @@ export class BookingSummaryComponent implements OnInit {
 
   totalAmount() {
     let sum = 0;
+    let total = 0;
 
     for (let i = 0; i < this.bookingData?.accommodation.length; i++) {
       sum +=
@@ -54,16 +55,38 @@ export class BookingSummaryComponent implements OnInit {
         this.bookingData?.accommodation[i]?.price;
     }
     if (this.totalAmoutOfTransportationGuests) {
-      return (
+      total =
         this.bookingData.guests[0]?.price * this.bookingData.guests?.length +
         sum +
-        this.totalAmoutOfTransportationGuests
-      );
+        this.totalAmoutOfTransportationGuests;
+
+      if (this.voucherData) {
+        total -=
+          this.bookingData?.guests?.length *
+            this.bookingData?.guests[0]?.price -
+          (this.bookingData?.guests?.length *
+            this.bookingData?.guests[0]?.price *
+            this.voucherData?.percentage) /
+            100;
+      }
+
+      return total;
     } else {
-      return (
+      total =
         this.bookingData.guests[0]?.price * this.bookingData.guests?.length +
-        sum
-      );
+        sum;
+
+      if (this.voucherData) {
+        total -=
+          this.bookingData?.guests?.length *
+            this.bookingData?.guests[0]?.price -
+          (this.bookingData?.guests?.length *
+            this.bookingData?.guests[0]?.price *
+            this.voucherData?.percentage) /
+            100;
+      }
+
+      return total;
     }
   }
 
