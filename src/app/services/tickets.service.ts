@@ -11,7 +11,7 @@ export class TicketsService {
   summaryData = new BehaviorSubject<object>({});
   confirmedData = new BehaviorSubject<object>({});
   loader = new BehaviorSubject<boolean>(true);
-  environmentUrl = 'https://dawayer-staging.herokuapp.com'; //https://dawayer-staging.herokuapp.com
+  environmentUrl = 'https://dawayer.herokuapp.com'; //https://dawayer-staging.herokuapp.com
 
   constructor(private http: HttpClient) {}
 
