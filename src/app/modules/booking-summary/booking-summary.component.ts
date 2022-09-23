@@ -48,47 +48,24 @@ export class BookingSummaryComponent implements OnInit {
 
   totalAmount() {
     let sum = 0;
-    let total = 0;
+    let total =
+      this.bookingData.guests[0]?.price * this.bookingData.guests?.length;
 
-    for (let i = 0; i < this.bookingData?.accommodation.length; i++) {
+    for (let i = 0; i < this.bookingData?.accommodation?.length; i++) {
       sum +=
         this.bookingData?.accommodation[i]?.quantity *
         this.bookingData?.accommodation[i]?.price;
     }
-    if (this.totalAmoutOfTransportationGuests) {
+
+    if (this.voucherData) {
       total =
-        this.bookingData.guests[0]?.price * this.bookingData.guests?.length +
-        sum +
-        this.totalAmoutOfTransportationGuests;
-
-      if (this.voucherData) {
-        total =
-          this.bookingData?.guests?.length *
-            this.bookingData?.guests[0]?.price -
-          (this.bookingData?.guests?.length *
-            this.bookingData?.guests[0]?.price *
-            this.voucherData?.percentage) /
-            100;
-      }
-
-      return total + sum + this.totalAmoutOfTransportationGuests;
-    } else {
-      total =
-        this.bookingData.guests[0]?.price * this.bookingData.guests?.length +
-        sum;
-
-      if (this.voucherData) {
-        total =
-          this.bookingData?.guests?.length *
-            this.bookingData?.guests[0]?.price -
-          (this.bookingData?.guests?.length *
-            this.bookingData?.guests[0]?.price *
-            this.voucherData?.percentage) /
-            100;
-      }
-
-      return total + sum + this.totalAmoutOfTransportationGuests;
+        this.bookingData?.guests?.length * this.bookingData?.guests[0]?.price -
+        (this.bookingData?.guests?.length *
+          this.bookingData?.guests[0]?.price *
+          this.voucherData?.percentage) /
+          100;
     }
+    return total + sum + this.totalAmoutOfTransportationGuests;
   }
 
   selectedPerson(person: any) {
