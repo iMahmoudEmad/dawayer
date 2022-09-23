@@ -70,10 +70,11 @@
             <span class="voucher-savings">
               {{
                 bookingData?.guests?.length * bookingData?.guests[0]?.price -
-                  (bookingData?.guests?.length *
-                    bookingData?.guests[0]?.price *
-                    voucherData?.percentage) /
-                    100
+                  (bookingData?.guests?.length * bookingData?.guests[0]?.price -
+                    (bookingData?.guests?.length *
+                      bookingData?.guests[0]?.price *
+                      voucherData?.percentage) /
+                      100)
               }}
               EGP off applied on tickets
             </span>
@@ -97,7 +98,7 @@
           </span>
         </ng-container>
 
-        <p class="error" *ngIf="voucherError">{{voucherError}}</p>
+        <p class="error" *ngIf="voucherError">{{ voucherError }}</p>
       </div>
       <div class="payment" *ngIf="numOfTransportationGuests">
         <span class="left">

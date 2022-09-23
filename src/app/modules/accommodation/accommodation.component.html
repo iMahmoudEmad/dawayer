@@ -107,7 +107,9 @@
             class="pricing"
             *ngIf="
               this.accommodationQty !== 8 &&
-              item?.availability && item?.price && item?.availableQuantity !== 0
+              item?.availability &&
+              item?.price &&
+              item?.availableQuantity !== 0
             "
           >
             <div class="content">
