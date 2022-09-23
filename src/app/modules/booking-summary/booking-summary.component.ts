@@ -29,8 +29,7 @@ export class BookingSummaryComponent implements OnInit {
     this.ticket.summaryData.subscribe(async (res: any) => {
       if (res) {
         this.bookingData = res;
-        console.log(res);
-        if (res.voucher) this.voucherData = res?.voucher;
+        if (res.voucherCode) this.voucherData = res?.voucherCode;
         await this.totalTransportationGuests();
       } else {
         this.router.navigate(['/group-booking']);
@@ -107,14 +106,15 @@ export class BookingSummaryComponent implements OnInit {
 
   voucherCodeVerify() {
     this.isVoucherLoaderShown = true;
+
     this.ticket.voucherCodeVerify(this.voucherCode).subscribe(
       (res: any) => {
-        this.voucherData = res?.response?.voucher;
         this.ticket.summaryData.next({
           ...this.bookingData,
-          voucher: this.voucherData,
+          voucherCode: res?.response?.voucher,
         });
         this.isVoucherLoaderShown = false;
+        this.voucherData = res?.response?.voucher;
         this.toastr.success('', res?.messages?.en);
       },
       (err: any) => {
@@ -133,7 +133,7 @@ export class BookingSummaryComponent implements OnInit {
 
   submitSummary() {
     this.isLoaderShown = true;
-    this.bookingData.voucher = this.voucherCode;
+    this.bookingData.voucher = this.voucherCode || this.voucherData?.code;
     this.ticket.bookingConfirmation(this.bookingData).subscribe(
       (res: any) => {
         this.isLoaderShown = false;
