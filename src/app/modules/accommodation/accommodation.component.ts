@@ -124,12 +124,17 @@ export class AccommodationComponent implements OnInit {
     this.router.navigate(['/summary-booking']);
   }
 
-  noAvailableQty(availableQuantity?: number | string) {
-    this.toastr.warning(
-      '',
-      availableQuantity == 0
-        ? 'All tickets has been booked'
-        : 'You reach the maximum quantity'
-    );
+  noAvailableQty(
+    availableQuantity?: number | string,
+    availability?: boolean | undefined
+  ) {
+    if (availability || availability == undefined) {
+      this.toastr.warning(
+        '',
+        availableQuantity == 0
+          ? 'All tickets has been booked'
+          : 'You reach the maximum quantity'
+      );
+    }
   }
 }
