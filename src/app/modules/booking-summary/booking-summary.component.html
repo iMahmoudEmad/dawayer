@@ -97,7 +97,7 @@
           </span>
         </ng-container>
 
-        <p class="error" *ngIf="voucherError">Invalid voucher code.</p>
+        <p class="error" *ngIf="voucherError">{{voucherError}}</p>
       </div>
       <div class="payment" *ngIf="numOfTransportationGuests">
         <span class="left">
