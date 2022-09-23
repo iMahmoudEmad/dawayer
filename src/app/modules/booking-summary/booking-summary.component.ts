@@ -39,7 +39,11 @@ export class BookingSummaryComponent implements OnInit {
 
   totalTransportationGuests() {
     this.bookingData?.guests?.map((item: any) => {
-      if (item?.transportationChecked && item?.transportation?.price) {
+      if (
+        item?.transportationChecked &&
+        item?.transportation?.price &&
+        this.numOfTransportationGuests == 0
+      ) {
         this.numOfTransportationGuests += 1;
         this.totalAmoutOfTransportationGuests += item?.transportation?.price;
       }
