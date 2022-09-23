@@ -32,7 +32,9 @@
 
           <div
             class="numberOfGuests"
-            [class.opacity]="item?.availableQuantity == 0"
+            [class.opacity]="
+              !item?.availability || item?.availableQuantity == 0
+            "
           >
             <span class="clicked minus" (click)="decrement(item)">
               <img
@@ -65,14 +67,16 @@
               class="clicked plus"
               (click)="
                 accommodationValue(item.name)?.quantity !==
-                item?.availableQuantity
+                  item?.availableQuantity && item?.availability
                   ? increment(item)
-                  : noAvailableQty(item?.availableQuantity)
+                  : noAvailableQty(item?.availableQuantity, item?.availability)
               "
             >
               <img
                 [src]="
-                  accommodationQty !== 8 && item?.availableQuantity !== 0
+                  accommodationQty !== 8 &&
+                  item?.availableQuantity !== 0 &&
+                  item?.availability
                     ? 'assets/plus.svg'
                     : 'assets/plus-disabled.svg'
                 "
@@ -82,23 +86,29 @@
           </div>
           <h3
             class="note mb-2 mt-8"
-            [class.active]="item?.availableQuantity == 0"
-            *ngIf="item?.availableQuantity == 0"
+            [class.active]="item?.availableQuantity == 0 || !item?.availability"
+            *ngIf="!item?.availability || item?.availableQuantity == 0"
           >
             <img src="assets/not.svg" alt="not" />
-            Sorry, {{ accommodationValue(item.name)?.name }} are not available
-            right now 🙁
+            Sorry, {{ item?.indicatorName }} are not available right now 🙁
           </h3>
           <h3
             class="note mb-2 mt-8"
-            *ngIf="accommodationQty == 8 && item?.availableQuantity !== 0"
+            *ngIf="
+              item?.availability &&
+              accommodationQty == 8 &&
+              item?.availableQuantity !== 0
+            "
           >
             You have reached the maximum available quantity
           </h3>
 
           <div
             class="pricing"
-            *ngIf="item?.price && item?.availableQuantity !== 0"
+            *ngIf="
+              this.accommodationQty !== 8 &&
+              item?.availability && item?.price && item?.availableQuantity !== 0
+            "
           >
             <div class="content">
               <div class="left">

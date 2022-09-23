@@ -67,9 +67,16 @@
           <div class="left">
             <span class="voucher-applied">{{ voucherData?.code }} Applied</span>
             <br />
-            <span class="voucher-savings"
-              >{{ voucherData?.percentage }}% {{voucherData?.description}}</span
-            >
+            <span class="voucher-savings">
+              {{
+                bookingData?.guests?.length * bookingData?.guests[0]?.price -
+                  (bookingData?.guests?.length *
+                    bookingData?.guests[0]?.price *
+                    voucherData?.percentage) /
+                    100
+              }}
+              EGP applied on tickets
+            </span>
           </div>
           <span class="right voucher-discount-number">
             {{
