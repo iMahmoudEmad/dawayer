@@ -30,7 +30,8 @@ export class BookingSummaryComponent implements OnInit {
       if (res) {
         this.bookingData = res;
         if (res.voucherCode) this.voucherData = res?.voucherCode;
-        if(this.numOfTransportationGuests == 0 ) await this.totalTransportationGuests();
+        if (this.numOfTransportationGuests == 0)
+          await this.totalTransportationGuests();
       } else {
         this.router.navigate(['/group-booking']);
       }
@@ -39,10 +40,7 @@ export class BookingSummaryComponent implements OnInit {
 
   totalTransportationGuests() {
     this.bookingData?.guests?.map((item: any) => {
-      if (
-        item?.transportationChecked &&
-        item?.transportation?.price
-      ) {
+      if (item?.transportationChecked && item?.transportation?.price) {
         this.numOfTransportationGuests += 1;
         this.totalAmoutOfTransportationGuests += item?.transportation?.price;
       }

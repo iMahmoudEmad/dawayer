@@ -19,6 +19,7 @@ export class GroupBookingComponent implements OnInit {
   phoneError!: boolean;
   accommodationQty: number = 0;
   guestQty: number = 0;
+  dialCode!: string;
   backupPhone!: string;
 
   profileForm = new FormGroup({
@@ -138,11 +139,12 @@ export class GroupBookingComponent implements OnInit {
     return name?.charAt(0).toLowerCase() + name?.slice(1).replace(/ /g, '');
   }
 
-  verifyPhone(phone: any) {
+  verifyPhone(phone: string, dialCode: string) {
+    this.dialCode = dialCode;
     if (
       this.backupPhone !== phone &&
       this.profileForm.value.phone &&
-      phone?.length == 11
+      phone?.length >= 11
     ) {
       this.backupPhone = phone;
       this.ticket.verifyPhone(encodeURIComponent(phone)).subscribe(
@@ -200,7 +202,8 @@ export class GroupBookingComponent implements OnInit {
         guests: [this.profileForm?.value],
       };
       data.guests[0].phone = this.phoneNumber;
-      data.guests[0].price = this.tickets.ticket[0].price;
+      data.guests[0].dialCode = this.dialCode;
+      data.guests[0].price = this.tickets.ticket[0].price || null;
 
       await this.ticket.summaryData.next(data);
 

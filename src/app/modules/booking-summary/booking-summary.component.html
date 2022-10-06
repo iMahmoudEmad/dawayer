@@ -137,7 +137,9 @@
           <ul>
             <li>{{ person?.fullName }}</li>
             <li>{{ person?.email }}</li>
-            <li>{{ person?.phone }}</li>
+            <li>
+              {{ person?.dialCode }}{{ person?.phone?.number || person?.phone }}
+            </li>
             <li>{{ person?.socialMediaLink }}</li>
             <li *ngIf="person?.transportation?.name">
               <span class="left">Transportation</span>
@@ -169,10 +171,14 @@
             </span>
           </div>
           <div class="content" *ngIf="person?.phone == selectedPhone">
+            <h1>{{ person | json }}</h1>
             <ul>
               <li>{{ person?.fullName }}</li>
               <li>{{ person?.email }}</li>
-              <li>{{ person?.phone }}</li>
+              <li>
+                {{ person?.dialCode
+                }}{{ person?.phone?.number || person?.phone }}
+              </li>
               <li>{{ person?.socialMediaLink }}</li>
               <li *ngIf="person?.transportation?.name">
                 <span class="left">Transportation</span>

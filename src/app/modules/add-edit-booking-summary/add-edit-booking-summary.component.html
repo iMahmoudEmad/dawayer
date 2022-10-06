@@ -46,7 +46,7 @@
 
       <div class="form-control b-none">
         <label class="clicked mb-1" for="phone"> Mobile number </label>
-        <input
+        <!-- <input
           type="text"
           autocomplete="off"
           spellcheck="false"
@@ -63,7 +63,25 @@
               (inputValue.phone.dirty || inputValue.phone.touched))
           "
           (keyup)="verifyPhone($event)"
-        />
+        />  -->
+
+        <ngx-intl-tel-input
+          autocomplete="nope"
+          [enableAutoCountrySelect]="false"
+          [enablePlaceholder]="true"
+          [searchCountryFlag]="true"
+          [selectFirstCountry]="false"
+          [maxLength]="15"
+          [phoneValidation]="false"
+          [selectedCountryISO]="CountryISO.Egypt"
+          [inputId]="'phone'"
+          name="phone"
+          formControlName="phone"
+          class="input w-100 b-none"
+          [class.error]="phoneError"
+          (ngModelChange)="verifyPhone($event?.number, $event?.dialCode)"
+          customPlaceholder="01234567890"
+        ></ngx-intl-tel-input>
 
         <p
           class="error"

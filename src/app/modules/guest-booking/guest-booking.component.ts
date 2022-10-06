@@ -24,6 +24,7 @@ export class GuestBookingComponent implements OnInit {
   ownerData: any;
   phoneNumber!: string;
   phoneError!: boolean;
+  dialCode!: string;
   backupPhone!: string;
 
   form = this.fb.group({
@@ -64,6 +65,7 @@ export class GuestBookingComponent implements OnInit {
         fullName: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
         phone: ['', Validators.required],
+        dialCode: [this.dialCode],
         socialMediaLink: new FormControl('', [Validators.required]),
         transportationChecked: [false],
         transportation: [''],
@@ -72,12 +74,14 @@ export class GuestBookingComponent implements OnInit {
       });
       this.guests.push(guestForm);
       this.getValidity(index)?.patchValue({
-        phone: this.getValidity(index)?.value.phone,
+        phone: this.getValidity(index)?.value?.phone?.number,
+        dialCode: this.dialCode,
       });
     } else {
       if (this.getValidity(index)?.value?.phone) {
         this.getValidity(index)?.patchValue({
-          phone: this.getValidity(index)?.value?.phone,
+          phone: this.getValidity(index)?.value?.phone?.number,
+          dialCode: this.dialCode,
         });
       }
 
@@ -99,14 +103,15 @@ export class GuestBookingComponent implements OnInit {
     }
   }
 
-  verifyPhone(phone: any) {
-    phone = phone?.target?.value;
+  verifyPhone(phone: string, dialCode: string, idx: number) {
+    // phone = phone?.target?.value;
+    this.dialCode = dialCode;
     let phoneList = [...JSON.parse(localStorage.getItem('phoneList') || '{}')];
 
     let isPhoneFound = () =>
       phoneList.map((phoneNumber) => phoneNumber.includes(phone))[0];
 
-    if (this.backupPhone !== phone && phone?.length == 11) {
+    if (this.backupPhone !== phone && phone?.length >= 11) {
       this.backupPhone = phone;
       this.ticket.verifyPhone(encodeURIComponent(phone)).subscribe(
         (res: any) => {

@@ -18,6 +18,7 @@ export class AddEditBookingSummaryComponent implements OnInit {
   selectedItem: any;
   phoneNumber!: string;
   phoneError!: boolean;
+  dialCode!: string;
   backupPhone!: string;
 
   profileForm = new FormGroup({
@@ -80,9 +81,10 @@ export class AddEditBookingSummaryComponent implements OnInit {
     return name.charAt(0).toLowerCase() + name.slice(1).replace(/ /g, '');
   }
 
-  verifyPhone(phone: any) {
-    phone = phone?.target?.value;
-    if (this.backupPhone !== phone && phone?.length == 11) {
+  verifyPhone(phone: string, dialCode: string) {
+    this.dialCode = dialCode;
+    // phone = phone?.target?.value;
+    if (this.backupPhone !== phone && phone?.length >= 11) {
       this.backupPhone = phone;
       this.ticket.verifyPhone(encodeURIComponent(phone)).subscribe(
         (res: any) => {
@@ -101,15 +103,8 @@ export class AddEditBookingSummaryComponent implements OnInit {
   submitForm() {
     let price = this.backupData.guests[this.dynamicIdx].price;
     this.backupData.guests[this.dynamicIdx] = this.profileForm?.value;
-    if (this.backupData.guests[this.dynamicIdx].phone?.length > 11) {
-      this.backupData.guests[this.dynamicIdx].phone = `${
-        this.backupData.guests[this.dynamicIdx]?.phone
-      }`;
-    } else {
-      this.backupData.guests[this.dynamicIdx].phone = `${
-        this.backupData.guests[this.dynamicIdx]?.phone
-      }`;
-    }
+
+    this.backupData.guests[this.dynamicIdx].dialCode = this.dialCode;
     this.backupData.guests[this.dynamicIdx].price = price;
 
     if (!this.phoneError) {
