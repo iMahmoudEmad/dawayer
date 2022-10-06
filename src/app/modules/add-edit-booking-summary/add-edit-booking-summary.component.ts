@@ -104,6 +104,7 @@ export class AddEditBookingSummaryComponent implements OnInit {
     let price = this.backupData.guests[this.dynamicIdx].price;
     this.backupData.guests[this.dynamicIdx] = this.profileForm?.value;
 
+    this.backupData.guests[this.dynamicIdx].phone = this.backupData.guests[this.dynamicIdx].phone?.number;
     this.backupData.guests[this.dynamicIdx].dialCode = this.dialCode;
     this.backupData.guests[this.dynamicIdx].price = price;
 
